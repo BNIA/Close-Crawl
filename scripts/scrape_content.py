@@ -59,5 +59,5 @@ if __name__ == '__main__':
 
     from pprint import pprint
 
-    with open('test2.html', 'r') as dummy_html:
+    with open('test.html', 'r') as dummy_html:
         pprint(scrape(dummy_html))
