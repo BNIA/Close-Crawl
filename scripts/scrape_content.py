@@ -7,8 +7,9 @@ FEATURES = [
     'Case Number:',
     'Title:',
     'Appearance Date:',
-    'Address:',
-    'Zip Code:'
+    # 'Address:',
+    # 'Zip Code:'
+    'Business or Organization Name:'
 ]
 
 white_space_pat = compile('\s+')
@@ -51,12 +52,12 @@ def scrape(html_data):
         except IndexError:
             continue
 
-    return list(set(test))
+    return list((test))
 
 
 if __name__ == '__main__':
 
     from pprint import pprint
 
-    with open('test.html', 'r') as dummy_html:
+    with open('test2.html', 'r') as dummy_html:
         pprint(scrape(dummy_html))
