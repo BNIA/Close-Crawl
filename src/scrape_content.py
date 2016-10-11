@@ -12,6 +12,8 @@ FEATURES = [
     'Business or Organization Name:'
 ]
 
+FEATURES = [i.upper() for i in FEATURES]
+
 white_space_pat = compile('\s+')
 address_pat = compile('\w+.*\d{5}')
 
@@ -76,7 +78,7 @@ def scrape(html_data):
         elif i[0] == 'Business or Organization Name:':
             business.append(i)
 
-    return address, business
+    return li
     # return {
     #     li[i:i + 2][0]: li[i:i + 2][-1] for i in xrange(0, len(li), 2)
     #     if li[i:i + 2][0] in FEATURES
@@ -89,4 +91,5 @@ if __name__ == '__main__':
     from pprint import pprint
 
     with open('test_pages/test1.html', 'r') as dummy_html:
-        pprint(scrape(dummy_html))
+        # print dummy_html.read().lower().split('<hr>')[3]
+        pprint(scrape(dummy_html.read().upper().split('<HR>')[5]))
