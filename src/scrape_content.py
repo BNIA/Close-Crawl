@@ -50,6 +50,7 @@ def scrape(html_data):
 
     soup = BeautifulSoup(html_data, 'html.parser')
     td_list = soup.find_all('tr')
+    print soup.h5
 
     test = []
     for tag in td_list:
@@ -90,6 +91,7 @@ if __name__ == '__main__':
 
     from pprint import pprint
 
-    with open('test_pages/test1.html', 'r') as dummy_html:
-        # print dummy_html.read().lower().split('<hr>')[3]
-        pprint(scrape(dummy_html.read().upper().split('<HR>')[5]))
+    with open('test_pages/test3.html', 'r') as dummy_html:
+        # case num, title, filing date
+        # pprint(scrape(dummy_html.read().upper().split('<HR>')[0]))
+        pprint(scrape(dummy_html.read().upper().split('<HR>')[2]))
