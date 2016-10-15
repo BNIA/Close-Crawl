@@ -5,15 +5,15 @@ from re import compile
 from bs4 import BeautifulSoup
 
 FEATURES = [
-    'Case Number:',
-    'Title:',
+    'Case Number',
+    'Title',
     'Filing Date:',
-    'Address:',
-    'Zip Code:',
+    'Address',
+    'Zip Code',
     # 'Business or Organization Name:'
 ]
 
-FEATURES = [i.upper() for i in FEATURES]
+FEATURES = [i.upper() + ':' for i in FEATURES]
 
 white_space_pat = compile('\s+')
 
@@ -64,9 +64,10 @@ def scrape(html_data):
             except IndexError:
                 continue
 
-        # flatten multidimensional array into single dimensional
+        # flatten multidimensional list
         feature_list = [item for sublist in feature_list for item in sublist]
 
+        # break up elements with n-tuples greater than 2
         feature_list = [
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
@@ -78,12 +79,14 @@ def scrape(html_data):
 
 if __name__ == '__main__':
 
-    file_exists = isfile('names.csv')
+    test = 'test_out.csv'
+
+    file_exists = isfile(test)
 
     with open('test_pages/test3.html', 'r') as dummy_html:
         row = scrape(dummy_html.read())
 
-        with open('names.csv', 'a') as csvfile:
+        with open(test, 'a') as csvfile:
             fieldnames = row.keys()
             writer = DictWriter(csvfile, fieldnames=fieldnames)
 
