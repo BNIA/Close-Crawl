@@ -1,4 +1,5 @@
-# from csv import writer
+from csv import DictWriter
+from os.path import isfile
 from re import compile
 
 from bs4 import BeautifulSoup
@@ -9,20 +10,21 @@ FEATURES = [
     'Filing Date:',
     'Address:',
     'Zip Code:',
-    'Business or Organization Name:'
+    # 'Business or Organization Name:'
 ]
 
 FEATURES = [i.upper() for i in FEATURES]
 
 white_space_pat = compile('\s+')
-address_pat = compile('\w+.*\d{5}')
 
 
-# def strip_html(html_data):
+def strip_html(html_data):
+
+    return html_data.upper().split('<HR>')
 
 
 def scrape(html_data):
-    """Scrapes the desired FEATURES
+    """Scrapes the desired features
 
     input:
       html_data: <str>, source HTML
@@ -42,56 +44,50 @@ def scrape(html_data):
         """
         return white_space_pat.sub(' ', str(element.string))
 
-    def strip_address(pair):
-
-        # return pair[0] == 'Business or Organization Name:' and
-        # address_pat.findall(pair[-1])
-        return pair[0] == 'Business or Organization Name:' and pair[-1].startswith()
+    stripped_html = strip_html(html_data)
+    html_data = stripped_html[0] + stripped_html[2]
 
     soup = BeautifulSoup(html_data, 'html.parser')
     td_list = soup.find_all('tr')
-    print soup.h5
 
-    test = []
-    for tag in td_list:
-        try:
-            tag = tuple([strip_white_space(j) for j in tag.findAll('span')])
-            if set(tag) & set(FEATURES):
-                test.append(tag)
+    if any(x in str(soup.h5).upper()
+           for x in ['CASE INFORMATION', 'DEFENDANT']):
 
-        except IndexError:
-            continue
+        feature_list = []
+        for tag in td_list:
+            try:
+                tag = tuple([strip_white_space(j)
+                             for j in tag.findAll('span')])
+                if set(tag) & set(FEATURES):
+                    feature_list.append(tag)
 
-    # flatten multidimensional array into single dimensional
-    li = [item for sublist in test for item in sublist]
+            except IndexError:
+                continue
 
-    li = [
-        tuple(li[i:i + 2]) for i in xrange(0, len(li), 2)
-        if li[i:i + 2][0] in FEATURES
-    ]
+        # flatten multidimensional array into single dimensional
+        feature_list = [item for sublist in feature_list for item in sublist]
 
-    address = []
-    business = []
+        feature_list = [
+            tuple(feature_list[i:i + 2])
+            for i in xrange(0, len(feature_list), 2)
+            if feature_list[i:i + 2][0] in FEATURES
+        ]
 
-    for i in li:
-        if i[0] == 'Address:':
-            address.append(i)
-        elif i[0] == 'Business or Organization Name:':
-            business.append(i)
-
-    return li
-    # return {
-    #     li[i:i + 2][0]: li[i:i + 2][-1] for i in xrange(0, len(li), 2)
-    #     if li[i:i + 2][0] in FEATURES
-    #     # if li[i:i + 2][0] in FEATURES or strip_address(li[i:i + 2])
-    # }
+        return dict(feature_list)
 
 
 if __name__ == '__main__':
 
-    from pprint import pprint
+    file_exists = isfile('names.csv')
 
     with open('test_pages/test3.html', 'r') as dummy_html:
-        # case num, title, filing date
-        # pprint(scrape(dummy_html.read().upper().split('<HR>')[0]))
-        pprint(scrape(dummy_html.read().upper().split('<HR>')[2]))
+        row = scrape(dummy_html.read())
+
+        with open('names.csv', 'a') as csvfile:
+            fieldnames = row.keys()
+            writer = DictWriter(csvfile, fieldnames=fieldnames)
+
+            if not file_exists:
+                writer.writeheader()
+
+            writer.writerow(row)

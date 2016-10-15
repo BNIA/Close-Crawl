@@ -22,7 +22,7 @@ browser.set_handle_robots(False)
 # Follows refresh 0 but not hangs on refresh > 0
 browser.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
 
-# Want debugging messages?
+# # Want debugging messages?
 # browser.set_debug_http(True)
 # browser.set_debug_redirects(True)
 # browser.set_debug_responses(True)
