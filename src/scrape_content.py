@@ -1,8 +1,10 @@
 from csv import DictWriter
-from os.path import isfile
+from os import path, walk
 from re import compile
 
 from bs4 import BeautifulSoup
+
+from settings import HTML_DIR
 
 FEATURES = [
     'Case Number',
@@ -13,7 +15,7 @@ FEATURES = [
     # 'Business or Organization Name:'
 ]
 
-FEATURES = [i.upper() + ':' for i in FEATURES]
+features = [i.upper() + ':' for i in FEATURES]
 
 white_space_pat = compile('\s+')
 
@@ -44,8 +46,8 @@ def scrape(html_data):
         """
         return white_space_pat.sub(' ', str(element.string))
 
-    stripped_html = strip_html(html_data)
-    html_data = stripped_html[0] + stripped_html[2]
+    # stripped_html = strip_html(html_data)
+    # html_data = stripped_html[0] + stripped_html[2]
 
     soup = BeautifulSoup(html_data, 'html.parser')
     td_list = soup.find_all('tr')
@@ -58,7 +60,7 @@ def scrape(html_data):
             try:
                 tag = tuple([strip_white_space(j)
                              for j in tag.findAll('span')])
-                if set(tag) & set(FEATURES):
+                if set(tag) & set(features):
                     feature_list.append(tag)
 
             except IndexError:
@@ -71,7 +73,7 @@ def scrape(html_data):
         feature_list = [
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
-            if feature_list[i:i + 2][0] in FEATURES
+            if feature_list[i:i + 2][0] in features
         ]
 
         return dict(feature_list)
@@ -81,16 +83,22 @@ if __name__ == '__main__':
 
     test = 'test_out.csv'
 
-    file_exists = isfile(test)
+    file_exists = path.isfile(test)
 
-    with open('test_pages/test3.html', 'r') as dummy_html:
-        row = scrape(dummy_html.read())
+    f = [filenames for (dirpath, dirnames, filenames)
+         in walk(HTML_DIR)][0]
 
-        with open(test, 'a') as csvfile:
-            fieldnames = row.keys()
-            writer = DictWriter(csvfile, fieldnames=fieldnames)
+    print f
 
-            if not file_exists:
-                writer.writeheader()
+    for file_name in f:
+        with open(HTML_DIR + '/' + file_name, 'r') as dummy_html:
+            row = scrape(dummy_html.read())
 
-            writer.writerow(row)
+            with open(test, 'a') as csvfile:
+                fieldnames = row.keys()
+                writer = DictWriter(csvfile, fieldnames=fieldnames)
+
+                if not file_exists:
+                    writer.writeheader()
+
+                writer.writerow(row)

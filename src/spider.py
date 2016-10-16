@@ -1,8 +1,9 @@
+from os import path, makedirs
+from random import randrange
+from time import sleep
+
 from local_browser import *
-
-print browser.title()
-
-disclaimer_form()
+from settings import CASES, HTML_DIR, HTML_FILE
 
 
 def case_id_form(case):
@@ -14,14 +15,25 @@ def case_id_form(case):
 
     browser.form['caseId'] = case
     browser.submit()
-
-
-def return_form():
-
+    response = str(browser.response().read()).upper().split('<HR>')
     browser.back()
-    case_id_form('24O14000013')
+
+    return response
 
 
-# case_id_form('24O14000003')
-# return_form()
-print browser.response().read()
+def save_response(case_array):
+
+    disclaimer_form()
+
+    if not path.exists(HTML_DIR):
+        makedirs(HTML_DIR)
+
+    for case in case_array:
+        sleep(randrange(0, 3))
+        html = case_id_form(case)
+        stripped_html = html[0] + html[2]
+        with open(HTML_FILE.format(case=case), 'w') as case_file:
+            case_file.write(str(stripped_html))
+
+
+save_response(CASES)
