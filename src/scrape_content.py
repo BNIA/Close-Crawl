@@ -1,6 +1,5 @@
 from csv import DictWriter
 from os import path, walk
-from re import compile
 
 from bs4 import BeautifulSoup
 
@@ -9,20 +8,13 @@ from settings import HTML_DIR
 FEATURES = [
     'Case Number',
     'Title',
-    'Filing Date:',
+    'Filing Date',
     'Address',
     'Zip Code',
-    # 'Business or Organization Name:'
+    # 'Business or Organization Name:'  # for partial cost...?
 ]
 
 features = [i.upper() + ':' for i in FEATURES]
-
-white_space_pat = compile('\s+')
-
-
-def strip_html(html_data):
-
-    return html_data.upper().split('<HR>')
 
 
 def scrape(html_data):
@@ -35,20 +27,6 @@ def scrape(html_data):
       scraped_features: <dict>, features scraped and mapped from content
     """
 
-    def strip_white_space(element):
-        """Strips out excess whitespace
-
-        input:
-          element: <bs4.element.Tag>, element tag from HTML
-
-        output:
-          <str>, stripped elements
-        """
-        return white_space_pat.sub(' ', str(element.string))
-
-    # stripped_html = strip_html(html_data)
-    # html_data = stripped_html[0] + stripped_html[2]
-
     soup = BeautifulSoup(html_data, 'html.parser')
     td_list = soup.find_all('tr')
 
@@ -58,8 +36,7 @@ def scrape(html_data):
         feature_list = []
         for tag in td_list:
             try:
-                tag = tuple([strip_white_space(j)
-                             for j in tag.findAll('span')])
+                tag = tuple([j.string for j in tag.findAll('span')])
                 if set(tag) & set(features):
                     feature_list.append(tag)
 
@@ -76,29 +53,30 @@ def scrape(html_data):
             if feature_list[i:i + 2][0] in features
         ]
 
+        # convert list of tuples to dict for faster hashing
         return dict(feature_list)
 
 
 if __name__ == '__main__':
 
+    file_array = [filenames for (dirpath, dirnames, filenames)
+                  in walk(HTML_DIR)][0]
+
+    dataset = []
+
+    for file_name in file_array:
+        with open(HTML_DIR + '/' + file_name, 'r') as dummy_html:
+            row = scrape(dummy_html.read())
+            dataset.append(row)
+
     test = 'test_out.csv'
 
     file_exists = path.isfile(test)
 
-    f = [filenames for (dirpath, dirnames, filenames)
-         in walk(HTML_DIR)][0]
+    with open(test, 'a') as csvfile:
+        writer = DictWriter(csvfile, fieldnames=features)
 
-    print f
-
-    for file_name in f:
-        with open(HTML_DIR + '/' + file_name, 'r') as dummy_html:
-            row = scrape(dummy_html.read())
-
-            with open(test, 'a') as csvfile:
-                fieldnames = row.keys()
-                writer = DictWriter(csvfile, fieldnames=fieldnames)
-
-                if not file_exists:
-                    writer.writeheader()
-
-                writer.writerow(row)
+        if not file_exists:
+            writer.writeheader()
+        for row in dataset:
+            writer.writerow(row)
