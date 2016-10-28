@@ -1,1 +1,1 @@
-# maryland-foreclosure-scraper
+# Maryland Foreclosure Scraper
