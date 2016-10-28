@@ -3,9 +3,9 @@ from os import path, walk
 
 from bs4 import BeautifulSoup
 
-from settings import FEATURES, HTML_DIR
+from settings import FEATURES, HTML_DIR, HTML_FILE
 
-features = [i.upper() + ':' for i in FEATURES]
+features = [i + ':' for i in FEATURES]
 
 
 def scrape(html_data):
@@ -35,19 +35,39 @@ def scrape(html_data):
                 continue
 
         # flatten multidimensional list
-        feature_list = [item for sublist in feature_list for item in sublist]
-
-        print feature_list
+        feature_list = [item.replace(':', '')
+                        for sublist in feature_list for item in sublist]
 
         # break up elements with n-tuples greater than 2
         feature_list = [
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
-            if feature_list[i:i + 2][0] in features
+            if feature_list[i:i + 2][0] in FEATURES
         ]
 
         # convert list of tuples to dict for faster lookup
         return dict(feature_list)
+
+
+def export(file_array, out_db):
+
+    dataset = []
+
+    for file_name in file_array:
+        with open(HTML_FILE.format(case=file_name), 'r') as dummy_html:
+            row = scrape(dummy_html.read())
+            dataset.append(row)
+
+    file_exists = path.isfile(out_db)
+
+    with open(out_db, 'a') as csv_file:
+        writer = DictWriter(csv_file, fieldnames=FEATURES)
+
+        if not file_exists:
+            writer.writeheader()
+
+        for row in dataset:
+            writer.writerow(row)
 
 
 if __name__ == '__main__':
@@ -55,21 +75,5 @@ if __name__ == '__main__':
     file_array = [filenames for (dirpath, dirnames, filenames)
                   in walk(HTML_DIR)][0]
 
-    dataset = []
-
-    for file_name in file_array:
-        with open(HTML_DIR + '/' + file_name, 'r') as dummy_html:
-            row = scrape(dummy_html.read())
-            dataset.append(row)
-
-    test = 'test_out.csv'
-
-    file_exists = path.isfile(test)
-
-    with open(test, 'a') as csvfile:
-        writer = DictWriter(csvfile, fieldnames=features)
-
-        if not file_exists:
-            writer.writeheader()
-        for row in dataset:
-            writer.writerow(row)
+    out_db = 'test_out.csv'
+    export(file_array, out_db)
