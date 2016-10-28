@@ -32,8 +32,12 @@ def save_response(case_array):
         sleep(randrange(0, 3))
         html = case_id_form(case)
         stripped_html = html[0] + html[2]
-        with open(HTML_FILE.format(case=case), 'w') as case_file:
-            case_file.write(str(stripped_html))
+
+        if 'FORECLOSURE' in stripped_html:
+            with open(HTML_FILE.format(case=case), 'w') as case_file:
+                case_file.write(str(stripped_html))
 
 
-save_response(CASES)
+if __name__ == '__main__':
+
+    save_response(CASES)
