@@ -7,10 +7,10 @@ from bs4 import BeautifulSoup
 from settings import FEATURES, HTML_DIR, HTML_FILE
 
 features = [i + ':' for i in FEATURES]
-TITLE_SPLIT_PAT = compile(' vs ', IGNORECASE)
+TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
 
 
-def scrape(html_data):
+def scrape(case_type, html_data):
     """Scrapes the desired features
 
     input:
@@ -20,16 +20,16 @@ def scrape(html_data):
       <dict>, features scraped and mapped from content
     """
 
-    soup = BeautifulSoup(html_data, 'html.parser')
-    td_list = soup.find_all('tr')
+    soup = BeautifulSoup(html_data, "html.parser")
+    td_list = soup.find_all("tr")
 
     if any(x in str(soup.h5).upper()
-           for x in ['CASE INFORMATION', 'DEFENDANT']):
+           for x in ["CASE INFORMATION", "DEFENDANT"]):
 
         feature_list = []
         for tag in td_list:
             try:
-                tag = tuple([j.string for j in tag.findAll('span')])
+                tag = tuple([j.string for j in tag.findAll("span")])
                 if set(tag) & set(features):
                     feature_list.append(tag)
 
@@ -49,8 +49,11 @@ def scrape(html_data):
         ])
 
         # break up Title feature into Plaintiff and Defendant
-        feature_list['Plaintiff'], feature_list['Defendant'] = \
-            TITLE_SPLIT_PAT.split(feature_list['Title'])
+        feature_list["Plaintiff"], feature_list["Defendant"] = \
+            TITLE_SPLIT_PAT.split(feature_list["Title"])
+
+        feature_list["Case Type"] = \
+            "Mortgage" if 'O' in case_type else "Tax sale"
 
         return feature_list
 
@@ -61,8 +64,8 @@ def export(file_array, out_db):
     file_exists = path.isfile(out_db)
 
     for file_name in file_array:
-        with open(HTML_FILE.format(case=file_name), 'r') as dummy_html:
-            row = scrape(dummy_html.read())
+        with open(HTML_FILE.format(case=file_name), 'r') as html_src:
+            row = scrape(file_name, html_src.read())
             dataset.append(row)
 
     with open(out_db, 'a') as csv_file:

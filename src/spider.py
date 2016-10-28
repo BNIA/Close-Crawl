@@ -40,13 +40,24 @@ def save_response(case_array):
         makedirs(HTML_DIR)
 
     for case in case_array:
-        sleep(randrange(0, 3))
-        html = case_id_form(case)
-        stripped_html = html[0] + html[2]
 
-        if 'FORECLOSURE' in stripped_html.upper():
-            with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
-                case_file.write(str(stripped_html))
+        sleep(randrange(0, 3))
+
+        try:
+            print "Crawling", case
+            html = case_id_form(case)
+            stripped_html = html[0] + html[2]
+
+            if '' in stripped_html.upper():
+                with open(
+                    HTML_FILE.format(case=case) + '.html', 'w'
+                ) as case_file:
+                    case_file.write(str(stripped_html))
+
+        except IndexError:
+            with open('stop.txt', 'w') as failed_case:
+                failed_case.write(case)
+            exit("Case number does not exist")
 
 
 if __name__ == '__main__':
