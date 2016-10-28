@@ -1,3 +1,9 @@
+"""spider
+
+Crawls through the pages to download individual responses to be scraped as
+a separate process. The modularization of scraping from crawling ensures
+minimal loss of responses and minimizes time spent on the court servers"""
+
 from os import path, makedirs
 from random import randrange
 from time import sleep
@@ -23,6 +29,7 @@ def case_id_form(case):
 
 def save_response(case_array):
 
+    # initial page for terms and agreements upon disclaimer
     disclaimer_form()
 
     if not path.exists(HTML_DIR):
@@ -34,7 +41,7 @@ def save_response(case_array):
         stripped_html = html[0] + html[2]
 
         if 'FORECLOSURE' in stripped_html:
-            with open(HTML_FILE.format(case=case), 'w') as case_file:
+            with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
                 case_file.write(str(stripped_html))
 
 
