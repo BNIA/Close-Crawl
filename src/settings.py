@@ -13,10 +13,12 @@ CASES = ['24O14000003', '24O14000013', '24O14000017', '24O14000041']
 
 
 FEATURES = [
-    'CASE NUMBER',
-    'TITLE',
-    'FILING DATE',
-    'ADDRESS',
-    'ZIP CODE',
+    'Case Number',
+    'Title',
+    'Filing Date',
+    'Address',
+    'Zip Code',
+    'Plaintiff',
+    'Defendant'
     # 'Business or Organization Name:'  # for partial cost...?
 ]

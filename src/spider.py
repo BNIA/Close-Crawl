@@ -1,4 +1,4 @@
-"""spider
+"""spider.py
 
 Crawls through the pages to download individual responses to be scraped as
 a separate process. The modularization of scraping from crawling ensures
@@ -6,10 +6,14 @@ minimal loss of responses and minimizes time spent on the court servers"""
 
 from os import path, makedirs
 from random import randrange
+from re import compile, IGNORECASE
 from time import sleep
 
 from local_browser import *
 from settings import CASES, HTML_DIR, HTML_FILE
+
+
+HR_PAT = compile('<HR>', IGNORECASE)
 
 
 def case_id_form(case):
@@ -21,7 +25,7 @@ def case_id_form(case):
 
     browser.form['caseId'] = case
     browser.submit()
-    response = str(browser.response().read()).upper().split('<HR>')
+    response = HR_PAT.split(str(browser.response().read()))
     browser.back()
 
     return response
@@ -40,7 +44,7 @@ def save_response(case_array):
         html = case_id_form(case)
         stripped_html = html[0] + html[2]
 
-        if 'FORECLOSURE' in stripped_html:
+        if 'FORECLOSURE' in stripped_html.upper():
             with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
                 case_file.write(str(stripped_html))
 
