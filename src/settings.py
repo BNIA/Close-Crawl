@@ -6,3 +6,13 @@ HTML_FILE = HTML_DIR + '/{case}.html'
 
 # hardcoded cases
 CASES = ['24O14000003', '24O14000013', '24O14000017', '24O14000041']
+
+
+FEATURES = [
+    'Case Number',
+    'Title',
+    'Filing Date',
+    'Address',
+    'Zip Code',
+    # 'Business or Organization Name:'  # for partial cost...?
+]

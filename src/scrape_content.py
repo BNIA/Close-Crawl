@@ -3,16 +3,7 @@ from os import path, walk
 
 from bs4 import BeautifulSoup
 
-from settings import HTML_DIR
-
-FEATURES = [
-    'Case Number',
-    'Title',
-    'Filing Date',
-    'Address',
-    'Zip Code',
-    # 'Business or Organization Name:'  # for partial cost...?
-]
+from settings import FEATURES, HTML_DIR
 
 features = [i.upper() + ':' for i in FEATURES]
 
@@ -24,7 +15,7 @@ def scrape(html_data):
       html_data: <str>, source HTML
 
     output:
-      scraped_features: <dict>, features scraped and mapped from content
+      <dict>, features scraped and mapped from content
     """
 
     soup = BeautifulSoup(html_data, 'html.parser')
@@ -46,6 +37,8 @@ def scrape(html_data):
         # flatten multidimensional list
         feature_list = [item for sublist in feature_list for item in sublist]
 
+        print feature_list
+
         # break up elements with n-tuples greater than 2
         feature_list = [
             tuple(feature_list[i:i + 2])
@@ -53,7 +46,7 @@ def scrape(html_data):
             if feature_list[i:i + 2][0] in features
         ]
 
-        # convert list of tuples to dict for faster hashing
+        # convert list of tuples to dict for faster lookup
         return dict(feature_list)
 
 
