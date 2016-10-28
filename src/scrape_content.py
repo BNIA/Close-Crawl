@@ -1,11 +1,13 @@
 from csv import DictWriter
 from os import path, walk
+from re import compile, IGNORECASE
 
 from bs4 import BeautifulSoup
 
 from settings import FEATURES, HTML_DIR, HTML_FILE
 
 features = [i + ':' for i in FEATURES]
+TITLE_SPLIT_PAT = compile(' vs ', IGNORECASE)
 
 
 def scrape(html_data):
@@ -39,26 +41,29 @@ def scrape(html_data):
                         for sublist in feature_list for item in sublist]
 
         # break up elements with n-tuples greater than 2
-        feature_list = [
+        # then convert list of tuples to dict for faster lookup
+        feature_list = dict([
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
             if feature_list[i:i + 2][0] in FEATURES
-        ]
+        ])
 
-        # convert list of tuples to dict for faster lookup
-        return dict(feature_list)
+        # break up Title feature into Plaintiff and Defendant
+        feature_list['Plaintiff'], feature_list['Defendant'] = \
+            TITLE_SPLIT_PAT.split(feature_list['Title'])
+
+        return feature_list
 
 
 def export(file_array, out_db):
 
     dataset = []
+    file_exists = path.isfile(out_db)
 
     for file_name in file_array:
         with open(HTML_FILE.format(case=file_name), 'r') as dummy_html:
             row = scrape(dummy_html.read())
             dataset.append(row)
-
-    file_exists = path.isfile(out_db)
 
     with open(out_db, 'a') as csv_file:
         writer = DictWriter(csv_file, fieldnames=FEATURES)
