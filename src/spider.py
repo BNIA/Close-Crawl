@@ -31,6 +31,11 @@ def case_id_form(case):
     return response
 
 
+def partial_cost(html):
+
+    return all(x in html for x in ['Business or Organization Name:', '$'])
+
+
 def save_response(case_array):
 
     # initial page for terms and agreements upon disclaimer
@@ -41,13 +46,20 @@ def save_response(case_array):
 
     for case in case_array:
 
-        sleep(randrange(0, 3))
+        sleep(randrange(0, 1))
 
         try:
             print "Crawling", case
             html = case_id_form(case)
             stripped_html = html[0] + html[2]
 
+            business = [
+                s for s in html if partial_cost(s)
+            ]
+
+            print business
+
+            # TODO: determine category for case types
             if '' in stripped_html.upper():
                 with open(
                     HTML_FILE.format(case=case) + '.html', 'w'

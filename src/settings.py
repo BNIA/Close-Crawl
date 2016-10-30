@@ -1,4 +1,4 @@
-"""settings
+"""settings.py
 
 Configuration settings and variables for the project"""
 

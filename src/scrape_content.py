@@ -1,3 +1,8 @@
+"""scrape_content.py
+
+
+"""
+
 from csv import DictWriter
 from os import path, walk
 from re import compile, IGNORECASE
