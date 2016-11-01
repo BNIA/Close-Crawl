@@ -10,7 +10,7 @@ from re import compile, IGNORECASE
 from time import sleep
 
 from local_browser import *
-from settings import CASES, HTML_DIR, HTML_FILE
+from settings import HTML_DIR, HTML_FILE
 
 
 HR_PAT = compile('<HR>', IGNORECASE)
@@ -43,7 +43,7 @@ def defendant_section(html):
     return all(x in html for x in ['Business or Organization Name:', '$'])
 
 
-def save_response(bounds=xrange(1, 10)):
+def save_response(case_type, year, bounds=xrange(1, 10)):
 
     # initial page for terms and agreements upon disclaimer
     disclaimer_form()
@@ -54,7 +54,7 @@ def save_response(bounds=xrange(1, 10)):
     for case in bounds:
 
         case_num = str(('000' + str(case)))[-4:]
-        case = CASE_PAT.format(type='O', year='14', num=case_num)
+        case = CASE_PAT.format(type=case_type, year=year, num=case_num)
         sleep(uniform(0.0, 1.1))
 
         try:
@@ -85,4 +85,4 @@ def save_response(bounds=xrange(1, 10)):
 
 if __name__ == '__main__':
 
-    save_response()
+    save_response('O', '14')

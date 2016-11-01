@@ -18,6 +18,21 @@ browser.set_handle_redirect(True)
 browser.set_handle_referer(True)
 browser.set_handle_robots(False)
 
+
+def anonymize():
+
+    import socks
+    import socket
+
+    for i in xrange(5):
+        socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
+                              addr="127.0.0.1", port=9050)
+
+        socket.socket = socks.socksocket
+
+        print browser.open("http://icanhazip.com").read()
+
+
 # Follows refresh 0 but not hangs on refresh > 0
 browser.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
 
@@ -26,7 +41,7 @@ browser.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
 # browser.set_debug_redirects(True)
 # browser.set_debug_responses(True)
 
-# User-Agent (this is cheating, ok?)
+# User-Agent
 browser.addheaders = [('User-agent', HEADER)]
 
 # visit the site

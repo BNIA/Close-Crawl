@@ -8,10 +8,6 @@ URL = 'http://casesearch.courts.state.md.us/casesearch//inquiry-index.jsp'
 HTML_DIR = 'responses'
 HTML_FILE = HTML_DIR + '/{case}'
 
-# hardcoded cases
-CASES = ['24O14000003', '24O14000013',
-         '24O14000017', '24O14000041', '24C14000041', '24O15002095']
-
 
 FEATURES = [
     'Filing Date',
