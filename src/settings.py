@@ -10,7 +10,7 @@ HTML_FILE = HTML_DIR + '/{case}'
 
 # hardcoded cases
 CASES = ['24O14000003', '24O14000013',
-         '24O14000017', '24O14000041', '24C14000041']
+         '24O14000017', '24O14000041', '24C14000041', '24O15002095']
 
 
 FEATURES = [
@@ -22,5 +22,5 @@ FEATURES = [
     'Defendant',
     'Address',
     'Zip Code',
-    # 'Business or Organization Name:'  # for partial cost...?
+    'Partial Cost',
 ]

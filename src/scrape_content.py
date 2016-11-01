@@ -25,6 +25,10 @@ def scrape(case_type, html_data):
       <dict>, features scraped and mapped from content
     """
 
+    partial_cost = html_data.split('\n')[-1] \
+        if '$' in html_data.split('\n')[-1] \
+        else '-'
+
     soup = BeautifulSoup(html_data, "html.parser")
     td_list = soup.find_all("tr")
 
@@ -59,6 +63,8 @@ def scrape(case_type, html_data):
 
         feature_list["Case Type"] = \
             "Mortgage" if 'O' in case_type else "Tax sale"
+
+        feature_list['Partial Cost'] = partial_cost
 
         return feature_list
 

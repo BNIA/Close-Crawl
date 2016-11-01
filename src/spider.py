@@ -15,6 +15,9 @@ from settings import CASES, HTML_DIR, HTML_FILE
 
 HR_PAT = compile('<HR>', IGNORECASE)
 
+# regex pattern to capture monetary values between $0.00 and $999,999,999.99
+MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
+
 
 def case_id_form(case):
 
@@ -31,7 +34,7 @@ def case_id_form(case):
     return response
 
 
-def partial_cost(html):
+def defendant_section(html):
 
     return all(x in html for x in ['Business or Organization Name:', '$'])
 
@@ -54,10 +57,10 @@ def save_response(case_array):
             stripped_html = html[0] + html[2]
 
             business = [
-                s for s in html if partial_cost(s)
+                s for s in html if defendant_section(s)
             ]
 
-            print business
+            partial_cost = MONEY_PAT.findall(' '.join(business))
 
             # TODO: determine category for case types
             if '' in stripped_html.upper():
@@ -65,6 +68,8 @@ def save_response(case_array):
                     HTML_FILE.format(case=case) + '.html', 'w'
                 ) as case_file:
                     case_file.write(str(stripped_html))
+                    if len(partial_cost):
+                        case_file.write(partial_cost[0])
 
         except IndexError:
             with open('stop.txt', 'w') as failed_case:
