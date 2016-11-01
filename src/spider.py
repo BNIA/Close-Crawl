@@ -5,7 +5,7 @@ a separate process. The modularization of scraping from crawling ensures
 minimal loss of responses and minimizes time spent on the court servers"""
 
 from os import path, makedirs
-from random import randrange
+from random import uniform
 from re import compile, IGNORECASE
 from time import sleep
 
@@ -16,7 +16,11 @@ from settings import CASES, HTML_DIR, HTML_FILE
 HR_PAT = compile('<HR>', IGNORECASE)
 
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
+# punctuation insensitive
 MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
+
+
+CASE_PAT = '24{type}{year}00{num}'
 
 
 def case_id_form(case):
@@ -39,7 +43,7 @@ def defendant_section(html):
     return all(x in html for x in ['Business or Organization Name:', '$'])
 
 
-def save_response(case_array):
+def save_response(bounds=xrange(1, 10)):
 
     # initial page for terms and agreements upon disclaimer
     disclaimer_form()
@@ -47,9 +51,11 @@ def save_response(case_array):
     if not path.exists(HTML_DIR):
         makedirs(HTML_DIR)
 
-    for case in case_array:
+    for case in bounds:
 
-        sleep(randrange(0, 1))
+        case_num = str(('000' + str(case)))[-4:]
+        case = CASE_PAT.format(type='O', year='14', num=case_num)
+        sleep(uniform(0.0, 1.1))
 
         try:
             print "Crawling", case
@@ -79,4 +85,4 @@ def save_response(case_array):
 
 if __name__ == '__main__':
 
-    save_response(CASES)
+    save_response()
