@@ -58,11 +58,15 @@ def scrape(case_type, html_data):
         ])
 
         # break up Title feature into Plaintiff and Defendant
-        feature_list["Plaintiff"], feature_list["Defendant"] = \
-            TITLE_SPLIT_PAT.split(feature_list["Title"])
+        try:
+            feature_list["Plaintiff"], feature_list["Defendant"] = \
+                TITLE_SPLIT_PAT.split(feature_list["Title"])
 
-        feature_list["Case Type"] = \
-            "Mortgage" if 'O' in case_type else "Tax sale"
+        except ValueError:
+            feature_list["Plaintiff"], feature_list["Defendant"] = ('', '')
+
+        if feature_list["Case Type"].upper() == "FORECLOSURE":
+            feature_list["Case Type"] = "Mortgage"
 
         feature_list['Partial Cost'] = partial_cost
 

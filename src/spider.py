@@ -62,20 +62,14 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
             html = case_id_form(case)
             stripped_html = html[0] + html[2]
 
-            business = [
-                s for s in html if defendant_section(s)
-            ]
+            business = [s for s in html if defendant_section(s)]
 
             partial_cost = MONEY_PAT.findall(' '.join(business))
 
-            # TODO: determine category for case types
-            if '' in stripped_html.upper():
-                with open(
-                    HTML_FILE.format(case=case) + '.html', 'w'
-                ) as case_file:
-                    case_file.write(str(stripped_html))
-                    if len(partial_cost):
-                        case_file.write(partial_cost[0])
+            with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
+                case_file.write(str(stripped_html))
+                if len(partial_cost):
+                    case_file.write(partial_cost[0])
 
         except IndexError:
             with open('stop.txt', 'w') as failed_case:
@@ -85,4 +79,4 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
 
 if __name__ == '__main__':
 
-    save_response('O', '14')
+    save_response('C', '14')

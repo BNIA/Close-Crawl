@@ -24,13 +24,13 @@ def anonymize():
     import socks
     import socket
 
-    for i in xrange(5):
-        socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
-                              addr="127.0.0.1", port=9050)
+    socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
+                          addr="127.0.0.1", port=9050)
 
-        socket.socket = socks.socksocket
+    socket.socket = socks.socksocket
 
-        print browser.open("http://icanhazip.com").read()
+    # print browser.open("http://icanhazip.com").read()
+    # browser.close()
 
 
 # Follows refresh 0 but not hangs on refresh > 0
