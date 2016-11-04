@@ -4,7 +4,7 @@
 """
 
 from csv import DictWriter
-from os import path
+from os import path, walk
 from re import compile, IGNORECASE
 
 from bs4 import BeautifulSoup
@@ -98,5 +98,5 @@ if __name__ == '__main__':
     file_array = [filenames for (dirpath, dirnames, filenames)
                   in walk(HTML_DIR)][0]
 
-    out_db = 'test_out.csv'
+    out_db = 'mortgage_2015.csv'
     export(file_array, out_db)
