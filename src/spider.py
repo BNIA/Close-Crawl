@@ -10,7 +10,8 @@ from re import compile, IGNORECASE
 from time import sleep
 
 from local_browser import *
-from settings import HTML_DIR, HTML_FILE
+from settings import CASE_PAT
+from settings import CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
 
 
 HR_PAT = compile('<HR>', IGNORECASE)
@@ -18,9 +19,6 @@ HR_PAT = compile('<HR>', IGNORECASE)
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
 # punctuation insensitive
 MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
-
-
-CASE_PAT = '24{type}{year}00{num}'
 
 
 def case_id_form(case):
@@ -55,9 +53,10 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
 
         case_num = str(('000' + str(case)))[-4:]
         case = CASE_PAT.format(type=case_type, year=year, num=case_num)
-        sleep(uniform(0.0, 1.1))
 
         try:
+
+            sleep(uniform(0.0, 1.1))
             print "Crawling", case
             html = case_id_form(case)
             stripped_html = html[0] + html[2]
@@ -71,8 +70,14 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
                 if len(partial_cost):
                     case_file.write(partial_cost[0])
 
+        except KeyboardInterrupt:
+            with open(SAVE_PROG, 'w') as save_file:
+                save_file.write(case)
+            print 'Crawling pasued at', case
+            break
+
         except IndexError:
-            with open('stop.txt', 'w') as failed_case:
+            with open(CASE_ERR, 'w') as failed_case:
                 failed_case.write(case)
             exit("Case number does not exist")
 

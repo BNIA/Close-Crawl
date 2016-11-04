@@ -4,7 +4,7 @@
 """
 
 from csv import DictWriter
-from os import path, walk
+from os import path
 from re import compile, IGNORECASE
 
 from bs4 import BeautifulSoup
