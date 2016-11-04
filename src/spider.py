@@ -56,7 +56,7 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
 
         try:
 
-            sleep(uniform(0.0, 1.1))
+            sleep(uniform(0.0, 0.5))
             print "Crawling", case
             html = case_id_form(case)
             stripped_html = html[0] + html[2]
@@ -73,7 +73,7 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
         except KeyboardInterrupt:
             with open(SAVE_PROG, 'w') as save_file:
                 save_file.write(case)
-            print 'Crawling pasued at', case
+            print 'Crawling paused at', case
             break
 
         except IndexError:
