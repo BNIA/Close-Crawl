@@ -2,7 +2,7 @@ from os import walk
 from shutil import rmtree
 
 from settings import HTML_DIR, SAVE_PROG
-from scrape_content import export
+from miner import export
 from spider import save_response
 
 if __name__ == '__main__':
