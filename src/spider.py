@@ -7,12 +7,13 @@ minimal loss of responses and minimizes time spent on the court servers"""
 from os import path, makedirs
 from random import uniform
 from re import compile, IGNORECASE
-from time import sleep
+from time import sleep, time
+
+from tqdm import trange
 
 from local_browser import *
 from settings import CASE_PAT
 from settings import CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
-
 
 HR_PAT = compile('<HR>', IGNORECASE)
 
@@ -41,23 +42,39 @@ def defendant_section(html):
     return all(x in html for x in ['Business or Organization Name:', '$'])
 
 
-def save_response(case_type, year, bounds=xrange(1, 10)):
+def get_duration():
+
+    return WAITING_TIME
+
+
+def save_response(case_type, year, bounds=xrange(1, 10), gui=False):
 
     # initial page for terms and agreements upon disclaimer
     disclaimer_form()
+    WAITING_TIME = 0
 
     if not path.exists(HTML_DIR):
         makedirs(HTML_DIR)
 
-    for case in bounds:
+    case_range = trange(max(bounds), desc='Crawling', leave=True
+                        ) if not gui else bounds
 
-        case_num = str(('000' + str(case)))[-4:]
-        case = CASE_PAT.format(type=case_type, year=year, num=case_num)
+    for case_num in case_range:
+
+        case = CASE_PAT.format(
+            type=case_type, year=year, num=('000' + str(bounds[case_num]))[-4:]
+        )
 
         try:
 
-            sleep(uniform(0.0, 0.5))
-            print "Crawling", case
+            wait = uniform(0.0, 0.5)
+            sleep(wait)
+
+            WAITING_TIME += wait
+
+            if not gui:
+                case_range.set_description("Crawling {}".format(case))
+
             html = case_id_form(case)
             stripped_html = html[0] + html[2]
 
@@ -81,7 +98,13 @@ def save_response(case_type, year, bounds=xrange(1, 10)):
                 failed_case.write(case)
             exit("Case number does not exist")
 
+    return WAITING_TIME
+
 
 if __name__ == '__main__':
 
-    save_response('C', '14')
+    start = time()
+    save_response('O', '15')
+    end = time()
+
+    print (end - start)

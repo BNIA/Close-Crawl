@@ -53,6 +53,8 @@ def scrape(case_type, html_data):
         except Exception as e:
             print e, feature_list
 
+        print feature_list
+
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
         feature_list = dict([
