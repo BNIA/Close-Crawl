@@ -123,5 +123,5 @@ if __name__ == '__main__':
                   in walk(HTML_DIR)][0]
 
     out_db = 'test_out.csv'
-    file_array = ["24O15000003.html"]
+    file_array = ["24O15000090.html"]
     export(file_array, out_db)
