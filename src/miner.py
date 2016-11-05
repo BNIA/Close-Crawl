@@ -22,7 +22,7 @@ def scrape(case_type, html_data):
       html_data: <str>, source HTML
 
     output:
-      <dict>, features scraped and mapped from content
+      feature_list: <dict>, features scraped and mapped from content
     """
 
     partial_cost = html_data.split('\n')[-1] \
@@ -37,10 +37,16 @@ def scrape(case_type, html_data):
 
         feature_list = []
         for tag in td_list:
+            # print tag
             try:
-                tag = tuple([j.string for j in tag.findAll("span")])
-                if set(tag) & set(features):
+                tag = [j.string for j in tag.findAll("span")]
+                if set(tuple(tag)) & set(features):
+                    # if "(Each Defendant/Respondent is displayed below)" in tag:
+                    #     tag = tag[1:]
+                        # tag.remove("(Each Defendant/Respondent is displayed below)")
+                    tag = [i for i in tag if "(" not in i]
                     feature_list.append(tag)
+                    # print tag
 
             except IndexError:
                 continue
@@ -63,6 +69,7 @@ def scrape(case_type, html_data):
             if feature_list[i:i + 2][0] in FEATURES
         ])
 
+        print feature_list
         # break up Title feature into Plaintiff and Defendant
         try:
             feature_list["Plaintiff"], feature_list["Defendant"] = \
@@ -90,7 +97,7 @@ def export(file_array, out_db):
             # TODO: FIX DUPLICATE ADDRESS ISSUE
             H6_PAT = compile('<H6>', IGNORECASE)
             HR_PAT = compile('<HR>', IGNORECASE)
-            ADDR_PAT = compile('\sBalto md\s', IGNORECASE)
+            # ADDR_PAT = compile('\sBalto md\s', IGNORECASE)
             yo = H6_PAT.split(html_src.read())
             ay = ' '.join(HR_PAT.split(yo[1])[1:])
             yo = yo[0] + ay
@@ -116,4 +123,5 @@ if __name__ == '__main__':
                   in walk(HTML_DIR)][0]
 
     out_db = 'test_out.csv'
+    file_array = ["24O15000003.html"]
     export(file_array, out_db)

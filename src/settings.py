@@ -21,5 +21,5 @@ FEATURES = [
     'Address',
     'Zip Code',
     'Partial Cost',
-    'Business or Organization Name:',
+    'Business or Organization Name',
 ]
