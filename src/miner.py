@@ -23,7 +23,7 @@ def scrape(case_type, html_data):
       html_data: <str>, source HTML
 
     output:
-      feature_list: <dict>, features scraped and mapped from content
+      scraped_features: <dict>, features scraped and mapped from content
     """
 
     partial_cost = html_data.split('\n')[-1] \
@@ -38,16 +38,11 @@ def scrape(case_type, html_data):
 
         feature_list = []
         for tag in td_list:
-            # print tag
             try:
                 tag = [j.string for j in tag.findAll("span")]
                 if set(tuple(tag)) & set(features):
-                    # if "(Each Defendant/Respondent is displayed below)" in tag:
-                    #     tag = tag[1:]
-                        # tag.remove("(Each Defendant/Respondent is displayed below)")
-                    tag = [i for i in tag if "(" not in i]
+                    tag = [i for i in tag if "(each" not in i.lower()]
                     feature_list.append(tag)
-                    # print tag
 
             except IndexError:
                 continue
@@ -60,12 +55,9 @@ def scrape(case_type, html_data):
         except Exception as e:
             print e, feature_list
 
-        # print feature_list
-
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
-
-        bidnes = [
+        businesses = [
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
             if feature_list[i:i + 2][0] in ['Business or Organization Name']
@@ -77,13 +69,10 @@ def scrape(case_type, html_data):
             if feature_list[i:i + 2][0] in FEATURES
         ])
 
-        print feature_list
-        print bidnes
-
         scraped_features = []
         temp_features = {}
 
-        for address in bidnes:
+        for address in businesses:
 
             temp_features["Title"] = feature_list["Title"]
             temp_features["Case Type"] = feature_list["Case Type"]
@@ -103,11 +92,9 @@ def scrape(case_type, html_data):
                 temp_features["Case Type"] = "Mortgage"
 
             temp_features["Partial Cost"] = partial_cost
-            print address[-1]
             temp_features["Address"] = address[-1]
             scraped_features.append(temp_features)
             temp_features = {}
-            print scraped_features
 
         return scraped_features
 
@@ -119,18 +106,7 @@ def export(file_array, out_db):
 
     for file_name in file_array:
         with open(HTML_FILE.format(case=file_name), 'r') as html_src:
-
-            # TODO: FIX DUPLICATE ADDRESS ISSUE
-            H6_PAT = compile('<H6>', IGNORECASE)
-            HR_PAT = compile('<HR>', IGNORECASE)
-            # ADDR_PAT = compile('\sBalto md\s', IGNORECASE)
-            yo = H6_PAT.split(html_src.read())
-            ay = ' '.join(HR_PAT.split(yo[1])[1:])
-            yo = yo[0] + ay
-            row = scrape(file_name, yo)
-
-            # row = scrape(file_name, html_src.read())
-
+            row = scrape(file_name, html_src.read())
             dataset.extend(row)
 
     with open(out_db, 'a') as csv_file:
