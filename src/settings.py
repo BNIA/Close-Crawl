@@ -21,5 +21,6 @@ FEATURES = [
     'Address',
     'Zip Code',
     'Partial Cost',
-    'Business or Organization Name',
 ]
+
+# FIELDS = FEATURES + ["Business or Organization Name"]

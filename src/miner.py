@@ -9,7 +9,8 @@ from re import compile, IGNORECASE
 
 from bs4 import BeautifulSoup
 
-from settings import FEATURES, HTML_DIR, HTML_FILE
+from settings import HTML_DIR, HTML_FILE
+from settings import FEATURES
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
@@ -59,10 +60,17 @@ def scrape(case_type, html_data):
         except Exception as e:
             print e, feature_list
 
-        print feature_list
+        # print feature_list
 
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
+
+        bidnes = [
+            tuple(feature_list[i:i + 2])
+            for i in xrange(0, len(feature_list), 2)
+            if feature_list[i:i + 2][0] in ['Business or Organization Name']
+        ]
+
         feature_list = dict([
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
@@ -70,20 +78,38 @@ def scrape(case_type, html_data):
         ])
 
         print feature_list
-        # break up Title feature into Plaintiff and Defendant
-        try:
-            feature_list["Plaintiff"], feature_list["Defendant"] = \
-                TITLE_SPLIT_PAT.split(feature_list["Title"])
+        print bidnes
 
-        except ValueError:
-            feature_list["Plaintiff"], feature_list["Defendant"] = ('', '')
+        scraped_features = []
+        temp_features = {}
 
-        if feature_list["Case Type"].upper() == "FORECLOSURE":
-            feature_list["Case Type"] = "Mortgage"
+        for address in bidnes:
 
-        feature_list['Partial Cost'] = partial_cost
+            temp_features["Title"] = feature_list["Title"]
+            temp_features["Case Type"] = feature_list["Case Type"]
+            temp_features["Case Number"] = feature_list["Case Number"]
+            temp_features["Filing Date"] = feature_list["Filing Date"]
 
-        return feature_list
+            # break up Title feature into Plaintiff and Defendant
+            try:
+                temp_features["Plaintiff"], temp_features["Defendant"] = \
+                    TITLE_SPLIT_PAT.split(temp_features["Title"])
+
+            except ValueError:
+                temp_features["Plaintiff"], temp_features[
+                    "Defendant"] = ('', '')
+
+            if temp_features["Case Type"].upper() == "FORECLOSURE":
+                temp_features["Case Type"] = "Mortgage"
+
+            temp_features["Partial Cost"] = partial_cost
+            print address[-1]
+            temp_features["Address"] = address[-1]
+            scraped_features.append(temp_features)
+            temp_features = {}
+            print scraped_features
+
+        return scraped_features
 
 
 def export(file_array, out_db):
@@ -105,7 +131,7 @@ def export(file_array, out_db):
 
             # row = scrape(file_name, html_src.read())
 
-            dataset.append(row)
+            dataset.extend(row)
 
     with open(out_db, 'a') as csv_file:
         writer = DictWriter(csv_file, fieldnames=FEATURES)
@@ -123,5 +149,4 @@ if __name__ == '__main__':
                   in walk(HTML_DIR)][0]
 
     out_db = 'test_out.csv'
-    file_array = ["24O15000090.html"]
     export(file_array, out_db)
