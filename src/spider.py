@@ -17,11 +17,6 @@ from settings import CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
 
 HR_PAT = compile('<HR>', IGNORECASE)
 H6_PAT = compile('<H6>', IGNORECASE)
-# ADDR_PAT = compile('\sBalto md\s', IGNORECASE)
-
-# regex pattern to capture monetary values between $0.00 and $999,999,999.99
-# punctuation insensitive
-MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
 
 
 def mine_filter(response):

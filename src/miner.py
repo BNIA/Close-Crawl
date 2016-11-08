@@ -10,10 +10,15 @@ from re import compile, IGNORECASE
 from bs4 import BeautifulSoup
 
 from settings import HTML_DIR, HTML_FILE
-from settings import FEATURES
+from settings import FEATURES, FIELDS
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
+ADDR_PAT = compile("\sBalto.md\s", IGNORECASE)
+ZIP_PAT = compile("\d{5}")
+# regex pattern to capture monetary values between $0.00 and $999,999,999.99
+# punctuation insensitive
+MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
 
 
 def scrape(case_type, html_data):
@@ -85,14 +90,19 @@ def scrape(case_type, html_data):
                     TITLE_SPLIT_PAT.split(temp_features["Title"])
 
             except ValueError:
-                temp_features["Plaintiff"], temp_features[
-                    "Defendant"] = ('', '')
+                temp_features["Plaintiff"], temp_features["Defendant"] = \
+                    ('', '')
 
             if temp_features["Case Type"].upper() == "FORECLOSURE":
                 temp_features["Case Type"] = "Mortgage"
 
             temp_features["Partial Cost"] = partial_cost
-            temp_features["Address"] = address[-1]
+
+            address = ADDR_PAT.split(address[-1])
+            temp_features["Address"] = address[0]
+            temp_features["Zip Code"] = ''.join(ZIP_PAT.findall(address[-1]))
+            temp_features["Partial Cost"] = ''.join(
+                MONEY_PAT.findall(address[-1]))
             scraped_features.append(temp_features)
             temp_features = {}
 
@@ -110,7 +120,7 @@ def export(file_array, out_db):
             dataset.extend(row)
 
     with open(out_db, 'a') as csv_file:
-        writer = DictWriter(csv_file, fieldnames=FEATURES)
+        writer = DictWriter(csv_file, fieldnames=FIELDS)
 
         if not file_exists:
             writer.writeheader()

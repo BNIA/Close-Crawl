@@ -19,8 +19,9 @@ FEATURES = [
     'Plaintiff',
     'Defendant',
     'Address',
+]
+
+FIELDS = FEATURES + [
     'Zip Code',
     'Partial Cost',
 ]
-
-# FIELDS = FEATURES + ["Business or Organization Name"]
