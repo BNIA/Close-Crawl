@@ -16,10 +16,16 @@ from settings import CASE_PAT
 from settings import CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
 
 HR_PAT = compile('<HR>', IGNORECASE)
+H6_PAT = compile('<H6>', IGNORECASE)
 
-# regex pattern to capture monetary values between $0.00 and $999,999,999.99
-# punctuation insensitive
-MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
+
+def mine_filter(response):
+
+    # TODO: FIX DUPLICATE ADDRESS ISSUE
+    filtered_response = H6_PAT.split(response)
+    split_response = ' '.join(HR_PAT.split(filtered_response[1])[1:])
+
+    return filtered_response[0] + split_response
 
 
 def case_id_form(case):
@@ -31,7 +37,7 @@ def case_id_form(case):
 
     browser.form['caseId'] = case
     browser.submit()
-    response = HR_PAT.split(str(browser.response().read()))
+    response = mine_filter(browser.response().read())
     browser.back()
 
     return response
@@ -42,12 +48,7 @@ def defendant_section(html):
     return all(x in html for x in ['Business or Organization Name:', '$'])
 
 
-def get_duration():
-
-    return WAITING_TIME
-
-
-def save_response(case_type, year, bounds=xrange(1, 10), gui=False):
+def save_response(case_type, year, bounds=xrange(1, 5), gui=False):
 
     # initial page for terms and agreements upon disclaimer
     disclaimer_form()
@@ -75,17 +76,10 @@ def save_response(case_type, year, bounds=xrange(1, 10), gui=False):
             if not gui:
                 case_range.set_description("Crawling {}".format(case))
 
-            html = case_id_form(case)
-            stripped_html = html[0] + html[2]
-
-            business = [s for s in html if defendant_section(s)]
-
-            partial_cost = MONEY_PAT.findall(' '.join(business))
+            stripped_html = case_id_form(case)
 
             with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
                 case_file.write(str(stripped_html))
-                if len(partial_cost):
-                    case_file.write(partial_cost[0])
 
         except KeyboardInterrupt:
             with open(SAVE_PROG, 'w') as save_file:
