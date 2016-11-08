@@ -14,6 +14,8 @@ def sort_set(dataset_name):
     # TODO: Handle missing values
     # df.fillna("-", inplace=True)
 
+    df["Zip Code"] = df["Zip Code"].fillna(0.0).astype(int)
+    df["Zip Code"] = df["Zip Code"].replace(0, '')
     df.to_csv(dataset_name, index=False)
 
 
