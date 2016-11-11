@@ -2,4 +2,4 @@
 *.pyc
 .~lock*
 responses/
-responses1/
+responses1_500/
