@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     lower_bound = 0
 
-    upper_bound = 1001
+    upper_bound = 1501
     case_type = 'O'
     case_year = '15'
 
@@ -42,4 +42,4 @@ if __name__ == '__main__':
     with open(SAVE_PROG, 'w') as checkpoint:
         checkpoint.write(sorted(file_array)[-1][:-5])
 
-    rmtree(HTML_DIR)
+    # rmtree(HTML_DIR)
