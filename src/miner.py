@@ -42,7 +42,11 @@ def scrape(case_type, html_data):
             try:
                 tag = [j.string for j in tag.findAll("span")]
                 if set(tuple(tag)) & set(features):
-                    tag = [i for i in tag if "(each" not in i.lower()]
+                    try:
+                        tag = [i for i in tag if "(each" not in i.lower()]
+                    except AttributeError:
+                        print tag
+                        continue
                     feature_list.append(tag)
 
             except IndexError:

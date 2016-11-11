@@ -21,5 +21,5 @@ def sort_set(dataset_name):
 
 if __name__ == '__main__':
 
-    dataset_name = "test_out.csv"
+    dataset_name = "sample_1_500.csv"
     sort_set(dataset_name)

@@ -57,7 +57,12 @@ def save_response(case_type, year, bounds=xrange(1, 15), gui=False):
     if not path.exists(HTML_DIR):
         makedirs(HTML_DIR)
 
-    case_range = trange(max(bounds), desc='Crawling', leave=True
+    max_bound = 0
+
+    with open(SAVE_PROG, 'w') as checkpoint:
+        max_bound = max(bounds) - (int(checkpoint.read()[-4:]))
+
+    case_range = trange(max_bound, desc='Crawling', leave=True
                         ) if not gui else bounds
 
     for case_num in case_range:
