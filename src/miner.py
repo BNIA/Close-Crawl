@@ -31,10 +31,6 @@ def scrape(case_type, html_data):
       scraped_features: <dict>, features scraped and mapped from content
     """
 
-    partial_cost = html_data.split('\n')[-1] \
-        if '$' in html_data.split('\n')[-1] \
-        else ''
-
     soup = BeautifulSoup(html_data, "html.parser")
     td_list = soup.find_all("tr")
 
@@ -60,13 +56,27 @@ def scrape(case_type, html_data):
         except Exception as e:
             print e, feature_list
 
+        # print feature_list
+
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
         businesses = [
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
-            if feature_list[i:i + 2][0] in ['Business or Organization Name']
+            if any(
+                x in feature_list[i:i + 2][0]
+                for x in ['Business or Organization Name', 'Party Type']
+            )
         ]
+
+        filt = []
+
+        for ii in xrange(len(businesses)):
+            if businesses[ii][1].upper() == "PROPERTY ADDRESS" \
+                    and businesses[ii + 1][0].upper() == "BUSINESS OR ORGANIZATION NAME":
+                filt.append((businesses[ii], businesses[ii + 1]))
+
+        print filt
 
         feature_list = dict([
             tuple(feature_list[i:i + 2])
@@ -79,32 +89,40 @@ def scrape(case_type, html_data):
 
         for address in businesses:
 
-            temp_features["Title"] = feature_list["Title"]
-            temp_features["Case Type"] = feature_list["Case Type"]
-            temp_features["Case Number"] = feature_list["Case Number"]
-            temp_features["Filing Date"] = feature_list["Filing Date"]
-
-            # break up Title feature into Plaintiff and Defendant
-            try:
-                temp_features["Plaintiff"], temp_features["Defendant"] = \
-                    TITLE_SPLIT_PAT.split(temp_features["Title"])
-
-            except ValueError:
-                temp_features["Plaintiff"], temp_features["Defendant"] = \
-                    ('', '')
-
-            if temp_features["Case Type"].upper() == "FORECLOSURE":
-                temp_features["Case Type"] = "Mortgage"
-
-            temp_features["Partial Cost"] = partial_cost
-
             address = ADDR_PAT.split(address[-1])
-            temp_features["Address"] = address[0]
-            temp_features["Zip Code"] = ''.join(ZIP_PAT.findall(address[-1]))
-            temp_features["Partial Cost"] = ''.join(
-                MONEY_PAT.findall(address[-1]))
-            scraped_features.append(temp_features)
-            temp_features = {}
+
+            # filters addresses not considered 'valid'
+            if len(address) > 1:
+
+                temp_features["Title"] = feature_list["Title"]
+                temp_features["Case Type"] = feature_list["Case Type"]
+                temp_features["Case Number"] = feature_list["Case Number"]
+                temp_features["Filing Date"] = feature_list["Filing Date"]
+
+                # break up Title feature into Plaintiff and Defendant
+                try:
+                    temp_features["Plaintiff"], temp_features["Defendant"] = \
+                        TITLE_SPLIT_PAT.split(temp_features["Title"])
+
+                except ValueError:
+                    temp_features["Plaintiff"], temp_features["Defendant"] = \
+                        ('', '')
+
+                if temp_features["Case Type"].upper() == "FORECLOSURE":
+                    temp_features["Case Type"] = "Mortgage"
+
+                temp_features["Address"] = address[0]
+
+                temp_features["Zip Code"] = ''.join(
+                    ZIP_PAT.findall(address[-1])
+                )
+
+                temp_features["Partial Cost"] = ''.join(
+                    MONEY_PAT.findall(address[-1])
+                )
+
+                scraped_features.append(temp_features)
+                temp_features = {}
 
         return scraped_features
 

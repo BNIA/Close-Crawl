@@ -7,7 +7,7 @@ minimal loss of responses and minimizes time spent on the court servers"""
 from os import path, makedirs
 from random import uniform
 from re import compile, IGNORECASE
-from time import sleep, time
+from time import sleep
 
 from tqdm import trange
 
@@ -48,7 +48,7 @@ def defendant_section(html):
     return all(x in html for x in ['Business or Organization Name:', '$'])
 
 
-def save_response(case_type, year, bounds=xrange(1, 5), gui=False):
+def save_response(case_type, year, bounds=xrange(1, 15), gui=False):
 
     # initial page for terms and agreements upon disclaimer
     disclaimer_form()
@@ -97,8 +97,4 @@ def save_response(case_type, year, bounds=xrange(1, 5), gui=False):
 
 if __name__ == '__main__':
 
-    start = time()
     save_response('O', '15')
-    end = time()
-
-    print (end - start)
