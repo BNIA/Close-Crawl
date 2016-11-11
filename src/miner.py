@@ -10,11 +10,11 @@ from re import compile, IGNORECASE
 from bs4 import BeautifulSoup
 
 from settings import HTML_DIR, HTML_FILE
-from settings import FEATURES, FIELDS
+from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
-ADDR_PAT = compile("\sBalto.md\s", IGNORECASE)
+ADDR_PAT = compile("(\sBalto.|\sBaltimore.)", IGNORECASE)
 ZIP_PAT = compile("\d{5}")
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
 # punctuation insensitive
@@ -56,27 +56,13 @@ def scrape(case_type, html_data):
         except Exception as e:
             print e, feature_list
 
-        # print feature_list
-
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
-        businesses = [
+        business = [
             tuple(feature_list[i:i + 2])
             for i in xrange(0, len(feature_list), 2)
-            if any(
-                x in feature_list[i:i + 2][0]
-                for x in ['Business or Organization Name', 'Party Type']
-            )
+            if any(x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS)
         ]
-
-        filt = []
-
-        for ii in xrange(len(businesses)):
-            if businesses[ii][1].upper() == "PROPERTY ADDRESS" \
-                    and businesses[ii + 1][0].upper() == "BUSINESS OR ORGANIZATION NAME":
-                filt.append((businesses[ii], businesses[ii + 1]))
-
-        print filt
 
         feature_list = dict([
             tuple(feature_list[i:i + 2])
@@ -84,45 +70,61 @@ def scrape(case_type, html_data):
             if feature_list[i:i + 2][0] in FEATURES
         ])
 
+        filt = []
+
+        for ii in xrange(len(business)):
+            try:
+                if business[ii][1].upper() == "PROPERTY ADDRESS" and \
+                        business[ii + 1][0].upper() == "BUSINESS OR ORGANIZATION NAME":
+                    filt.append(business[ii + 1])
+
+            except IndexError:
+                print "Party Type issue at Case", feature_list["Case Number"]
+
+        business = filt
         scraped_features = []
         temp_features = {}
 
-        for address in businesses:
+        for address in business:
 
             address = ADDR_PAT.split(address[-1])
 
             # filters addresses not considered 'valid'
-            if len(address) > 1:
+            # if len(address) > 1:
 
-                temp_features["Title"] = feature_list["Title"]
-                temp_features["Case Type"] = feature_list["Case Type"]
-                temp_features["Case Number"] = feature_list["Case Number"]
-                temp_features["Filing Date"] = feature_list["Filing Date"]
+            temp_features["Title"] = feature_list["Title"]
+            temp_features["Case Type"] = feature_list["Case Type"]
+            temp_features["Case Number"] = feature_list["Case Number"]
+            temp_features["Filing Date"] = feature_list["Filing Date"]
 
-                # break up Title feature into Plaintiff and Defendant
-                try:
-                    temp_features["Plaintiff"], temp_features["Defendant"] = \
-                        TITLE_SPLIT_PAT.split(temp_features["Title"])
+            # break up Title feature into Plaintiff and Defendant
+            try:
+                temp_features["Plaintiff"], temp_features["Defendant"] = \
+                    TITLE_SPLIT_PAT.split(temp_features["Title"])
 
-                except ValueError:
-                    temp_features["Plaintiff"], temp_features["Defendant"] = \
-                        ('', '')
+            except ValueError:
+                temp_features["Plaintiff"], temp_features["Defendant"] = \
+                    ('', '')
 
-                if temp_features["Case Type"].upper() == "FORECLOSURE":
-                    temp_features["Case Type"] = "Mortgage"
+            if temp_features["Case Type"].upper() == "FORECLOSURE":
+                temp_features["Case Type"] = "Mortgage"
 
-                temp_features["Address"] = address[0]
+            temp_features["Address"] = address[0]
 
-                temp_features["Zip Code"] = ''.join(
-                    ZIP_PAT.findall(address[-1])
-                )
+            temp_features["Zip Code"] = ''.join(
+                ZIP_PAT.findall(address[-1])
+            )
 
-                temp_features["Partial Cost"] = ''.join(
-                    MONEY_PAT.findall(address[-1])
-                )
+            temp_features["Partial Cost"] = ''.join(
+                MONEY_PAT.findall(address[-1])
+            )
 
-                scraped_features.append(temp_features)
-                temp_features = {}
+            scraped_features.append(temp_features)
+            temp_features = {}
+
+        if not scraped_features:
+            with open('no_case.txt', 'a') as empty_case:
+                empty_case.write(feature_list["Case Number"] + '\n')
 
         return scraped_features
 

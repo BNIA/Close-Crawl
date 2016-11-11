@@ -25,3 +25,8 @@ FIELDS = FEATURES + [
     'Zip Code',
     'Partial Cost',
 ]
+
+INTERNAL_FIELDS = [
+    'Business or Organization Name',
+    'Party Type'
+]
