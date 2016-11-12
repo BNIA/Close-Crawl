@@ -5,7 +5,9 @@
 
 from csv import DictWriter
 from os import path, walk
-from re import compile, IGNORECASE
+from re import compile
+from re import IGNORECASE
+from string import punctuation
 
 from bs4 import BeautifulSoup
 from tqdm import trange
@@ -15,11 +17,22 @@ from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
-ADDR_PAT = compile("(\sBalto.)", IGNORECASE)
+ADDR_PAT = compile("(.Balto.)", IGNORECASE)
 ZIP_PAT = compile("\d{5}")
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
 # punctuation insensitive
 MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
+
+STREET_ADDR_PAT = u'\d{1,4} [\w\s]{1,20}(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?|c(?:our)?t|parkway|pkwy|cir(cle)?|boulevard|blvd|pl(?:ace)?|ter(?:race)?)\W?(?=\s|$)'
+street_address = compile(STREET_ADDR_PAT, IGNORECASE)
+punctuation.replace('#', '')
+
+
+def clean_addr(address):
+
+    return ''.join(
+        street_address.findall(address.translate(None, punctuation))
+    )
 
 
 def scrape(case_type, html_data):
@@ -46,7 +59,6 @@ def scrape(case_type, html_data):
                     try:
                         tag = [i for i in tag if "(each" not in i.lower()]
                     except AttributeError:
-                        print tag
                         continue
                     feature_list.append(tag)
 
@@ -97,10 +109,7 @@ def distribute(feature_list):
 
     for address in business:
 
-        address = ADDR_PAT.split(address[-1])
-
-        # filters addresses not considered 'valid'
-        # if len(address) > 1:
+        str_address = clean_addr(str(address[-1]))
 
         temp_features["Title"] = feature_list["Title"]
         temp_features["Case Type"] = feature_list["Case Type"]
@@ -119,7 +128,7 @@ def distribute(feature_list):
         if temp_features["Case Type"].upper() == "FORECLOSURE":
             temp_features["Case Type"] = "Mortgage"
 
-        temp_features["Address"] = address[0]
+        temp_features["Address"] = str_address if str_address else address[-1]
 
         temp_features["Zip Code"] = ''.join(
             ZIP_PAT.findall(address[-1])
@@ -170,8 +179,8 @@ def export(file_array, out_db, gui=False):
 
 if __name__ == '__main__':
 
-    file_array = [filenames for (dirpath, dirnames, filenames)
-                  in walk(HTML_DIR)][0]
+    file_array = sorted([filenames for (dirpath, dirnames, filenames)
+                         in walk(HTML_DIR)][0])
 
     out_db = 'test_out.csv'
     export(file_array, out_db)

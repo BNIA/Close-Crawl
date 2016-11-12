@@ -5,7 +5,7 @@ from sys import argv
 
 from pandas import read_csv
 
-STREET_ADDR_PAT = u'\d{1,4} [\w\s]{1,20}(?:street|st|avenue|ave|road|rd|highway|hwy|square|sq|trail|trl|drive|driveway|dr|court|ct|parkway|pkwy|circle|cir|boulevard|blvd)\W?(?=\s|$)'
+STREET_ADDR_PAT = u'\d{1,4} [\w\s]{1,20}(?:street|st|avenue|ave|road|rd|highway|hwy|square|sq|trail|trl|drive|driveway|dr|court|ct|parkway|pkwy|circle|cir|boulevard|blvd|pl|terrace)\W?(?=\s|$)'
 street_address = compile(STREET_ADDR_PAT, IGNORECASE)
 punctuation.replace('#', '')
 
@@ -32,9 +32,9 @@ def sort_set(dataset_name):
     df["Zip Code"] = df["Zip Code"].fillna(0.0).astype(int)
     df["Zip Code"] = df["Zip Code"].replace(0, '')
 
-    df["Address"] = df["Address"].apply(
-        lambda i: clean_addr(i) if clean_addr(i) else i
-    )
+    # df["Address"] = df["Address"].apply(
+    #     lambda i: clean_addr(i) if clean_addr(i) else i
+    # )
 
     df.to_csv(dataset_name, index=False)
 

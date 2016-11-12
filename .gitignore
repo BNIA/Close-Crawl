@@ -1,4 +1,5 @@
 .venv/
 *.pyc
 .~lock*
+responses/
 archived_responses/
