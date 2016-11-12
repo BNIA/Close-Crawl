@@ -1,9 +1,13 @@
+from sys import argv
+
 from pandas import read_csv
 
 
 def sort_set(dataset_name):
 
     df = read_csv(dataset_name)
+
+    df.drop_duplicates(inplace=True)
 
     df.sort_values(
         ["Filing Date", "Case Number", "Address"],
@@ -21,5 +25,5 @@ def sort_set(dataset_name):
 
 if __name__ == '__main__':
 
-    dataset_name = "sample_1_500.csv"
+    dataset_name = argv[-1]
     sort_set(dataset_name)

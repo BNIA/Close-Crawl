@@ -9,12 +9,11 @@ from spider import save_response
 
 if __name__ == '__main__':
 
-    # output = 'mortgage_2015.csv'
     output = 'test_out.csv'
 
     lower_bound = 0
 
-    upper_bound = 1501
+    upper_bound = 2000
     case_type = 'O'
     case_year = '15'
 
