@@ -15,7 +15,7 @@ from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
-ADDR_PAT = compile("(\sBalto.|\sBaltimore.)", IGNORECASE)
+ADDR_PAT = compile("(\sBalto.)", IGNORECASE)
 ZIP_PAT = compile("\d{5}")
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
 # punctuation insensitive
@@ -66,8 +66,8 @@ def scrape(case_type, html_data):
 
 def distribute(feature_list):
 
-        # break up elements with n-tuples greater than 2
-        # then convert list of tuples to dict for faster lookup
+    # break up elements with n-tuples greater than 2
+    # then convert list of tuples to dict for faster lookup
     business = [
         tuple(feature_list[i:i + 2])
         for i in xrange(0, len(feature_list), 2)
@@ -147,7 +147,9 @@ def export(file_array, out_db, gui=False):
     case_range = trange(len(file_array), desc='Mining', leave=True)
 
     for file_name in case_range:
-        with open(HTML_FILE.format(case=file_array[file_name]), 'r') as html_src:
+        with open(
+            HTML_FILE.format(case=file_array[file_name]), 'r'
+        ) as html_src:
             row = scrape(file_name, html_src.read())
 
             if not gui:
