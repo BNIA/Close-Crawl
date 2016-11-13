@@ -1,5 +1,10 @@
+# Python cache and environments
 .venv/
 *.pyc
+
+# Linux temporary files
 .~lock*
+
+# Directories
 responses/
 archived_responses/

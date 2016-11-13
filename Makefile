@@ -12,14 +12,8 @@ install:
 
 .PHONY: clean
 clean:
-	# clean out Python compiled bytecodes and temporary files
+	# clean out Python cache and temporary files
 	@find . \( -name "*.pyc" -o -name "test_out.csv" \) -type f -delete
-
-
-.PHONY: stats
-stats:
-	# quick sum of lines of code for the repository
-	./cloc-git.sh
 
 
 .PHONY: upgrade

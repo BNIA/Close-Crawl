@@ -23,16 +23,29 @@ ZIP_PAT = compile("\d{5}")
 # punctuation insensitive
 MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
 
-STREET_ADDR_PAT = u'\d{1,4} [\w\s]{1,20}(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?|c(?:our)?t|parkway|pkwy|cir(cle)?|boulevard|blvd|pl(?:ace)?|ter(?:race)?)\W?(?=\s|$)'
-street_address = compile(STREET_ADDR_PAT, IGNORECASE)
+
+street_address = compile(
+    '(\d{1,4} [\w\s]{1,20}'
+    '(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d'
+    '|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?'
+    '|c(?:our)?t|parkway|pkwy|cir(cle)?'
+    '|boulevard|blvd|pl(?:ace)?|'
+    'ter(?:race)?)\W?(?=\s|$))', IGNORECASE)
+
 punctuation.replace('#', '')
 
 
 def clean_addr(address):
 
-    return ''.join(
-        street_address.findall(address.translate(None, punctuation))
-    )
+    try:
+        return ''.join(
+            street_address.search(
+                address.translate(None, punctuation)).group(0)
+        )
+
+    except AttributeError:
+
+        return ''
 
 
 def scrape(case_type, html_data):
@@ -178,6 +191,10 @@ def export(file_array, out_db, gui=False):
 
 
 if __name__ == '__main__':
+
+    # print STREET_ADDR_PAT()
+    # print street_address.search('4401 Powell Avenue BaltimoreMD 2120627087300'.translate(None, punctuation)).group(0)
+    # print STREET_ADDR_PAT1 == STREET_ADDR_PAT()
 
     file_array = sorted([filenames for (dirpath, dirnames, filenames)
                          in walk(HTML_DIR)][0])
