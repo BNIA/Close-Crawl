@@ -8,8 +8,8 @@ CASE_PAT = '24{type}{year}00{num}'
 
 HTML_DIR = 'responses'
 HTML_FILE = HTML_DIR + '/{case}'
-CASE_ERR = 'case_error.txt'
-SAVE_PROG = 'save_progess.txt'
+CASE_ERR = 'logs/case_error.txt'
+SAVE_PROG = 'logs/save_progess.txt'
 
 FEATURES = [
     'Filing Date',
@@ -24,4 +24,9 @@ FEATURES = [
 FIELDS = FEATURES + [
     'Zip Code',
     'Partial Cost',
+]
+
+INTERNAL_FIELDS = [
+    'Business or Organization Name',
+    'Party Type',
 ]

@@ -9,12 +9,11 @@ from spider import save_response
 
 if __name__ == '__main__':
 
-    # output = 'mortgage_2015.csv'
     output = 'test_out.csv'
 
     lower_bound = 0
 
-    upper_bound = 15
+    upper_bound = 2000
     case_type = 'O'
     case_year = '15'
 
@@ -25,7 +24,7 @@ if __name__ == '__main__':
 
     wait = save_response(
         case_type, case_year,
-        bounds=xrange(lower_bound, upper_bound), gui=False
+        bounds=xrange(lower_bound, upper_bound + 1), gui=False
     )
 
     end = time()
@@ -42,4 +41,4 @@ if __name__ == '__main__':
     with open(SAVE_PROG, 'w') as checkpoint:
         checkpoint.write(sorted(file_array)[-1][:-5])
 
-    rmtree(HTML_DIR)
+    # rmtree(HTML_DIR)
