@@ -44,7 +44,6 @@ def clean_addr(address):
         )
 
     except AttributeError:
-
         return ''
 
 
@@ -110,7 +109,8 @@ def distribute(feature_list):
     for ii in xrange(len(business)):
         try:
             if business[ii][1].upper() == "PROPERTY ADDRESS" and \
-                    business[ii + 1][0].upper() == "BUSINESS OR ORGANIZATION NAME":
+                    business[ii + 1][0].upper() == \
+                    "BUSINESS OR ORGANIZATION NAME":
                 filt.append(business[ii + 1])
 
         except IndexError:
@@ -191,10 +191,6 @@ def export(file_array, out_db, gui=False):
 
 
 if __name__ == '__main__':
-
-    # print STREET_ADDR_PAT()
-    # print street_address.search('4401 Powell Avenue BaltimoreMD 2120627087300'.translate(None, punctuation)).group(0)
-    # print STREET_ADDR_PAT1 == STREET_ADDR_PAT()
 
     file_array = sorted([filenames for (dirpath, dirnames, filenames)
                          in walk(HTML_DIR)][0])

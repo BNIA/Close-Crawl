@@ -24,7 +24,7 @@ if __name__ == '__main__':
 
     wait = save_response(
         case_type, case_year,
-        bounds=xrange(lower_bound, upper_bound), gui=False
+        bounds=xrange(lower_bound, upper_bound + 1), gui=False
     )
 
     end = time()
