@@ -90,7 +90,8 @@ def save_response(case_type, year, bounds=xrange(1, 15), gui=False):
         except IndexError:
             with open(CASE_ERR, 'w') as failed_case:
                 failed_case.write(case)
-            exit("Case number does not exist")
+            print case, "does not exist"
+            break
 
     return WAITING_TIME
 
