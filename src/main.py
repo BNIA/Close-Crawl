@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     lower_bound = 0
 
-    upper_bound = 3000
+    upper_bound = 3500
     case_type = 'O'
     case_year = '15'
 
