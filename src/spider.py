@@ -21,7 +21,6 @@ H6_PAT = compile('<H6>', IGNORECASE)
 
 def mine_filter(response):
 
-    # TODO: FIX DUPLICATE ADDRESS ISSUE
     filtered_response = H6_PAT.split(response)
     split_response = ' '.join(HR_PAT.split(filtered_response[1])[1:])
 
