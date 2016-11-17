@@ -421,7 +421,8 @@ dtype: int64
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython2"><pre><span></span><span class="n">new_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="k">print</span> <span class="s2">&quot;Distribution of cases:</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="k">print</span> <span class="n">new_df</span><span class="p">[</span><span class="s2">&quot;Case Count&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -432,64 +433,21 @@ dtype: int64
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Distribution of cases:
 
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Case Count</th>
-      <th>Week</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>52.000000</td>
-      <td>52.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>67.596154</td>
-      <td>27.500000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>15.092213</td>
-      <td>15.154757</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>35.000000</td>
-      <td>2.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>57.000000</td>
-      <td>14.750000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>67.000000</td>
-      <td>27.500000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>77.750000</td>
-      <td>40.250000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>103.000000</td>
-      <td>53.000000</td>
-    </tr>
-  </tbody>
-</table>
+count     52.000000
+mean      67.596154
+std       15.092213
+min       35.000000
+25%       57.000000
+50%       67.000000
+75%       77.750000
+max      103.000000
+Name: Case Count, dtype: float64
+</pre>
 </div>
-</div>
-
 </div>
 
 </div>
@@ -517,7 +475,7 @@ dtype: int64
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;seaborn.axisgrid.FacetGrid at 0x7f3cbc278dd0&gt;</pre>
+<pre>&lt;seaborn.axisgrid.FacetGrid at 0x7f1679133710&gt;</pre>
 </div>
 
 </div>

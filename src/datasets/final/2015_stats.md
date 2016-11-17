@@ -161,66 +161,21 @@ new_df["Week"] = new_df.index
 
 
 ```python
-new_df.describe()
+print "Distribution of cases:\n"
+print new_df["Case Count"].describe()
 ```
 
-
-
-
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Case Count</th>
-      <th>Week</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>52.000000</td>
-      <td>52.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>67.596154</td>
-      <td>27.500000</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>15.092213</td>
-      <td>15.154757</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>35.000000</td>
-      <td>2.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>57.000000</td>
-      <td>14.750000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>67.000000</td>
-      <td>27.500000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>77.750000</td>
-      <td>40.250000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>103.000000</td>
-      <td>53.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
+    Distribution of cases:
+    
+    count     52.000000
+    mean      67.596154
+    std       15.092213
+    min       35.000000
+    25%       57.000000
+    50%       67.000000
+    75%       77.750000
+    max      103.000000
+    Name: Case Count, dtype: float64
 
 
 
@@ -232,7 +187,7 @@ p.set_xticklabels(rotation=90, horizontalalignment='right')
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7f3cbc278dd0>
+    <seaborn.axisgrid.FacetGrid at 0x7f1679133710>
 
 
 
