@@ -2,9 +2,13 @@
 .venv/
 *.pyc
 
+$ Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
 # Linux temporary files
 .~lock*
 
 # Directories
 responses/
 archived_responses/
+responses_debug/

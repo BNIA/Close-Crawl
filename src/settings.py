@@ -6,8 +6,11 @@ HEADER = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 F
 URL = 'http://casesearch.courts.state.md.us/casesearch//inquiry-index.jsp'
 CASE_PAT = '24{type}{year}00{num}'
 
-HTML_DIR = 'responses'
+# TODO: change dir after debug
+# HTML_DIR = 'debug/responses_debug/'
+HTML_DIR = 'responses/'
 HTML_FILE = HTML_DIR + '/{case}'
+
 CASE_ERR = 'logs/case_error.txt'
 SAVE_PROG = 'logs/save_progess.txt'
 
@@ -19,6 +22,8 @@ FEATURES = [
     'Plaintiff',
     'Defendant',
     'Address',
+    'Business or Organization Name',
+    'Party Type',
 ]
 
 FIELDS = FEATURES + [

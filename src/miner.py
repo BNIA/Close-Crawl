@@ -1,7 +1,4 @@
-"""scrape_content.py
-
-
-"""
+"""scrape_content.py"""
 
 from csv import DictWriter
 from os import path, walk
@@ -17,7 +14,6 @@ from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
-ADDR_PAT = compile("(.Balto.)", IGNORECASE)
 ZIP_PAT = compile("\d{5}")
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
 # punctuation insensitive
@@ -60,32 +56,29 @@ def scrape(case_type, html_data):
     soup = BeautifulSoup(html_data, "html.parser")
     td_list = soup.find_all("tr")
 
-    if any(x in str(soup.h5).upper()
-           for x in ["CASE INFORMATION", "DEFENDANT"]):
-
-        feature_list = []
-        for tag in td_list:
-            try:
-                tag = [j.string for j in tag.findAll("span")]
-                if set(tuple(tag)) & set(features):
-                    try:
-                        tag = [i for i in tag if "(each" not in i.lower()]
-                    except AttributeError:
-                        continue
-                    feature_list.append(tag)
-
-            except IndexError:
-                continue
-
+    feature_list = []
+    for tag in td_list:
         try:
-            # flatten multidimensional list
-            feature_list = [item.replace(':', '')
-                            for sublist in feature_list for item in sublist]
+            tag = [j.string for j in tag.findAll("span")]
+            if set(tuple(tag)) & set(features):
+                try:
+                    tag = [i for i in tag if "(each" not in i.lower()]
+                except AttributeError:
+                    continue
+                feature_list.append(tag)
 
-        except Exception as e:
-            print e, feature_list
+        except IndexError:
+            continue
 
-        return distribute(feature_list)
+    try:
+        # flatten multidimensional list
+        feature_list = [item.replace(':', '')
+                        for sublist in feature_list for item in sublist]
+
+    except Exception as e:
+        print e, feature_list
+
+    return distribute(feature_list)
 
 
 def distribute(feature_list):
@@ -166,7 +159,8 @@ def export(file_array, out_db, gui=False):
     dataset = []
     file_exists = path.isfile(out_db)
 
-    case_range = trange(len(file_array), desc='Mining', leave=True)
+    case_range = trange(len(file_array), desc='Mining', leave=True) \
+        if not gui else xrange(len(file_array))
 
     for file_name in case_range:
         with open(
@@ -176,12 +170,19 @@ def export(file_array, out_db, gui=False):
 
             if not gui:
                 case_range.set_description(
-                    "Mining {}".format(file_array[file_name]))
+                    "Mining {}".format(file_array[file_name])
+                )
 
             dataset.extend(row)
 
     with open(out_db, 'a') as csv_file:
-        writer = DictWriter(csv_file, fieldnames=FIELDS)
+        writer = DictWriter(
+            csv_file,
+            fieldnames=[col for col in FIELDS if col not in [
+                'Business or Organization Name',
+                'Party Type',
+            ]]
+        )
 
         if not file_exists:
             writer.writeheader()
@@ -196,4 +197,4 @@ if __name__ == '__main__':
                          in walk(HTML_DIR)][0])
 
     out_db = 'test_out.csv'
-    export(file_array, out_db)
+    export(file_array, out_db, gui=True)
