@@ -114,6 +114,26 @@ df.head()
 
 
 ```python
+print "Count of features:\n"
+print df.count()
+```
+
+    Count of features:
+    
+    Filing Date     3515
+    Case Number     3515
+    Case Type       3515
+    Title           3515
+    Plaintiff       3504
+    Defendant       3504
+    Address         3515
+    Zip Code        3515
+    Partial Cost    3308
+    dtype: int64
+
+
+
+```python
 print "NULL count:\n"
 print df.isnull().sum()
 ```
@@ -212,10 +232,10 @@ p.set_xticklabels(rotation=90, horizontalalignment='right')
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7f98a7768490>
+    <seaborn.axisgrid.FacetGrid at 0x7f3cbc278dd0>
 
 
 
 
-![png](output_7_1.png)
+![png](output_8_1.png)
 
