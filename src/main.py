@@ -29,13 +29,18 @@ if __name__ == '__main__':
 
     end = time()
 
-    print "Total script runtime: {0:.3f} s".format((end - start))
-    print "Total crawling runtime: {0:.3f} s".format(((end - start) - wait))
+    print "Total crawling script runtime: {0:.3f} s".format((end - start))
+    print "Total downloading runtime: {0:.3f} s".format(((end - start) - wait))
 
     file_array = [filenames for (dirpath, dirnames, filenames)
                   in walk(HTML_DIR)][0]
 
+    start = time()
     export(file_array, output)
+    end = time()
+
+    print "Total mining runtime: {0:.3f} s".format((end - start))
+
     sort_set(output)
 
     with open(SAVE_PROG, 'w') as checkpoint:
