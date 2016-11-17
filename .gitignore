@@ -2,6 +2,9 @@
 .venv/
 *.pyc
 
+$ Temporary Jupyter Notebook files
+.ipynb_checkpoints/
+
 # Linux temporary files
 .~lock*
 
