@@ -7,7 +7,8 @@ URL = 'http://casesearch.courts.state.md.us/casesearch//inquiry-index.jsp'
 CASE_PAT = '24{type}{year}00{num}'
 
 # TODO: change dir after debug
-HTML_DIR = 'debug/responses_debug/'
+# HTML_DIR = 'debug/responses_debug/'
+HTML_DIR = 'responses/'
 HTML_FILE = HTML_DIR + '/{case}'
 
 CASE_ERR = 'logs/case_error.txt'
