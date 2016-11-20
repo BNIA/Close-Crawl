@@ -101,5 +101,6 @@ if __name__ == '__main__':
     # sort_set(argv[-1])
     # merge_sets(argv[-1])
 
-    df = load(FINAL_DATASET)
-    clean_addr(df)
+    # df = load(FINAL_DATASET)
+    # clean_addr(df)
+    download(argv[-1])

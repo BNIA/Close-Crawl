@@ -43,7 +43,7 @@ def clean_addr(address):
         return ''
 
 
-def scrape(case_type, html_data):
+def scrape(case_num, html_data):
     """Scrapes the desired features
 
     input:
@@ -78,10 +78,10 @@ def scrape(case_type, html_data):
     except Exception as e:
         print e, feature_list
 
-    return distribute(feature_list)
+    return distribute(case_num, feature_list)
 
 
-def distribute(feature_list):
+def distribute(case_num, feature_list):
 
     # break up elements with n-tuples greater than 2
     # then convert list of tuples to dict for faster lookup
@@ -149,7 +149,7 @@ def distribute(feature_list):
 
     if not scraped_features:
         with open('no_case.txt', 'a') as empty_case:
-            empty_case.write(feature_list["Case Number"] + '\n')
+            empty_case.write(str(case_num[-4:]) + '\n')
 
     return scraped_features
 
@@ -166,7 +166,8 @@ def export(file_array, out_db, gui=False):
         with open(
             HTML_FILE.format(case=file_array[file_name]), 'r'
         ) as html_src:
-            row = scrape(file_name, html_src.read())
+
+            row = scrape(file_array[file_name], html_src.read())
 
             if not gui:
                 case_range.set_description(
@@ -197,4 +198,4 @@ if __name__ == '__main__':
                          in walk(HTML_DIR)][0])
 
     out_db = 'test_out.csv'
-    export(file_array, out_db, gui=True)
+    export(file_array, out_db)

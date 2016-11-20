@@ -36,7 +36,8 @@ def case_id_form(case):
 
     browser.form['caseId'] = case
     browser.submit()
-    response = mine_filter(browser.response().read())
+    # response = mine_filter(browser.response().read())
+    response = browser.response().read()
     browser.back()
 
     return response
