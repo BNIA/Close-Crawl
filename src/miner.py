@@ -14,7 +14,7 @@ from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
-ZIP_PAT = compile("\d{5}")
+ZIP_PAT = compile("2\d{4}")
 # regex pattern to capture monetary values between $0.00 and $999,999,999.99
 # punctuation insensitive
 MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
