@@ -1,1 +1,1 @@
-# Maryland Foreclosure Scraper
+# Maryland Foreclosure Scraper <img src = "https://github.com/BNIA/maryland-foreclosure-scraper/tree/master/static/logo.png" width="10%" height="10%">
