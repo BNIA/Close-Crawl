@@ -1,12 +1,11 @@
 from glob import glob
 from os import path
-from re import compile
-from re import IGNORECASE
-from string import punctuation
 from sys import argv
 
 from pandas import concat, read_csv
 
+from patterns import filter_addr
+from patterns import NULL_ADDR, STRIP_ADDR, punctuation
 from settings import FINAL_DATASET
 
 
@@ -63,44 +62,27 @@ def merge_sets(dataset_name):
     df.to_csv(dataset_name, index=False)
 
 
-street_address = compile(
-    '(\d{1,4} [\w\s]{1,20}'
-    '(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d'
-    '|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?'
-    '|c(?:our)?t|parkway|pkwy|cir(cle)?'
-    '|boulevard|blvd|pl(?:ace)?|'
-    'ter(?:race)?)\W?(?=\s|$))', IGNORECASE)
-
-punctuation.replace('#', '')
-
-
 def clean_addr(df):
 
-    dirty_addr = []
+    def cleen(addr):
 
-    def filter_addr(address):
+        if not filter_addr(addr):
+            full_str = NULL_ADDR.sub('', addr)
+            if full_str:
+                return STRIP_ADDR.sub(
+                    '', addr).translate(None, punctuation).strip()
 
-        try:
-            return ''.join(
-                street_address.search(
-                    address.translate(None, punctuation)).group(0)
-            )
+        return addr
 
-        except AttributeError:
-            return ''
+    df["Address"] = df["Address"].apply(lambda x: cleen(x))
+    df["Address"] = df["Address"].apply(lambda x: NULL_ADDR.sub('', x))
 
-    for i in df["Address"]:
-        if not filter_addr(i):
-            dirty_addr.append(i)
-
-    print (dirty_addr)
+    df.to_csv('testtest.csv', index=False)
 
 
 if __name__ == '__main__':
 
-    # sort_set(argv[-1])
-    # merge_sets(argv[-1])
+    # download(argv[-1])
 
-    # df = load(FINAL_DATASET)
-    # clean_addr(df)
-    download(argv[-1])
+    df = load(FINAL_DATASET.format(dir="2014", year="2014"))
+    clean_addr(df)

@@ -2,45 +2,16 @@
 
 from csv import DictWriter
 from os import path, walk
-from re import compile
-from re import IGNORECASE
-from string import punctuation
 
 from bs4 import BeautifulSoup
 from tqdm import trange
 
+from patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT
+from patterns import filter_addr
 from settings import HTML_DIR, HTML_FILE
 from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
-TITLE_SPLIT_PAT = compile(" vs ", IGNORECASE)
-ZIP_PAT = compile("2\d{4}")
-# regex pattern to capture monetary values between $0.00 and $999,999,999.99
-# punctuation insensitive
-MONEY_PAT = compile('\$\d{,3},?\d{,3},?\d{,3}\.?\d{2}')
-
-
-street_address = compile(
-    '(\d{1,4} [\w\s]{1,20}'
-    '(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d'
-    '|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?'
-    '|c(?:our)?t|parkway|pkwy|cir(cle)?'
-    '|boulevard|blvd|pl(?:ace)?|'
-    'ter(?:race)?)\W?(?=\s|$))', IGNORECASE)
-
-punctuation.replace('#', '')
-
-
-def clean_addr(address):
-
-    try:
-        return ''.join(
-            street_address.search(
-                address.translate(None, punctuation)).group(0)
-        )
-
-    except AttributeError:
-        return ''
 
 
 def scrape(case_num, html_data):
@@ -115,7 +86,7 @@ def distribute(case_num, feature_list):
 
     for address in business:
 
-        str_address = clean_addr(str(address[-1]))
+        str_address = filter_addr(str(address[-1]))
 
         temp_features["Title"] = feature_list["Title"]
         temp_features["Case Type"] = feature_list["Case Type"]

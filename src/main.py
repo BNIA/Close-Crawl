@@ -2,7 +2,7 @@ from os import walk
 from shutil import rmtree
 from time import time
 
-from clean_db import load, download
+from clean_db import download
 from settings import HTML_DIR, SAVE_PROG
 from miner import export
 from spider import save_response
