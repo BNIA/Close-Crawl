@@ -120,7 +120,7 @@ def distribute(case_num, feature_list):
 
     if not scraped_features:
         with open('no_case.txt', 'a') as empty_case:
-            empty_case.write(str(case_num[-4:]) + '\n')
+            empty_case.write(str(case_num[:-5]) + '\n')
 
     return scraped_features
 

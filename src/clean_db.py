@@ -77,7 +77,12 @@ def clean_addr(df):
     df["Address"] = df["Address"].apply(lambda x: cleen(x))
     df["Address"] = df["Address"].apply(lambda x: NULL_ADDR.sub('', x))
 
-    df.to_csv('testtest.csv', index=False)
+    print df.groupby("Case Number")["Partial Cost"].apply(
+        lambda x: x.notnull()).head()[260:280]
+    # print df['Partial Cost'].where(df['Partial Cost'].notnull(),
+    # df['Address'])
+
+    # df.to_csv('testtest.csv', index=False)
 
 
 if __name__ == '__main__':
