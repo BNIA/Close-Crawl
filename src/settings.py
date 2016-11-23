@@ -11,7 +11,7 @@ CASE_PAT = '24{type}{year}00{num}'
 HTML_DIR = 'responses/'
 HTML_FILE = HTML_DIR + '/{case}'
 
-FINAL_DATASET = "datasets/{dir}/{year}.csv"
+FINAL_DATASET = "../datasets/{dir}/{year}.csv"
 
 CASE_ERR = 'logs/case_error.txt'
 SAVE_PROG = 'logs/save_progess.txt'
