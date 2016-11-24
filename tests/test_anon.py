@@ -2,14 +2,13 @@ import cookielib
 
 import mechanize
 
-from settings import HEADER, URL
-
 # Browser
 browser = mechanize.Browser()
 
 # Cookie Jar
 cj = cookielib.LWPCookieJar()
 browser.set_cookiejar(cj)
+HEADER = 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1'
 
 # Browser options
 browser.set_handle_equiv(True)
@@ -29,29 +28,19 @@ def anonymize():
 
     socket.socket = socks.socksocket
 
-    print "Current spoofed IP:", browser.open("http://icanhazip.com").read()
+    print browser.open("http://icanhazip.com").read()
+    # browser.close()
 
 
 # Follows refresh 0 but not hangs on refresh > 0
 browser.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
 
-# # Want debugging messages?
-# browser.set_debug_http(True)
-# browser.set_debug_redirects(True)
-# browser.set_debug_responses(True)
-
 # User-Agent
 browser.addheaders = [('User-agent', HEADER)]
 
+
+anonymize()
+
 # visit the site
-browser.open(URL)
-
-
-def disclaimer_form():
-
-    # Select the first (index zero) form
-    browser.select_form(nr=0)
-
-    # Let's search
-    browser.form['disclaimer'] = ['Y']
-    browser.submit()
+print browser.open("http://www.google.com").read()
+print browser.open("http://icanhazip.com").read()

@@ -2,12 +2,15 @@ from os import walk
 from shutil import rmtree
 from time import time
 
-from clean_db import CleanedData
-from settings import HTML_DIR, SAVE_PROG
+from cleaned_data import CleanedData
+from local_browser import anonymize
 from miner import export
+from settings import HTML_DIR, SAVE_PROG
 from spider import save_response
 
 if __name__ == '__main__':
+
+    anonymize()
 
     output = '2014.csv'
 
@@ -46,8 +49,7 @@ if __name__ == '__main__':
 
     df_obj = CleanedData(output)
 
-    df_obj.clean_addr()
-    df_obj.merge_nulls()
+    df_obj.init_clean()
     df_obj.download("2015_clean.csv")
 
     with open(SAVE_PROG, 'w') as checkpoint:
