@@ -1,8 +1,22 @@
-"""spider.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-Crawls through the pages to download individual responses to be scraped as
-a separate process. The modularization of scraping from crawling ensures
-minimal loss of responses and minimizes time spent on the court servers"""
+"""Spider
+
+This module crawls through the pages to download individual responses to be
+scraped as a separate process. The modularization of scraping from crawling
+ensures minimal loss of responses and minimizes time spent on the court servers
+
+The script works as an internal module for Close Crawl, but can be executed
+as a standalone to manually process datasets:
+
+    $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
+
+TODO:
+    Finish docs
+
+
+"""
 
 from os import path, makedirs
 from random import uniform
@@ -13,18 +27,10 @@ from tqdm import trange
 
 from local_browser import *
 from settings import CASE_PAT
-from settings import CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
+from settings import CHECKPOINT, CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
 
 HR_PAT = compile('<HR>', IGNORECASE)
 H6_PAT = compile('<H6>', IGNORECASE)
-
-
-def mine_filter(response):
-
-    filtered_response = H6_PAT.split(response)
-    split_response = ' '.join(HR_PAT.split(filtered_response[1])[1:])
-
-    return filtered_response[0] + split_response
 
 
 def case_id_form(case):
@@ -36,7 +42,6 @@ def case_id_form(case):
 
     browser.form['caseId'] = case
     browser.submit()
-    # response = mine_filter(browser.response().read())
     response = browser.response().read()
     browser.back()
 

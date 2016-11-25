@@ -13,9 +13,12 @@ as a standalone to manually process datasets:
 
     $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
 
+TODO:
+    Finish docs
+
 """
 
-from __future__ import absolute_import, unicode_literals
+from __future__ import absolute_import, print_function, unicode_literals
 
 from pandas import DataFrame, concat, read_csv, to_datetime
 
@@ -71,19 +74,41 @@ class CleanedData:
         return df
 
     def clean_addr(self):
+        """Cleans excess strings off Address values and removes Zip Code and
+        Partial Cost values mislabeled as Address.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
 
         def clean_string(addr):
+            """Appplies regular expressions and other filters on Address
+            values
 
-            if not filter_addr(addr):
+            Args:
+                addr (`str`): Address value to be filtered
 
-                if NULL_ADDR.sub('', addr):
+            Returns:
+                addr (`str`): filtered Address value
+            """
+
+            # if value does not match the street_address pattern
+            if not filter_addr(addr):  # patterns.filter_addr
+
+                if NULL_ADDR.sub('', addr):  # value may contain valid Address
                     return unicode(
-                        STRIP_ADDR.sub('', addr)
+                        STRIP_ADDR.sub(
+                            '', addr)  # strip off Zip Code and Partial Cost
                     ).translate(
                         {ord(c): None for c in punctuation}
-                    ).strip()
+                    ).strip()  # strip off punctuations
 
             return addr
+
+        print("Cleaning addresses...")
 
         self.df["Address"] = self.df["Address"].apply(
             lambda x: clean_string(x)
@@ -92,30 +117,92 @@ class CleanedData:
             lambda x: NULL_ADDR.sub('', x)
         )
 
+        # replace empty string values with NULL
         self.df["Zip Code"] = self.df["Zip Code"].replace('', float('nan'))
         self.df["Address"] = self.df["Address"].replace('', float('nan'))
 
     def __combine_rows(self, row):
+        """Merges rows after filtering out common values
+
+        Args:
+            row (`list` of `list` of `str`): groupby("Case Number") rows
+
+        Returns:
+            (`list` of `str`): merged row
+        """
 
         def __filter_tuple(col):
+            """Filters common values from rows
+
+            Args:
+                col (`tuple` of `str`): values per column
+
+            Returns:
+                value (`str`): common value found per mergeable rows
+            """
 
             for value in set(col):
-                if value == value:  # equivalent to value != nan
+                if value == value:  # equivalent to value != NaN
                     return value
 
         return [__filter_tuple(x) for x in zip(*row)]
 
     def __mergeable(self, bool_vec):
+        """Determines if groupby("Case Number") rows are mergeable
+
+        Example:
+            bool_vec = [
+                [True, True, True, True, True, True, False, True, True],
+                [True, True, True, True, True, True, True, False, False],
+                [True, True, True, True, True, True, False, False, False]
+            ]
+
+            __sum_col(bool_vec) -> [3, 3, 3, 3, 3, 3, 1, 1, 1]
+
+            __bool_pat(__sum_col(bool_vec)) -> True
+
+        Args:
+            bool_vec (`list` of `bool`): represents non-NULL values
+
+        Returns:
+            (`bool`): True if rows are mergeable
+        """
 
         def __sum_col():
+            """Sums columns
+
+            Args:
+                None
+
+            Returns:
+                (`list` of `int`): sum of columns
+            """
             return [sum(x) for x in zip(*bool_vec)]
 
         def __bool_pat(row):
+            """Determines mergeability
+
+            Args:
+                None
+
+            Returns:
+                (`bool`): True if rows are mergeable
+            """
             return set(row[-3:]) == set([1]) and set(row[:-3]) != set([1])
 
         return True if __bool_pat(__sum_col()) else False
 
     def merge_nulls(self):
+        """Merges rows after filtering out common values
+
+        Args:
+            row (`list` of `list` of `str`): groupby("Case Number") rows
+
+        Returns:
+            (`list` of `str`): merged row
+        """
+
+        print("Merging rows...")
 
         origin_df = self.df.dropna()
         null_df = self.df[self.df.isnull().any(axis=1)]
@@ -124,10 +211,10 @@ class CleanedData:
         new_df = []
 
         for i in null_df["Case Number"].unique():
-            yo = bool_df[null_df["Case Number"] == i]
+            bool_row = bool_df[null_df["Case Number"] == i]
             new_row = null_df[null_df["Case Number"] == i]
 
-            if self.__mergeable(yo.values):
+            if self.__mergeable(bool_row.values):
                 new_row = self.__combine_rows(new_row.values.tolist())
             else:
                 new_row = new_row.values.tolist()[0]
