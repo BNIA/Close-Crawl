@@ -21,16 +21,16 @@ from shutil import rmtree
 from time import time
 
 from cleaned_data import CleanedData
-from local_browser import anonymize
+from local_browser import Session
 from miner import export
-from settings import HTML_DIR, SAVE_PROG, CHECKPOINT
+from settings import HTML_DIR, CHECKPOINT
 from spider import save_response
 
 
 def main(case_type, case_year, output, anonymize_flag=True, debug=True):
 
     if anonymize_flag:
-        anonymize()
+        Session().anonymize()
 
     lower_bound = 1
 

@@ -18,60 +18,75 @@ TODO:
 
 """
 
+from __future__ import absolute_import, print_function, unicode_literals
 import cookielib
+from socket import socket
 
-import mechanize
+from mechanize import Browser, _http
+from socks import PROXY_TYPE_SOCKS5, setdefaultproxy, socksocket
 
 from settings import HEADER, URL
 
-# Browser
-browser = mechanize.Browser()
 
-# Cookie Jar
-cj = cookielib.LWPCookieJar()
-browser.set_cookiejar(cj)
+class Session(object):
 
-# Browser options
-browser.set_handle_equiv(True)
-browser.set_handle_gzip(True)
-browser.set_handle_redirect(True)
-browser.set_handle_referer(True)
-browser.set_handle_robots(False)
+    def __init__(self):
 
+        self.browser = Browser()
 
-def anonymize():
+        # cookie Jar
+        cj = cookielib.LWPCookieJar()
+        self.browser.set_cookiejar(cj)
 
-    import socks
-    import socket
+        # browser options
+        self.browser.set_handle_equiv(True)
+        self.browser.set_handle_gzip(True)
+        self.browser.set_handle_redirect(True)
+        self.browser.set_handle_referer(True)
+        self.browser.set_handle_robots(False)
 
-    socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
-                          addr="127.0.0.1", port=9050)
+        # follows refresh 0 but not hangs on refresh > 0
+        self.browser.set_handle_refresh(
+            _http.HTTPRefreshProcessor(), max_time=1
+        )
 
-    socket.socket = socks.socksocket
+        # user-Agent
+        self.browser.addheaders = [('User-agent', HEADER)]
 
-    print "Current spoofed IP:", browser.open("http://icanhazip.com").read()
+    def anonymize(self):
 
+        setdefaultproxy(proxy_type=PROXY_TYPE_SOCKS5,
+                        addr="127.0.0.1", port=9050)
 
-# Follows refresh 0 but not hangs on refresh > 0
-browser.set_handle_refresh(mechanize._http.HTTPRefreshProcessor(), max_time=1)
+        socket = socksocket
 
-# # Want debugging messages?
-# browser.set_debug_http(True)
-# browser.set_debug_redirects(True)
-# browser.set_debug_responses(True)
+        print("Current spoofed IP:", self.browser.open(
+            "http://icanhazip.com").read())
 
-# User-Agent
-browser.addheaders = [('User-agent', HEADER)]
+    def case_id_form(self, case):
 
-# visit the site
-browser.open(URL)
+        for form in self.browser.forms():
+            if form.attrs['name'] == 'inquiryFormByCaseNum':
+                self.browser.form = form
+                break
 
+        self.browser.form['caseId'] = case
+        self.browser.submit()
+        response = self.browser.response().read()
+        self.browser.back()
 
-def disclaimer_form():
+        return response
 
-    # Select the first (index zero) form
-    browser.select_form(nr=0)
+    def disclaimer_form(self):
 
-    # Let's search
-    browser.form['disclaimer'] = ['Y']
-    browser.submit()
+        # visit the site
+        self.browser.open(URL)
+
+        # select the only form on the page
+        self.browser.select_form(nr=0)
+
+        # select the checkbox
+        self.browser.form['disclaimer'] = ['Y']
+
+        # submit the form
+        self.browser.submit()

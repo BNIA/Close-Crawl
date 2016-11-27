@@ -13,9 +13,6 @@ as a standalone to manually process datasets:
 
     $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
 
-TODO:
-    Finish docs
-
 """
 
 from __future__ import absolute_import, print_function, unicode_literals
@@ -25,7 +22,7 @@ from pandas import DataFrame, concat, read_csv, to_datetime
 from patterns import NULL_ADDR, STRIP_ADDR, filter_addr, punctuation
 
 
-class CleanedData:
+class CleanedData(object):
 
     def __init__(self, path):
         """Constructor for CleanedData
@@ -193,29 +190,39 @@ class CleanedData:
         return True if __bool_pat(__sum_col()) else False
 
     def merge_nulls(self):
-        """Merges rows after filtering out common values
+        """Splits DataFrames into those with NULL values to be merged, and then
+        later merged with the original DataFrame
 
         Args:
-            row (`list` of `list` of `str`): groupby("Case Number") rows
+            None
 
         Returns:
-            (`list` of `str`): merged row
+            None
         """
 
         print("Merging rows...")
 
+        # filter out rows with any NULL values
         origin_df = self.df.dropna()
+
+        # filter out rows only with NULL values
         null_df = self.df[self.df.isnull().any(axis=1)]
+
+        # boolean representation of the DataFrame with NULL values
         bool_df = null_df.notnull()
 
+        # (`list` of `dict` of `str` : `str`) to be converted to a DataFrame
         new_df = []
 
         for i in null_df["Case Number"].unique():
             bool_row = bool_df[null_df["Case Number"] == i]
             new_row = null_df[null_df["Case Number"] == i]
 
+            # if the rows are mergeable, combine them
             if self.__mergeable(bool_row.values):
                 new_row = self.__combine_rows(new_row.values.tolist())
+
+            # else, treat them individually
             else:
                 new_row = new_row.values.tolist()[0]
 
@@ -226,21 +233,38 @@ class CleanedData:
                 }
             )
 
+        # merge the DataFrames back
         self.clean_df = concat(
             [origin_df, DataFrame(new_df)]
         ).reset_index(drop=True)
 
+        # prettify the new DataFrame
         self.clean_df = self.__prettify(
             self.clean_df[self.columns], internal=False
         )
 
     def init_clean(self):
+        """Initializes cleaning process
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
 
         self.clean_addr()
         self.merge_nulls()
 
     def download(self, output_name):
+        """Downloads the cleaned and manipulated DataFrame into a CSV file
 
+        Args:
+            output_name (`str`): path of the new output file
+
+        Returns:
+            None
+        """
         self.clean_df.to_csv(output_name, index=False)
 
 
