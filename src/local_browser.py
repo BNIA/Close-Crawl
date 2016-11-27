@@ -20,10 +20,10 @@ TODO:
 
 from __future__ import absolute_import, print_function, unicode_literals
 import cookielib
-from socket import socket
+import socket
 
 from mechanize import Browser, _http
-from socks import PROXY_TYPE_SOCKS5, setdefaultproxy, socksocket
+import socks
 
 from settings import HEADER, URL
 
@@ -35,8 +35,7 @@ class Session(object):
         self.browser = Browser()
 
         # cookie Jar
-        cj = cookielib.LWPCookieJar()
-        self.browser.set_cookiejar(cj)
+        self.browser.set_cookiejar(cookielib.LWPCookieJar())
 
         # browser options
         self.browser.set_handle_equiv(True)
@@ -55,10 +54,10 @@ class Session(object):
 
     def anonymize(self):
 
-        setdefaultproxy(proxy_type=PROXY_TYPE_SOCKS5,
-                        addr="127.0.0.1", port=9050)
+        socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
+                              addr="127.0.0.1", port=9050)
 
-        socket = socksocket
+        socket.socket = socks.socksocket
 
         print("Current spoofed IP:", self.browser.open(
             "http://icanhazip.com").read())

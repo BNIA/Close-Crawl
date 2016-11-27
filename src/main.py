@@ -24,10 +24,12 @@ from cleaned_data import CleanedData
 from local_browser import Session
 from miner import export
 from settings import HTML_DIR, CHECKPOINT
-from spider import save_response
+from spider import Spider
 
 
 def main(case_type, case_year, output, anonymize_flag=True, debug=True):
+
+    start = time()
 
     if anonymize_flag:
         Session().anonymize()
@@ -39,28 +41,27 @@ def main(case_type, case_year, output, anonymize_flag=True, debug=True):
         if prev_bound:
             lower_bound = int(prev_bound["last_case"][-4:]) + 1
 
-    upper_bound = lower_bound + 499
+    upper_bound = lower_bound + 4
 
-    start = time()
+    start_crawl = time()
 
-    wait = save_response(
+    spider = Spider(
         case_type, case_year,
         bounds=range(lower_bound, upper_bound + 1), gui=False
     )
 
-    end = time()
+    spider.save_response()
 
-    print("Total crawling script runtime: {0:.3f} s".format((end - start)))
-    print("Total downloading runtime: {0:.3f} s".format(((end - start) - wait)))
+    wait = spider.WAITING_TIME
+
+    end_crawl = time()
 
     file_array = [filenames for (dirpath, dirnames, filenames)
                   in walk(HTML_DIR)][0]
 
-    start = time()
+    start_mine = time()
     export(file_array, output)
-    end = time()
-
-    print("Total mining runtime: {0:.3f} s".format((end - start)))
+    end_mine = time()
 
     df_obj = CleanedData(output)
 
@@ -76,6 +77,15 @@ def main(case_type, case_year, output, anonymize_flag=True, debug=True):
 
     if not debug:
         rmtree(HTML_DIR)
+
+    end = time()
+
+    print("Total crawling script runtime: {0:.3f} s".format(
+        (end_crawl - start_crawl)))
+    print("Total downloading runtime: {0:.3f} s".format(
+        ((end_crawl - start_crawl) - wait)))
+    print("Total mining runtime: {0:.3f} s".format((end_mine - start_mine)))
+    print("Total program runtime: {0:.3f} s".format((end - start)))
 
 
 if __name__ == '__main__':

@@ -30,71 +30,80 @@ from local_browser import Session
 from settings import CASE_PAT, CHECKPOINT, HTML_DIR, HTML_FILE
 
 
-def save_response(case_type, year, bounds=range(1, 15), gui=False):
+class Spider(object):
 
-    # initial disclaimer page for terms and agreements
-    browser = Session()
-    browser.disclaimer_form()
+    def __init__(self, case_type, year, bounds=range(1, 15), gui=False):
 
-    WAITING_TIME = 0
+        # initial disclaimer page for terms and agreements
+        self.browser = Session()
+        self.browser.disclaimer_form()
 
-    if not path.exists(HTML_DIR):
-        makedirs(HTML_DIR)
+        self.WAITING_TIME = 0
+        self.case_type = case_type
+        self.year = year
+        self.bounds = bounds
+        self.gui = gui
 
-    case_range = trange(bounds[-1] - bounds[0] + 1, desc='Crawling', leave=True
-                        ) if not gui else bounds
+        if not path.exists(HTML_DIR):
+            makedirs(HTML_DIR)
 
-    for case_num in case_range:
+    def save_response(self):
 
-        case = CASE_PAT.format(
-            type=case_type,
-            year=year,
-            num=('000' + str(bounds[case_num]))[-4:]
-        )
+        case_range = trange(
+            self.bounds[-1] - self.bounds[0] + 1, desc='Crawling', leave=True
+        ) if not self.gui else self.bounds
 
-        try:
+        for case_num in case_range:
 
-            wait = uniform(0.0, 0.5)
-            sleep(wait)
+            case = CASE_PAT.format(
+                type=self.case_type,
+                year=self.year,
+                num=('000' + str(self.bounds[case_num]))[-4:]
+            )
 
-            WAITING_TIME += wait
+            try:
 
-            if not gui:
-                case_range.set_description("Crawling {}".format(case))
+                wait = uniform(0.0, 0.5)
+                sleep(wait)
 
-            stripped_html = browser.case_id_form(case)
+                self.WAITING_TIME += wait
 
-            with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
-                case_file.write(str(stripped_html))
+                if not self.gui:
+                    case_range.set_description("Crawling {}".format(case))
 
-        # pause process
-        except KeyboardInterrupt:
-            with open(CHECKPOINT, 'r+') as checkpoint:
-                checkpoint_data = load(checkpoint)
-                checkpoint_data["last_case"] = case
-                checkpoint.seek(0)
-                checkpoint.write(dumps(checkpoint_data))
-                checkpoint.truncate()
+                stripped_html = self.browser.case_id_form(case)
 
-            print('Crawling paused at', case)
-            break
+                with open(
+                    HTML_FILE.format(case=case) + '.html', 'w'
+                ) as case_file:
+                    case_file.write(str(stripped_html))
 
-        # case does not exist
-        except IndexError:
-            with open(CHECKPOINT, 'r+') as checkpoint:
-                checkpoint_data = load(checkpoint)
-                checkpoint_data["error_case"] = case
-                checkpoint.seek(0)
-                checkpoint.write(dumps(checkpoint_data))
-                checkpoint.truncate()
+            # pause process
+            except KeyboardInterrupt:
+                with open(CHECKPOINT, 'r+') as checkpoint:
+                    checkpoint_data = load(checkpoint)
+                    checkpoint_data["last_case"] = case
+                    checkpoint.seek(0)
+                    checkpoint.write(dumps(checkpoint_data))
+                    checkpoint.truncate()
 
-            print(case, "does not exist")
-            break
+                print('Crawling paused at', case)
+                break
 
-    return WAITING_TIME
+            # case does not exist
+            except IndexError:
+                with open(CHECKPOINT, 'r+') as checkpoint:
+                    checkpoint_data = load(checkpoint)
+                    checkpoint_data["error_case"] = case
+                    checkpoint.seek(0)
+                    checkpoint.write(dumps(checkpoint_data))
+                    checkpoint.truncate()
+
+                print(case, "does not exist")
+                break
 
 
 if __name__ == '__main__':
 
     Session().anonymize()
-    save_response('O', '15')
+    Spider('O', '15').save_response()
