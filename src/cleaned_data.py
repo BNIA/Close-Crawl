@@ -23,6 +23,9 @@ from patterns import NULL_ADDR, STRIP_ADDR, filter_addr, punctuation
 
 
 class CleanedData(object):
+    """Class object for cleaning the raw dataset extracted after the initial
+    scraping
+    """
 
     def __init__(self, path):
         """Constructor for CleanedData

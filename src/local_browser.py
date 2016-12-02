@@ -3,15 +3,13 @@
 
 """local_browser
 
-This module implements post-scraping cleaning processes on the raw initial
-dataset. Processes include stripping excess strings off Address values,
-removing Zip Code and Partial Cost values mislabeled as Address, and merging
-rows containing blank values in alternating features.
+This module contains the configurations and settings for the browser used for
+crawling and scraping through the pages in Close Crawl. The script contains the
+implementation of the Session class which inherits attributes from the classobj
+mechanize.Browser()
 
-The script works as an internal module for Close Crawl, but can be executed
-as a standalone to manually process datasets:
-
-    $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
+The script works as an internal module for Close Crawl, but can be imported
+as a module for testing purposes.
 
 TODO:
     Finish docs
@@ -31,10 +29,20 @@ from settings import HEADER, URL
 class Session(object):
 
     def __init__(self):
+        """Constructor for Session
+
+        Args:
+            None
+
+        Attributes:
+            browser (`mechanize._mechanize.Browser`): browser object in session
+        """
 
         self.browser = Browser()
 
-        # cookie Jar
+        # set error and debug handlers for the browser
+
+        # cookie jar
         self.browser.set_cookiejar(cookielib.LWPCookieJar())
 
         # browser options
@@ -53,6 +61,19 @@ class Session(object):
         self.browser.addheaders = [('User-agent', HEADER)]
 
     def anonymize(self):
+        """Anonymizes IP address of the hosting machine
+
+        WARNING: THIS OPTION IS HIGHLY DEPENDANT ON TYPE OF MACHINE AND
+        SEVERAL SYSTEM DEPENDANCIES AND REQUIREMENTS, POSSIBLY REQUIRES
+        THIRD PARTY SECURED BROWSERS SUCH AS TOR. THIS OPTION HAS ONLY BEEN
+        TESTED ON LINUX DISTROS. WINDOWS MACHINES HAVE NOT BEEN TESTED.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
 
         socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
                               addr="127.0.0.1", port=9050)
