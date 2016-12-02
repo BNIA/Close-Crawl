@@ -32,10 +32,15 @@ from settings import CASE_PAT, CHECKPOINT, HTML_DIR, HTML_FILE
 
 class Spider(object):
 
-    def __init__(self, case_type, year, bounds=range(1, 15), gui=False):
+    def __init__(self, case_type, year, bounds=range(1, 15),
+                 anonymize=False, gui=False):
 
         # initial disclaimer page for terms and agreements
         self.browser = Session()
+
+        if anonymize:
+            self.browser.anonymize()
+
         self.browser.disclaimer_form()
 
         self.WAITING_TIME = 0

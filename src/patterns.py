@@ -27,7 +27,7 @@ street_address = compile(
     '(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d'
     '|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?'
     '|c(?:our)?t|parkway|pkwy|cir(cle)?'
-    '|boulevard|blvd|pl(?:ace)?|'
+    '|boulevard|blvd|pl(?:ace)?|apt.*|'
     'ter(?:race)?)\W?(?=\s|$))', IGNORECASE)
 
 punctuation = punctuation.replace('#', '')

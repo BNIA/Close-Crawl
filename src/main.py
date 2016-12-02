@@ -7,7 +7,7 @@ The main executible script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file.
 
     $ python main.py <case_type> <case_year> <path/of/new/dataset>
-      <opt: anonymize_flag> <opt: debug>
+      <opt: anonymize> <opt: debug>
 
 TODO:
     Finish docs
@@ -15,34 +15,35 @@ TODO:
 """
 
 from __future__ import absolute_import, print_function, unicode_literals
-from json import dumps, load
-from os import remove, walk
+from json import dump, dumps, load
+from os import path, remove, walk
 from shutil import rmtree
 from time import time
 
 from cleaned_data import CleanedData
-from local_browser import Session
 from miner import export
-from settings import HTML_DIR, CHECKPOINT
+from settings import CASE_PAT, CHECKPOINT, HTML_DIR
 from spider import Spider
 
 
-def main(case_type, case_year, output, anonymize_flag=True, debug=True):
+def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
+         anonymize=True, debug=True):
     """Main function for Close Crawl.
 
     Usage:
         $ python main.py <case_type> <case_year> <path/of/new/dataset>
-          <opt: anonymize_flag> <opt: debug>
+          <opt: lower_bound> <opt: upper_bound>
+          <opt: anonymize> <opt: debug>
 
     Example usage:
-        $ python main.py O 2015 test_set.csv 0 1
+        $ python main.py O 2015 test_set.csv 300 600 0 1
 
     Args:
         case_type (`str`): type of foreclosure case, options are 'O' and 'C'
         case_year (`str`): year of foreclosure cases
         output (`str`): path of the output CSV file, along with the valid
             extension (.csv)
-        anonymize_flag (`bool`, optional): option to spoof IP address for
+        anonymize (`bool`, optional): option to spoof IP address for
             scraping. Default -> True.
             WARNING: THIS OPTION IS HIGHLY DEPENDANT ON TYPE OF MACHINE AND
             SEVERAL SYSTEM DEPENDANCIES AND REQUIREMENTS, POSSIBLY REQUIRES
@@ -57,24 +58,30 @@ def main(case_type, case_year, output, anonymize_flag=True, debug=True):
 
     start = time()
 
-    if anonymize_flag:
-        Session().anonymize()
-
-    lower_bound = 1
     temp_output = "temp_data.csv"
+
+    if not path.isfile(CHECKPOINT):
+        with open(CHECKPOINT, 'w') as checkpoint:
+            data = {
+                'last_case': CASE_PAT.format(
+                    type=case_type, year=case_year,
+                    num=('000' + str(lower_bound))[-4:]
+                ),
+                'error_case': ''
+            }
+            dump(data, checkpoint)
 
     with open(CHECKPOINT) as checkpoint:
         prev_bound = load(checkpoint)
         if prev_bound:
-            lower_bound = int(prev_bound["last_case"][-4:]) + 1
-
-    upper_bound = lower_bound + 499
+            lower_bound = int(prev_bound["last_case"][-4:])
 
     start_crawl = time()
 
     spider = Spider(
         case_type, case_year,
-        bounds=range(lower_bound, upper_bound + 1), gui=False
+        bounds=range(lower_bound, upper_bound + 1),
+        anonymize=anonymize, gui=False
     )
 
     spider.save_response()
@@ -121,20 +128,29 @@ if __name__ == '__main__':
 
     from sys import argv
 
-    if len(argv) > 3 and len(argv) < 7:
+    if len(argv) > 3 and len(argv) < 9:
         case_type = argv[1]
         case_year = argv[2][-2:]
         output = argv[3]
-        anonymize_flag = 1
+        lower_bound = 1
+        upper_bound = 500
+        anonymize = 1
         debug = 1
 
         if len(argv) > 4:
-            anonymize_flag = bool(argv[4])
+            lower_bound = int(argv[4])
 
-            if len(argv) == 6:
-                debug = bool(argv[5])
+            if len(argv) > 5:
+                upper_bound = int(argv[5])
 
-        main(case_type, case_year, output, anonymize_flag, debug)
+                if len(argv) > 6:
+                    anonymize = bool(argv[6])
+
+                    if len(argv) == 8:
+                        upper_bound = bool(argv[7])
+
+        main(case_type, case_year, output, lower_bound, upper_bound,
+             anonymize, debug)
 
     else:
         print("Invalid usage of script.\n")
