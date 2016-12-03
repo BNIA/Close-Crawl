@@ -1,101 +1,114 @@
-"""spider.py
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-Crawls through the pages to download individual responses to be scraped as
-a separate process. The modularization of scraping from crawling ensures
-minimal loss of responses and minimizes time spent on the court servers"""
+"""Spider
 
+This module crawls through the pages to download individual responses to be
+scraped as a separate process. The modularization of scraping from crawling
+ensures minimal loss of responses and minimizes time spent on the court servers
+
+The script works as an internal module for Close Crawl, but can be executed
+as a standalone to manually process datasets:
+
+    $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
+
+TODO:
+    Finish docs
+
+
+"""
+
+from __future__ import absolute_import, print_function, unicode_literals
+from json import dumps, load
 from os import path, makedirs
 from random import uniform
-from re import compile, IGNORECASE
 from time import sleep
 
 from tqdm import trange
 
-from local_browser import *
-from settings import CASE_PAT
-from settings import CASE_ERR, HTML_DIR, HTML_FILE, SAVE_PROG
-
-HR_PAT = compile('<HR>', IGNORECASE)
-H6_PAT = compile('<H6>', IGNORECASE)
+from local_browser import Session
+from settings import CASE_PAT, CHECKPOINT, HTML_DIR, HTML_FILE
 
 
-def mine_filter(response):
+class Spider(object):
 
-    filtered_response = H6_PAT.split(response)
-    split_response = ' '.join(HR_PAT.split(filtered_response[1])[1:])
+    def __init__(self, case_type, year, bounds=range(1, 15),
+                 anonymize=False, gui=False):
 
-    return filtered_response[0] + split_response
+        # initial disclaimer page for terms and agreements
+        self.browser = Session()
 
+        if anonymize:
+            self.browser.anonymize()
 
-def case_id_form(case):
+        self.browser.disclaimer_form()
 
-    for form in browser.forms():
-        if form.attrs['name'] == 'inquiryFormByCaseNum':
-            browser.form = form
-            break
+        self.WAITING_TIME = 0
+        self.case_type = case_type
+        self.year = year
+        self.bounds = bounds
+        self.gui = gui
 
-    browser.form['caseId'] = case
-    browser.submit()
-    # response = mine_filter(browser.response().read())
-    response = browser.response().read()
-    browser.back()
+        if not path.exists(HTML_DIR):
+            makedirs(HTML_DIR)
 
-    return response
+    def save_response(self):
 
+        case_range = trange(
+            self.bounds[-1] - self.bounds[0] + 1, desc='Crawling', leave=True
+        ) if not self.gui else self.bounds
 
-def defendant_section(html):
+        for case_num in case_range:
 
-    return all(x in html for x in ['Business or Organization Name:', '$'])
+            case = CASE_PAT.format(
+                type=self.case_type,
+                year=self.year,
+                num=('000' + str(self.bounds[case_num]))[-4:]
+            )
 
+            try:
 
-def save_response(case_type, year, bounds=xrange(1, 15), gui=False):
+                wait = uniform(0.0, 0.5)
+                sleep(wait)
 
-    # initial page for terms and agreements upon disclaimer
-    disclaimer_form()
-    WAITING_TIME = 0
+                self.WAITING_TIME += wait
 
-    if not path.exists(HTML_DIR):
-        makedirs(HTML_DIR)
+                if not self.gui:
+                    case_range.set_description("Crawling {}".format(case))
 
-    case_range = trange(bounds[-1] - bounds[0] + 1, desc='Crawling', leave=True
-                        ) if not gui else bounds
+                stripped_html = self.browser.case_id_form(case)
 
-    for case_num in case_range:
+                with open(
+                    HTML_FILE.format(case=case) + '.html', 'w'
+                ) as case_file:
+                    case_file.write(str(stripped_html))
 
-        case = CASE_PAT.format(
-            type=case_type, year=year, num=('000' + str(bounds[case_num]))[-4:]
-        )
+            # pause process
+            except KeyboardInterrupt:
+                with open(CHECKPOINT, 'r+') as checkpoint:
+                    checkpoint_data = load(checkpoint)
+                    checkpoint_data["last_case"] = case
+                    checkpoint.seek(0)
+                    checkpoint.write(dumps(checkpoint_data))
+                    checkpoint.truncate()
 
-        try:
+                print('Crawling paused at', case)
+                break
 
-            wait = uniform(0.0, 0.5)
-            sleep(wait)
+            # case does not exist
+            except IndexError:
+                with open(CHECKPOINT, 'r+') as checkpoint:
+                    checkpoint_data = load(checkpoint)
+                    checkpoint_data["error_case"] = case
+                    checkpoint.seek(0)
+                    checkpoint.write(dumps(checkpoint_data))
+                    checkpoint.truncate()
 
-            WAITING_TIME += wait
-
-            if not gui:
-                case_range.set_description("Crawling {}".format(case))
-
-            stripped_html = case_id_form(case)
-
-            with open(HTML_FILE.format(case=case) + '.html', 'w') as case_file:
-                case_file.write(str(stripped_html))
-
-        except KeyboardInterrupt:
-            with open(SAVE_PROG, 'w') as save_file:
-                save_file.write(case)
-            print 'Crawling paused at', case
-            break
-
-        except IndexError:
-            with open(CASE_ERR, 'w') as failed_case:
-                failed_case.write(case)
-            print case, "does not exist"
-            break
-
-    return WAITING_TIME
+                print(case, "does not exist")
+                break
 
 
 if __name__ == '__main__':
 
-    save_response('O', '15')
+    Session().anonymize()
+    Spider('O', '15').save_response()

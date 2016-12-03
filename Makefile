@@ -1,7 +1,7 @@
 # Makefile to ease trivial tasks for the project
 
 VENV="$(shell find . -name ".*env")"
-IN_VENV="$(shell python venv.py)"
+IN_VENV="$(shell python env.py)"
 REQ=requirements.txt
 
 .PHONY: install
