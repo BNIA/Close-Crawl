@@ -225,16 +225,24 @@ class CleanedData(object):
             if self.__mergeable(bool_row.values):
                 new_row = self.__combine_rows(new_row.values.tolist())
 
+                new_df.append(
+                    {
+                        feature: value
+                        for feature, value in zip(self.columns, new_row)
+                    }
+                )
+
             # else, treat them individually
             else:
-                new_row = new_row.values.tolist()[0]
+                new_row = new_row.values.tolist()
 
-            new_df.append(
-                {
-                    feature: value
-                    for feature, value in zip(self.columns, new_row)
-                }
-            )
+                for row in new_row:
+                    new_df.append(
+                        {
+                            feature: value
+                            for feature, value in zip(self.columns, row)
+                        }
+                    )
 
         # merge the DataFrames back
         self.clean_df = concat(

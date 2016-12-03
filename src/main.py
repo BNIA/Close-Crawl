@@ -126,7 +126,7 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
 
 if __name__ == '__main__':
 
-    from sys import argv
+    from sys import argv, exit
 
     if len(argv) > 3 and len(argv) < 9:
         case_type = argv[1]
@@ -137,21 +137,24 @@ if __name__ == '__main__':
         anonymize = 1
         debug = 1
 
-        if len(argv) > 4:
-            lower_bound = int(argv[4])
+        try:
+            if len(argv) > 4:
+                lower_bound = int(argv[4])
 
-            if len(argv) > 5:
-                upper_bound = int(argv[5])
+                if len(argv) > 5:
+                    upper_bound = int(argv[5])
 
-                if len(argv) > 6:
-                    anonymize = bool(argv[6])
+                    if len(argv) > 6:
+                        anonymize = bool(argv[6])
 
-                    if len(argv) == 8:
-                        upper_bound = bool(argv[7])
+                        if len(argv) == 8:
+                            upper_bound = bool(argv[7])
 
-        main(case_type, case_year, output, lower_bound, upper_bound,
-             anonymize, debug)
+            main(case_type, case_year, output, lower_bound, upper_bound,
+                 anonymize, debug)
+
+        except ValueError:
+            exit("Please provide valid command line input.")
 
     else:
-        print("Invalid usage of script.\n")
-        print(main.__doc__)
+        exit("Invalid usage of script.\n" + main.__doc__)
