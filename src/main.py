@@ -6,11 +6,13 @@
 The main executible script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file.
 
+Usage:
     $ python main.py <case_type> <case_year> <path/of/new/dataset>
+      <opt: lower_bound> <opt: upper_bound>
       <opt: anonymize> <opt: debug>
 
-TODO:
-    Finish docs
+Example usage:
+    $ python main.py O 2015 test_set.csv -l=300 -u=600 -a=0 -d=1
 
 """
 
@@ -29,14 +31,6 @@ from spider import Spider
 def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
          anonymize=True, debug=True):
     """Main function for Close Crawl.
-
-    Usage:
-        $ python main.py <case_type> <case_year> <path/of/new/dataset>
-          <opt: lower_bound> <opt: upper_bound>
-          <opt: anonymize> <opt: debug>
-
-    Example usage:
-        $ python main.py O 2015 test_set.csv 300 600 0 1
 
     Args:
         case_type (`str`): type of foreclosure case, options are 'O' and 'C'
@@ -126,35 +120,27 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
 
 if __name__ == '__main__':
 
-    from sys import argv, exit
+    import argparse
 
-    if len(argv) > 3 and len(argv) < 9:
-        case_type = argv[1]
-        case_year = argv[2][-2:]
-        output = argv[3]
-        lower_bound = 1
-        upper_bound = 500
-        anonymize = 1
-        debug = 1
+    parser = argparse.ArgumentParser(
+        description="The main executible script for Close Crawl"
+    )
 
-        try:
-            if len(argv) > 4:
-                lower_bound = int(argv[4])
+    # positional arguments
+    parser.add_argument('type', help='type of foreclosure cases')
+    parser.add_argument('year', help='year of foreclosure cases')
+    parser.add_argument('output', help='path of output file')
 
-                if len(argv) > 5:
-                    upper_bound = int(argv[5])
+    # optional arguments
+    parser.add_argument('-l', '--lower', type=int, default=1,
+                        help='lower bound of range of cases')
+    parser.add_argument('-u', '--upper', type=int, default=500,
+                        help='upper bound of range of cases')
+    parser.add_argument('-a', '--anon', type=int, default=1,
+                        help='spoof IP address during crawling')
+    parser.add_argument('-d', '--debug', type=int, default=1, help='debug mode')
 
-                    if len(argv) > 6:
-                        anonymize = bool(argv[6])
+    args = parser.parse_args()
 
-                        if len(argv) == 8:
-                            upper_bound = bool(argv[7])
-
-            main(case_type, case_year, output, lower_bound, upper_bound,
-                 anonymize, debug)
-
-        except ValueError:
-            exit("Please provide valid command line input.")
-
-    else:
-        exit("Invalid usage of script.\n" + main.__doc__)
+    main(args.type, args.year, args.output, args.lower, args.upper,
+         bool(args.anon), bool(args.debug))
