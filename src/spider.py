@@ -107,6 +107,9 @@ class Spider(object):
                 print(case, "does not exist")
                 break
 
+        # close browser and end session
+        self.browser.close()
+
 
 if __name__ == '__main__':
 

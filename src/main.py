@@ -37,8 +37,10 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
         case_year (`str`): year of foreclosure cases
         output (`str`): path of the output CSV file, along with the valid
             extension (.csv)
+        lower_bound (`int`, optional): lower bound of range of cases
+        upper_bound (`int`, optional): upper bound of range of cases
         anonymize (`bool`, optional): option to spoof IP address for
-            scraping. Default -> True.
+            scraping. Default -> True
             WARNING: THIS OPTION IS HIGHLY DEPENDANT ON TYPE OF MACHINE AND
             SEVERAL SYSTEM DEPENDANCIES AND REQUIREMENTS, POSSIBLY REQUIRES
             THIRD PARTY SECURED BROWSERS SUCH AS TOR. THIS OPTION HAS ONLY BEEN
