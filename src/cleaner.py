@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""CleanedData
+"""Cleaner
 
 This module implements post-scraping cleaning processes on the raw initial
 dataset. Processes include stripping excess strings off Address values,
@@ -11,7 +11,7 @@ rows containing blank values in alternating features.
 The script works as an internal module for Close Crawl, but can be executed
 as a standalone to manually process datasets:
 
-    $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
+    $ python cleaner.py <path/to/old/dataset> <path/of/new/dataset>
 
 """
 
@@ -22,13 +22,13 @@ from pandas import DataFrame, concat, read_csv, to_datetime
 from patterns import NULL_ADDR, STRIP_ADDR, filter_addr, punctuation
 
 
-class CleanedData(object):
+class Cleaner(object):
     """Class object for cleaning the raw dataset extracted after the initial
     scraping
     """
 
     def __init__(self, path):
-        """Constructor for CleanedData
+        """Constructor for Cleaner
 
         Args:
             path (`str`): path to input CSV dataset
@@ -283,6 +283,6 @@ if __name__ == '__main__':
 
     from sys import argv
 
-    df_obj = CleanedData(argv[1])
+    df_obj = Cleaner(argv[1])
     df_obj.init_clean()
     df_obj.download(argv[2])

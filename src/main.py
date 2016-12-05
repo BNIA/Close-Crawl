@@ -22,7 +22,7 @@ from os import path, remove, walk
 from shutil import rmtree
 from time import time
 
-from cleaned_data import CleanedData
+from cleaner import Cleaner
 from miner import export
 from settings import CASE_PAT, CHECKPOINT, HTML_DIR
 from spider import Spider
@@ -93,7 +93,7 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
     export(file_array, temp_output)
     end_mine = time()
 
-    df_obj = CleanedData(temp_output)
+    df_obj = Cleaner(temp_output)
 
     df_obj.init_clean()
     df_obj.download(output)
