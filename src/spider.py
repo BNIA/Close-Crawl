@@ -55,7 +55,7 @@ class Spider(object):
     def save_response(self):
 
         case_range = trange(
-            self.bounds[-1] - self.bounds[0] + 1, desc='Crawling', leave=True
+            len(self.bounds), desc='Crawling', leave=True
         ) if not self.gui else self.bounds
 
         for case_num in case_range:
