@@ -30,11 +30,12 @@ case_range = trange(
 )
 
 
-# for case_num in case_range:
-
-#     case = '{:04d}'.format(int(str(bounds[case_num])[-4:]))
-#     sleep(1)
-#     case_range.set_description("Crawling {}".format(case))
-
 with open('test.json', 'w') as cases:
     dump(sorted(list(discreps)), cases)
+
+df = read_csv("../data/2015/2015_test.csv")
+
+mask = df['Case Number'].isin(list(discreps))
+df = df[~mask]
+
+df.to_csv("2015_test.csv", index=False)

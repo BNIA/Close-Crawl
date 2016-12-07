@@ -94,14 +94,14 @@ df.head()
     <tr>
       <th>4</th>
       <td>2015-01-05</td>
-      <td>24O15000004</td>
+      <td>24O15000003</td>
       <td>Mortgage</td>
-      <td>Laura H.G O'sullivan vs Doreen Jenkins</td>
-      <td>Laura H.G O'sullivan</td>
-      <td>Doreen Jenkins</td>
-      <td>3300 Cliftmont Ave</td>
-      <td>21213.0</td>
-      <td>$52,994.57</td>
+      <td>C.Larry Hofmeister Jr vs FTIC LLC, et al</td>
+      <td>C.Larry Hofmeister Jr</td>
+      <td>FTIC LLC, et al</td>
+      <td>3608 Beehler Ave</td>
+      <td>21215.0</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -117,14 +117,14 @@ print df.count()
 
     Count of features:
     
-    Filing Date     3405
-    Case Number     3405
-    Case Type       3405
-    Title           3405
-    Plaintiff       3394
-    Defendant       3394
-    Address         3405
-    Zip Code        3351
+    Filing Date     3539
+    Case Number     3539
+    Case Type       3539
+    Title           3539
+    Plaintiff       3528
+    Defendant       3528
+    Address         3539
+    Zip Code        3470
     Partial Cost    3308
     dtype: int64
 
@@ -137,15 +137,15 @@ print df.isnull().sum()
 
     NULL count:
     
-    Filing Date      0
-    Case Number      0
-    Case Type        0
-    Title            0
-    Plaintiff       11
-    Defendant       11
-    Address          0
-    Zip Code        54
-    Partial Cost    97
+    Filing Date       0
+    Case Number       0
+    Case Type         0
+    Title             0
+    Plaintiff        11
+    Defendant        11
+    Address           0
+    Zip Code         69
+    Partial Cost    231
     dtype: int64
 
 
@@ -164,14 +164,14 @@ print new_df["Case Count"].describe()
 
     Distribution of cases:
     
-    count    52.000000
-    mean     65.480769
-    std      14.055200
-    min      35.000000
-    25%      55.000000
-    50%      64.000000
-    75%      76.250000
-    max      97.000000
+    count     52.000000
+    mean      68.057692
+    std       15.762220
+    min       35.000000
+    25%       57.000000
+    50%       67.000000
+    75%       80.500000
+    max      104.000000
     Name: Case Count, dtype: float64
 
 
@@ -184,7 +184,7 @@ p.set_xticklabels(rotation=90, horizontalalignment='right')
 
 
 
-    <seaborn.axisgrid.FacetGrid at 0x7f65a0196590>
+    <seaborn.axisgrid.FacetGrid at 0x7efd6f4f4ed0>
 
 
 

@@ -106,6 +106,7 @@ def distribute(case_num, feature_list):
     for address in business:
 
         str_address = filter_addr(str(address[-1]))
+        print(str_address)
 
         temp_features["Title"] = feature_list["Title"]
         temp_features["Case Type"] = feature_list["Case Type"]
