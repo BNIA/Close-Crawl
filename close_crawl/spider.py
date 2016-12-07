@@ -55,7 +55,7 @@ class Spider(object):
     def save_response(self):
 
         case_range = trange(
-            self.bounds[-1] - self.bounds[0] + 1, desc='Crawling', leave=True
+            len(self.bounds), desc='Crawling', leave=True
         ) if not self.gui else self.bounds
 
         for case_num in case_range:
@@ -63,7 +63,7 @@ class Spider(object):
             case = CASE_PAT.format(
                 type=self.case_type,
                 year=self.year,
-                num=('000' + str(self.bounds[case_num]))[-4:]
+                num='{:04d}'.format(int(str(self.bounds[case_num])[-4:]))
             )
 
             try:
@@ -106,6 +106,9 @@ class Spider(object):
 
                 print(case, "does not exist")
                 break
+
+        # close browser and end session
+        self.browser.close()
 
 
 if __name__ == '__main__':

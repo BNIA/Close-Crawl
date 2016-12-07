@@ -60,6 +60,17 @@ class Session(object):
         # user-Agent
         self.browser.addheaders = [('User-agent', HEADER)]
 
+    def close(self):
+        """Destructor for Session. Closes current browser session
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+        self.browser.close()
+
     def anonymize(self):
         """Anonymizes IP address of the hosting machine
 

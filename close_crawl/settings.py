@@ -16,7 +16,8 @@ HTML_FILE = HTML_DIR + '{case}'
 LOG_DIR = 'logs/{}.txt'
 CASE_ERR = LOG_DIR.format('invalid_case')
 SAVE_PROG = LOG_DIR.format('checkpoint')
-CHECKPOINT = 'checkpoint.json'
+CHECKPOINT = "checkpoint.json"
+NO_CASE = "no_case.json"
 
 FEATURES = [
     'Filing Date',

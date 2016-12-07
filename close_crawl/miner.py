@@ -18,14 +18,16 @@ TODO:
 
 """
 
+from __future__ import absolute_import, print_function, unicode_literals
 from csv import DictWriter
+from json import dump, dumps, load
 from os import path, walk
 
 from bs4 import BeautifulSoup
 from tqdm import trange
 
 from patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
-from settings import HTML_DIR, HTML_FILE
+from settings import HTML_DIR, HTML_FILE, NO_CASE
 from settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
@@ -64,7 +66,7 @@ def scrape(case_num, html_data):
                         for sublist in feature_list for item in sublist]
 
     except Exception as e:
-        print e, feature_list
+        print(e, feature_list)
 
     return distribute(case_num, feature_list)
 
@@ -75,19 +77,19 @@ def distribute(case_num, feature_list):
     # then convert list of tuples to dict for faster lookup
     business = [
         tuple(feature_list[i:i + 2])
-        for i in xrange(0, len(feature_list), 2)
+        for i in range(0, len(feature_list), 2)
         if any(x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS)
     ]
 
     feature_list = dict([
         tuple(feature_list[i:i + 2])
-        for i in xrange(0, len(feature_list), 2)
+        for i in range(0, len(feature_list), 2)
         if feature_list[i:i + 2][0] in FEATURES
     ])
 
     filt = []
 
-    for ii in xrange(len(business)):
+    for ii in range(len(business)):
         try:
             if business[ii][1].upper() == "PROPERTY ADDRESS" and \
                     business[ii + 1][0].upper() == \
@@ -95,7 +97,7 @@ def distribute(case_num, feature_list):
                 filt.append(business[ii + 1])
 
         except IndexError:
-            print "Party Type issue at Case", feature_list["Case Number"]
+            print("Party Type issue at Case", feature_list["Case Number"])
 
     business = filt
     scraped_features = []
@@ -136,8 +138,17 @@ def distribute(case_num, feature_list):
         temp_features = {}
 
     if not scraped_features:
-        with open('no_case.txt', 'a') as empty_case:
-            empty_case.write(str(case_num[:-5]) + '\n')
+
+        if not path.isfile(NO_CASE):
+            with open(NO_CASE, 'w') as no_case_file:
+                dump([], no_case_file)
+
+        with open(NO_CASE, 'r+') as no_case_file:
+            no_case_data = load(no_case_file)
+            no_case_data.append(str(case_num[:-5]))
+            no_case_file.seek(0)
+            no_case_file.write(dumps(sorted(list(set(no_case_data)))))
+            no_case_file.truncate()
 
     return scraped_features
 
@@ -148,7 +159,7 @@ def export(file_array, out_db, gui=False):
     file_exists = path.isfile(out_db)
 
     case_range = trange(len(file_array), desc='Mining', leave=True) \
-        if not gui else xrange(len(file_array))
+        if not gui else range(len(file_array))
 
     for file_name in case_range:
         with open(
