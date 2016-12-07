@@ -24,12 +24,12 @@ from time import time
 
 from cleaner import Cleaner
 from miner import export
-from settings import CASE_PAT, CHECKPOINT, HTML_DIR
+from settings import CHECKPOINT, HTML_DIR
 from spider import Spider
 
 
-def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
-         anonymize=True, debug=True):
+def main(case_type, case_year, output, cases='',
+         lower_bound=0, upper_bound=0, anonymize=True, debug=True):
     """Main function for Close Crawl.
 
     Args:
@@ -55,28 +55,42 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
     start = time()
 
     temp_output = "temp_data.csv"
+    case_list = []
 
     if not path.isfile(CHECKPOINT):
+        print("Initializing project...")
         with open(CHECKPOINT, 'w') as checkpoint:
-            data = {
-                'last_case': CASE_PAT.format(
-                    type=case_type, year=case_year,
-                    num=('000' + str(lower_bound))[-4:]
-                ),
-                'error_case': ''
-            }
-            dump(data, checkpoint)
+            dump(
+                {
+                    'last_case': '{:04d}'.format(int(str(lower_bound)[-4:])),
+                    'type': case_type,
+                    'year': case_year,
+                    'error_case': '',
+                },
+                checkpoint
+            )
 
-    with open(CHECKPOINT) as checkpoint:
-        prev_bound = load(checkpoint)
-        if prev_bound:
-            lower_bound = int(prev_bound["last_case"][-4:])
+    if not cases:
+
+        with open(CHECKPOINT) as checkpoint:
+            prev_bound = int(load(checkpoint)['last_case'])
+            if not lower_bound:
+                lower_bound = prev_bound
+            upper_bound = upper_bound if upper_bound > lower_bound \
+                else lower_bound + 500
+
+        case_list = range(lower_bound, upper_bound + 1)
+
+    else:
+
+        with open(cases) as manual_cases:
+            case_list = list(load(manual_cases))
 
     start_crawl = time()
 
     spider = Spider(
         case_type, case_year,
-        bounds=range(lower_bound, upper_bound + 1),
+        bounds=case_list,
         anonymize=anonymize, gui=False
     )
 
@@ -100,7 +114,7 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
 
     with open(CHECKPOINT, 'r+') as checkpoint:
         checkpoint_data = load(checkpoint)
-        checkpoint_data["last_case"] = sorted(file_array)[-1][:-5]
+        checkpoint_data["last_case"] = sorted(file_array)[-1].split('.')[0][-4:]
         checkpoint.seek(0)
         checkpoint.write(dumps(checkpoint_data))
         checkpoint.truncate()
@@ -122,27 +136,59 @@ def main(case_type, case_year, output, lower_bound=1, upper_bound=500,
 
 if __name__ == '__main__':
 
+    from _version import __version__
+
     import argparse
 
+    # manually backspace for formatting help menu
+    menu_pad = '\b' * 4
+
     parser = argparse.ArgumentParser(
-        description="The main executible script for Close Crawl"
+        description="The main executible script for Close Crawl",
+        add_help=False
+    )
+
+    # arguments for details on program
+    parser._positionals.title = 'Parameters'
+    parser._optionals.title = 'Optional parameters'
+    parser.add_argument(
+        '-h', '--help', action='help',
+        default=argparse.SUPPRESS,
+        help=menu_pad + '| Show this help message and exit.'
+    )
+    parser.add_argument(
+        '-v', '--version',
+        action='version',
+        version='Close Crawl {}'.format(__version__),
+        help=menu_pad + "| Show program's version number and exit."
     )
 
     # positional arguments
-    parser.add_argument('type', help='type of foreclosure cases')
-    parser.add_argument('year', help='year of foreclosure cases')
-    parser.add_argument('output', help='path of output file')
+    parser.add_argument('type', help=menu_pad + '| Type of foreclosure cases')
+    parser.add_argument('year', help=menu_pad + '| Year of foreclosure cases')
+    parser.add_argument('output', help=menu_pad + '| Path of output file')
 
     # optional arguments
-    parser.add_argument('-l', '--lower', type=int, default=1,
-                        help='lower bound of range of cases')
-    parser.add_argument('-u', '--upper', type=int, default=500,
-                        help='upper bound of range of cases')
-    parser.add_argument('-a', '--anon', type=int, default=1,
-                        help='spoof IP address during crawling')
-    parser.add_argument('-d', '--debug', type=int, default=1, help='debug mode')
+    parser.add_argument(
+        '-l', '--lower', type=int, default=0, metavar='\b',
+        help='| Lower bound of range of cases'
+    )
+    parser.add_argument(
+        '-u', '--upper', type=int, default=0, metavar='\b',
+        help='| Upper bound of range of cases'
+    )
+    parser.add_argument(
+        '-c', '--cases', metavar='\b', help='| Path of JSON array of cases'
+    )
+    parser.add_argument(
+        '-a', '--anon', type=int, default=1, metavar='\b',
+        help='| Spoof IP address during crawling'
+    )
+    parser.add_argument(
+        '-d', '--debug', type=int, default=1, metavar='\b', help='| Debug mode'
+    )
 
     args = parser.parse_args()
 
-    main(args.type, args.year, args.output, args.lower, args.upper,
-         bool(args.anon), bool(args.debug))
+    main(args.type, args.year, args.output, args.cases,
+         args.lower, args.upper, bool(args.anon), bool(args.debug))

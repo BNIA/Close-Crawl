@@ -1,6 +1,8 @@
+from json import dump
+from time import sleep
+
 from pandas import read_csv
 from tqdm import trange
-from time import sleep
 
 df = read_csv('case_nums.csv')
 
@@ -17,10 +19,10 @@ for i, j in zip(city, scraper):
         discreps.add(i)
 
 
-print (discreps)
+# print (discreps)
 
 bounds = range(20)
-# bounds = list(discreps)
+bounds = list(discreps)
 list_range = len(bounds)
 
 case_range = trange(
@@ -28,8 +30,11 @@ case_range = trange(
 )
 
 
-for case_num in case_range:
+# for case_num in case_range:
 
-    case = ('000' + str(bounds[case_num]))[-4:]
-    sleep(1)
-    case_range.set_description("Crawling {}".format(case))
+#     case = '{:04d}'.format(int(str(bounds[case_num])[-4:]))
+#     sleep(1)
+#     case_range.set_description("Crawling {}".format(case))
+
+with open('test.json', 'w') as cases:
+    dump(list(discreps), cases)

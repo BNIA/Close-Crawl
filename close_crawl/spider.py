@@ -63,7 +63,7 @@ class Spider(object):
             case = CASE_PAT.format(
                 type=self.case_type,
                 year=self.year,
-                num=('000' + str(self.bounds[case_num]))[-4:]
+                num='{:04d}'.format(int(str(self.bounds[case_num])[-4:]))
             )
 
             try:
