@@ -125,13 +125,13 @@ def main(case_type, case_year, output, cases='',
 
     end = time()
 
-    print("Crawling runtime: {0:.3f} s".format((end_crawl - start_crawl)))
+    print("Crawling runtime: {0:.2f} s".format((end_crawl - start_crawl)))
     print(
-        "Downloading runtime: {0:.3f} s".format(
+        "Downloading runtime: {0:.2f} s".format(
             ((end_crawl - start_crawl) - wait))
     )
-    print("Mining runtime: {0:.3f} s".format((end_mine - start_mine)))
-    print("Program runtime: {0:.3f} s".format((end - start)))
+    print("Mining runtime: {0:.2f} s".format((end_mine - start_mine)))
+    print("Program runtime: {0:.2f} s".format((end - start)))
 
 
 if __name__ == '__main__':
@@ -154,13 +154,13 @@ if __name__ == '__main__':
     parser.add_argument(
         '-h', '--help', action='help',
         default=argparse.SUPPRESS,
-        help=menu_pad + '| Show this help message and exit.'
+        help=menu_pad + '| Show this help message and exit'
     )
     parser.add_argument(
         '-v', '--version',
         action='version',
         version='Close Crawl {}'.format(__version__),
-        help=menu_pad + "| Show program's version number and exit."
+        help=menu_pad + "| Show program's version number and exit"
     )
 
     # positional arguments
@@ -188,7 +188,7 @@ if __name__ == '__main__':
         '-d', '--debug', type=int, default=1, metavar='\b', help='| Debug mode'
     )
 
+    # parse arguments to pass into function
     args = parser.parse_args()
-
     main(args.type, args.year, args.output, args.cases,
          args.lower, args.upper, bool(args.anon), bool(args.debug))

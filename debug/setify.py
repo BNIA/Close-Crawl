@@ -37,4 +37,4 @@ case_range = trange(
 #     case_range.set_description("Crawling {}".format(case))
 
 with open('test.json', 'w') as cases:
-    dump(list(discreps), cases)
+    dump(sorted(list(discreps)), cases)
