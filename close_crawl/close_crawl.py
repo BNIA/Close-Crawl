@@ -13,14 +13,14 @@ from PIL import ImageTk, Image
 try:
     # Python 2
     from Tkinter import Frame, Tk
-    from ttk import Button, Label
+    from ttk import Button, Entry, Label
 except:
     # Python 3
     import tkinter as tk
-    from tkinter.ttk import Button, Label
+    from tkinter.ttk import Button, Entry, Label
 
 from modules._version import __version__
-
+from modules.close_crawl_cli import main
 
 LARGE_FONT = ("Verdana", 12)
 BASE_PATH = path.dirname(path.abspath(__file__))
@@ -45,7 +45,7 @@ class CloseCrawl(Tk):
 
         self.frames = {}
 
-        for window_frame in (WelcomePage, MainMenu):
+        for window_frame in (WelcomePage, MainMenu, ScrapeMenu):
 
             frame = window_frame(container, self)
             self.frames[window_frame] = frame
@@ -71,7 +71,7 @@ class WelcomePage(Frame):
         welcome_image = welcome_image.resize((250, 250), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(welcome_image)
         image_label = Label(self, image=photo)
-        image_label.welcome_image = photo  # keep a reference!
+        image_label.welcome_image = photo  # keep a reference
         image_label.pack(pady=10, padx=10)
 
         welcome_button = Button(
@@ -96,6 +96,50 @@ class MainMenu(Frame):
         Frame.__init__(self, parent)
         label = Label(self, text="Main Menu", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
+
+        run_button = Button(
+            self, text="Scrape Cases",
+            command=lambda: controller.show_frame(ScrapeMenu)
+        )
+
+        run_button.pack(pady=10, padx=10)
+
+        view_button = Button(
+            self, text="View Data",
+            command=lambda: print("Not yet")
+        )
+
+        view_button.pack(pady=10, padx=10)
+
+        exit_button = Button(
+            self, text="Exit",
+            command=lambda: controller.quit()
+        )
+
+        exit_button.pack(pady=10, padx=10)
+
+
+class ScrapeMenu(Frame):
+
+    def __init__(self, parent, controller):
+
+        Frame.__init__(self, parent)
+
+        label = Label(self, text="Scrape New Cases", font=LARGE_FONT)
+        label.pack(pady=10, padx=10)
+
+        type_entry = Entry(self)
+        type_entry.pack(side="right")
+
+        type_label = Label(self, text="Case Type", font=LARGE_FONT)
+        type_label.pack(side="left")
+
+        exit_button = Button(
+            self, text="Exit",
+            command=lambda: controller.quit()
+        )
+
+        exit_button.pack(pady=10, padx=10)
 
 
 if __name__ == '__main__':

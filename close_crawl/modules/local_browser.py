@@ -24,7 +24,7 @@ import socket
 from mechanize import Browser, _http
 import socks
 
-from settings import HEADER, URL
+from .settings import HEADER, URL
 
 
 class Session(object):

@@ -17,9 +17,9 @@ from os import path, walk
 from bs4 import BeautifulSoup
 from tqdm import trange
 
-from patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
-from settings import HTML_DIR, HTML_FILE, NO_CASE
-from settings import FEATURES, FIELDS, INTERNAL_FIELDS
+from .patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
+from .settings import HTML_DIR, HTML_FILE, NO_CASE
+from .settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 

@@ -22,8 +22,8 @@ from time import sleep
 
 from tqdm import trange
 
-from local_browser import Session
-from settings import CASE_PAT, CHECKPOINT, HTML_DIR, HTML_FILE
+from .local_browser import Session
+from .settings import CASE_PAT, CHECKPOINT, HTML_DIR, HTML_FILE
 
 
 class Spider(object):

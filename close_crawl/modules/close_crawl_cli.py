@@ -22,10 +22,10 @@ from os import path, remove, walk
 from shutil import rmtree
 from time import time
 
-from cleaner import Cleaner
-from miner import export
-from settings import CHECKPOINT, HTML_DIR
-from spider import Spider
+from .cleaner import Cleaner
+from .miner import export
+from .settings import CHECKPOINT, HTML_DIR
+from .spider import Spider
 
 
 def main(case_type, case_year, output, cases='',
