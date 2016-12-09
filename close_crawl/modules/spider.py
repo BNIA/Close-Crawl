@@ -7,10 +7,6 @@ This module crawls through the pages to download individual responses to be
 scraped as a separate process. The modularization of scraping from crawling
 ensures minimal loss of responses and minimizes time spent on the court servers
 
-The script works as an internal module for Close Crawl, but can be executed
-as a standalone to manually process datasets:
-
-    $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
 
 TODO:
     Finish docs
@@ -87,7 +83,10 @@ class Spider(object):
             except KeyboardInterrupt:
                 with open(CHECKPOINT, 'r+') as checkpoint:
                     checkpoint_data = load(checkpoint)
-                    checkpoint_data["last_case"] = case
+                    checkpoint_data["last_case"] = \
+                        '{:04d}'.format(int(str(self.bounds[case_num])[-4:]))
+                    checkpoint_data["year"] = self.year
+                    checkpoint_data["type"] = self.type
                     checkpoint.seek(0)
                     checkpoint.write(dumps(checkpoint_data))
                     checkpoint.truncate()

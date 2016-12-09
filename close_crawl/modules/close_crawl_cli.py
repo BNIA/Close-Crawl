@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""main
+"""close_crawl_cli
 
 The main executible script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file.
