@@ -13,17 +13,18 @@ as a module for testing purposes.
 
 TODO:
     Finish docs
+    Replace deprecated Mechanize with MechanicalSoup
 
 """
 
 from __future__ import absolute_import, print_function, unicode_literals
-import cookielib
+import cookielib  # import http.cookiejar for Python3
 import socket
 
 from mechanize import Browser, _http
 import socks
 
-from settings import HEADER, URL
+from .settings import HEADER, URL
 
 
 class Session(object):

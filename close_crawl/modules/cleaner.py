@@ -19,7 +19,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 from pandas import DataFrame, concat, read_csv, to_datetime
 
-from patterns import NULL_ADDR, STRIP_ADDR, filter_addr, punctuation
+from .patterns import NULL_ADDR, STRIP_ADDR, filter_addr, punctuation
 
 
 class Cleaner(object):

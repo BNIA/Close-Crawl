@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""main
+"""close_crawl_cli
 
 The main executible script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file.
@@ -22,10 +22,10 @@ from os import path, remove, walk
 from shutil import rmtree
 from time import time
 
-from cleaner import Cleaner
-from miner import export
-from settings import CHECKPOINT, HTML_DIR
-from spider import Spider
+from .cleaner import Cleaner
+from .miner import export
+from .settings import CHECKPOINT, HTML_DIR
+from .spider import Spider
 
 
 def main(case_type, case_year, output, cases='',

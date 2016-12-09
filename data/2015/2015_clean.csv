@@ -3,6 +3,11 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-01-05,24O15000001,Mortgage,Edward S Cohn vs Estate Of Sharon Stenhouse,Edward S Cohn,Estate Of Sharon Stenhouse,3456 Dolfield Ave,21215.0,"$57,793.24"
 2015-01-05,24O15000002,Mortgage,James E Clarke vs Christopher Frankos,James E Clarke,Christopher Frankos,3015 Grindon Ave,21214.0,"$279,975.59"
 2015-01-05,24O15000003,Mortgage,"C.Larry Hofmeister Jr vs FTIC LLC, et al",C.Larry Hofmeister Jr,"FTIC LLC, et al",2819 Pelham Ave,21213.0,
+2015-01-05,24O15000003,Mortgage,"C.Larry Hofmeister Jr vs FTIC LLC, et al",C.Larry Hofmeister Jr,"FTIC LLC, et al",3608 Beehler Ave,21215.0,
+2015-01-05,24O15000003,Mortgage,"C.Larry Hofmeister Jr vs FTIC LLC, et al",C.Larry Hofmeister Jr,"FTIC LLC, et al",3631 W Belvedere Ave,21215.0,
+2015-01-05,24O15000003,Mortgage,"C.Larry Hofmeister Jr vs FTIC LLC, et al",C.Larry Hofmeister Jr,"FTIC LLC, et al",3907 Towamda Ave,21215.0,
+2015-01-05,24O15000003,Mortgage,"C.Larry Hofmeister Jr vs FTIC LLC, et al",C.Larry Hofmeister Jr,"FTIC LLC, et al",518 N Belnord Ave,21205.0,
+2015-01-05,24O15000003,Mortgage,"C.Larry Hofmeister Jr vs FTIC LLC, et al",C.Larry Hofmeister Jr,"FTIC LLC, et al",5338 Reisterstown Rd,21215.0,
 2015-01-05,24O15000004,Mortgage,Laura H.G O'sullivan vs Doreen Jenkins,Laura H.G O'sullivan,Doreen Jenkins,3300 Cliftmont Ave,21213.0,"$52,994.57"
 2015-01-05,24O15000005,Mortgage,John E Driscoll III vs Tonya Diane Franklin,John E Driscoll III,Tonya Diane Franklin,1650 Northwick Rd,21218.0,"$149,530.14"
 2015-01-05,24O15000006,Mortgage,"John E Driscoll III vs Perry J Hairsine Jr, et al",John E Driscoll III,"Perry J Hairsine Jr, et al",503 S Bentalou St,21223.0,"$55,574.82"
@@ -347,6 +352,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-01-30,24O15000345,Mortgage,James E Clarke vs Allen Wise Jr,James E Clarke,Allen Wise Jr,4011 Fairview Ave,21216.0,"$148,340.16"
 2015-01-30,24O15000346,Mortgage,Edward S Cohn vs Shanna Hamilton,Edward S Cohn,Shanna Hamilton,3249 Shannon Dr,21213.0,"$223,009.47"
 2015-01-30,24O15000347,Mortgage,"William C Rogers Jr vs JK North Properties LLC, et al",William C Rogers Jr,"JK North Properties LLC, et al",241 N Milton Ave,,
+2015-01-30,24O15000347,Mortgage,"William C Rogers Jr vs JK North Properties LLC, et al",William C Rogers Jr,"JK North Properties LLC, et al",612 N Montford Ave,,
 2015-01-30,24O15000348,Mortgage,William C Rogers Jr vs Mary K Lohmuller,William C Rogers Jr,Mary K Lohmuller,4108 Granite Ave,21206.0,"$22,606.49"
 2015-01-30,24O15000349,Mortgage,"Kristine D Brown vs Joseph Lawson, et al",Kristine D Brown,"Joseph Lawson, et al",514 N East Ave,21205.0,"$68,723.63"
 2015-01-30,24O15000350,Mortgage,Kristine D Brown vs Regina Armenta,Kristine D Brown,Regina Armenta,2712 N Calvert St,21218.0,"$338,927.51"
@@ -439,10 +445,13 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-02-09,24O15000437,Mortgage,Kristine D Brown vs Barbara Scott Glenn,Kristine D Brown,Barbara Scott Glenn,1233 N Augusta Ave,21229.0,"$127,992.91"
 2015-02-09,24O15000438,Mortgage,Kristine D Brown vs Estate Of Constantino A Procopio,Kristine D Brown,Estate Of Constantino A Procopio,2500 Brohawn Ave,21230.0,"$61,596.87"
 2015-02-09,24O15000439,Mortgage,Michael D Nord vs North Avenue Equities LLC,Michael D Nord,North Avenue Equities LLC,315 Mcallister St,21217.0,
+2015-02-09,24O15000439,Mortgage,Michael D Nord vs North Avenue Equities LLC,Michael D Nord,North Avenue Equities LLC,317 E North Ave,21202.0,
 2015-02-10,24O15000440,Mortgage,James E Clarke vs Bettie F Kirkland,James E Clarke,Bettie F Kirkland,2106 Whittier Ave,21217.0,"$107,268.27"
 2015-02-10,24O15000441,Mortgage,Keith M Yacko vs Kenneth E Rice Jr,Keith M Yacko,Kenneth E Rice Jr,1441 Gittings Ave,21239.0,"$135,899.02"
 2015-02-10,24O15000442,Mortgage,C.Larry Hofmeister Jr vs Brad Lamont,C.Larry Hofmeister Jr,Brad Lamont,706 W Monument St,,"$87,523.00"
+2015-02-10,24O15000442,Mortgage,C.Larry Hofmeister Jr vs Brad Lamont,C.Larry Hofmeister Jr,Brad Lamont,708 W Monument Street,,
 2015-02-10,24O15000443,Mortgage,"Steven M Buckman vs BRC Lease Company LLC, et al",Steven M Buckman,"BRC Lease Company LLC, et al",100 Bioscience Drive,21224.0,
+2015-02-10,24O15000443,Mortgage,"Steven M Buckman vs BRC Lease Company LLC, et al",Steven M Buckman,"BRC Lease Company LLC, et al",101 Bayview Boulevard,21224.0,
 2015-02-10,24O15000444,Mortgage,John E Driscoll III vs Clifford N Botchway,John E Driscoll III,Clifford N Botchway,2228 Poplar Grove St,21216.0,"$99,891.91"
 2015-02-10,24O15000445,Mortgage,John E Driscoll III vs Frank W Curran III,John E Driscoll III,Frank W Curran III,6530 Riverview Ave,21222.0,"$96,489.62"
 2015-02-10,24O15000446,Mortgage,"Kristine D Brown Vs Kaija Canino, Et Al",Kristine D Brown,"Kaija Canino, Et Al",3702 Eastwood Dr,21206.0,"$178,006.04"
@@ -489,7 +498,13 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-02-13,24O15000487,Mortgage,Edward S Cohn vs Katherine Ihourane,Edward S Cohn,Katherine Ihourane,1646 Northwick Rd,21218.0,"$137,510.33"
 2015-02-13,24O15000488,Mortgage,"Carrie M Ward vs Herbert Randolph Jr, et al",Carrie M Ward,"Herbert Randolph Jr, et al",6105 Everall Ave,21206.0,"$262,582.63"
 2015-02-13,24O15000489,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",1022 E 20th St,21218.0,
+2015-02-13,24O15000489,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",1717 E 30th St,21218.0,
+2015-02-13,24O15000489,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",2030 N Bentalou St,21216.0,
+2015-02-13,24O15000489,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",2636 Miles Ave,21211.0,
+2015-02-13,24O15000489,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",2829 Presbury St,21216.0,
 2015-02-13,24O15000490,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",1206 Glydon Ave,21223.0,
+2015-02-13,24O15000490,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",2631 Loyola South Way,21215.0,
+2015-02-13,24O15000490,Mortgage,"C.Larry Hofmeister Jr vs Nelson-Berry Investment Group Inc, et al",C.Larry Hofmeister Jr,"Nelson-Berry Investment Group Inc, et al",813 E 33rd St,21218.0,
 2015-02-13,24O15000491,Mortgage,"Mark S Devan vs Robertt Garland, et al",Mark S Devan,"Robertt Garland, et al",2138 E Oliver St,21213.0,"$75,734.06"
 2015-02-13,24O15000492,Mortgage,Mark S Devan vs John A Geppi,Mark S Devan,John A Geppi,6403 Fernbank Ave,21214.0,"$162,235.03"
 2015-02-13,24O15000493,Mortgage,Laura H.G O'sullivan vs Samuel S Forrest Jr,Laura H.G O'sullivan,Samuel S Forrest Jr,2314 Mt Royal Terrace,21217.0,"$388,809.96"
@@ -579,7 +594,9 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-02-24,24O15000577,Mortgage,"Diane S Rosenberg vs Phillip S Jones, et al",Diane S Rosenberg,"Phillip S Jones, et al",2614 Evergreen Ave,21214.0,"$45,316.76"
 2015-02-24,24O15000578,Mortgage,"Diane S Rosenberg Vs Estate Of Yvonne Davis, Et Al",Diane S Rosenberg,"Estate Of Yvonne Davis, Et Al",6509 Laureltona Ve,21214.0,"$178,232.56"
 2015-02-24,24O15000579,Mortgage,"Sally Presle McCash vs 203 High St LLC, et al",Sally Presle McCash,"203 High St LLC, et al",1125 S Carey St,,
+2015-02-24,24O15000579,Mortgage,"Sally Presle McCash vs 203 High St LLC, et al",Sally Presle McCash,"203 High St LLC, et al",1800 N Washington St ,,
 2015-02-24,24O15000580,Mortgage,"Sally Presler McCash vs JBL Construction LLC, et al",Sally Presler McCash,"JBL Construction LLC, et al",442 N Highland Ave,21224.0,
+2015-02-24,24O15000580,Mortgage,"Sally Presler McCash vs JBL Construction LLC, et al",Sally Presler McCash,"JBL Construction LLC, et al",502 N Highland Ave,21208.0,
 2015-02-24,24O15000581,Mortgage,Carrie M Ward vs Lisa N Lloyd,Carrie M Ward,Lisa N Lloyd,6025 Falkirk Rd,21239.0,"$305,791.02"
 2015-02-24,24O15000582,Mortgage,Carrie M Ward vs Christine P Jackson,Carrie M Ward,Christine P Jackson,4231 Loch Raven Blvd,21218.0,"$122,168.30"
 2015-02-24,24O15000583,Mortgage,"Carrie M Ward vs Marcelino Albuerne, et al",Carrie M Ward,"Marcelino Albuerne, et al",2844 W Garrison Blvd,21215.0,"$94,741.69"
@@ -715,6 +732,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-03-10,24O15000713,Mortgage,Diane S Rosenberg vs Estate Of Deborah A Yawn,Diane S Rosenberg,Estate Of Deborah A Yawn,3107 Glen Ave,21215.0,"$219,185.98"
 2015-03-10,24O15000714,Mortgage,Diane S Rosenberg vs Kimberly Ravenell,Diane S Rosenberg,Kimberly Ravenell,1922 N Bentalou St,21216.0,"$48,470.56"
 2015-03-11,24O15000716,Mortgage,"Gordon B Heyman vs GGEL Enterpises Inc, et al",Gordon B Heyman,"GGEL Enterpises Inc, et al",1709 N Rose Dale St,21216.0,
+2015-03-11,24O15000716,Mortgage,"Gordon B Heyman vs GGEL Enterpises Inc, et al",Gordon B Heyman,"GGEL Enterpises Inc, et al",5109 Cordelia Ave,21215.0,
 2015-03-11,24O15000717,Mortgage,Carrie M Ward vs Dawn Kirstaetter,Carrie M Ward,Dawn Kirstaetter,1000 Fell St,21231.0,"$256,627.70"
 2015-03-11,24O15000718,Mortgage,"Carrie M Ward vs Thomas M Sulin, et al",Carrie M Ward,"Thomas M Sulin, et al",4011 Falls Rd,21211.0,"$683,900.77"
 2015-03-11,24O15000719,Mortgage,Mark H Wittstadt vs Richard W Farley,Mark H Wittstadt,Richard W Farley,1440 Meridene Dr,21239.0,"$229,769.33"
@@ -956,6 +974,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-04-01,24O15000953,Mortgage,"Diane Rosenberg Vs Bobby Miller, Et Al(STAYED)",Diane Rosenberg,"Bobby Miller, Et Al(STAYED)",3825 Bel Air Rd,21213.0,"$119,817.36"
 2015-04-02,24O15000954,Mortgage,Laura H.G O'sullivan vs Victoria Johnson,Laura H.G O'sullivan,Victoria Johnson,4203 Belvieu Ave,21215.0,"$119,477.67"
 2015-04-02,24O15000955,Mortgage,Shaan S Chima vs First Greater Harvest Of Church Of God Apostolic Inc,Shaan S Chima,First Greater Harvest Of Church Of God Apostolic Inc,1506 N Fulton Ave,21217.0,
+2015-04-02,24O15000955,Mortgage,Shaan S Chima vs First Greater Harvest Of Church Of God Apostolic Inc,Shaan S Chima,First Greater Harvest Of Church Of God Apostolic Inc,21 Unimproved Lotsintersection Of Riverside Rd  Levin Rd,21225.0,
 2015-04-02,24O15000956,Mortgage,James E Clarke vs Mactrudy Shaw,James E Clarke,Mactrudy Shaw,5016 Pimlico Rd,21215.0,"$65,536.66"
 2015-04-02,24O15000957,Mortgage,James E Clarke vs Michael W Eurich,James E Clarke,Michael W Eurich,2801 Inglewood Ave,21234.0,"$222,659.29"
 2015-04-02,24O15000958,Mortgage,Carrie M Ward vs Thomas P Jackson,Carrie M Ward,Thomas P Jackson,2437 McCulloh St,21217.0,"$117,912.77"
@@ -1260,8 +1279,18 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-05-06,24O15001257,Mortgage,"Jeffrey B Fisher vs Estate Of Robert Gross, et al",Jeffrey B Fisher,"Estate Of Robert Gross, et al",2019 Ramblewood Rd,21239.0,"$220,474.38"
 2015-05-06,24O15001258,Mortgage,"Mark H Wittstadt vs Annie Gordon, et al",Mark H Wittstadt,"Annie Gordon, et al",3635 Elkader Rd,21218.0,"$296,596.83"
 2015-05-06,24O15001259,Mortgage,"C.Larry Hofmeister Jr vs Double Eagle Properties LLC, et al",C.Larry Hofmeister Jr,"Double Eagle Properties LLC, et al",1213 Walker Ave,21239.0,
+2015-05-06,24O15001259,Mortgage,"C.Larry Hofmeister Jr vs Double Eagle Properties LLC, et al",C.Larry Hofmeister Jr,"Double Eagle Properties LLC, et al",1800 E 31st St,21218.0,
+2015-05-06,24O15001259,Mortgage,"C.Larry Hofmeister Jr vs Double Eagle Properties LLC, et al",C.Larry Hofmeister Jr,"Double Eagle Properties LLC, et al",2201 Ruskin Ave,21217.0,
+2015-05-06,24O15001259,Mortgage,"C.Larry Hofmeister Jr vs Double Eagle Properties LLC, et al",C.Larry Hofmeister Jr,"Double Eagle Properties LLC, et al",606 N Glover St,21205.0,
+2015-05-06,24O15001259,Mortgage,"C.Larry Hofmeister Jr vs Double Eagle Properties LLC, et al",C.Larry Hofmeister Jr,"Double Eagle Properties LLC, et al",612 N Glover St,21205.0,
 2015-05-06,24O15001260,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,2515 Dulany St,21223.0,
+2015-05-06,24O15001260,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,524 Wyanoke Ave,21218.0,
+2015-05-06,24O15001260,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,619 E 41st St,21218.0,
+2015-05-06,24O15001260,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,629 Archer St,21230.0,
 2015-05-06,24O15001261,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,2000 McHenry St,21223.0,
+2015-05-06,24O15001261,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,2119 Homewood Ave,21218.0,
+2015-05-06,24O15001261,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,2539 Pennsylvania Ave,21217.0,
+2015-05-06,24O15001261,Mortgage,C.Larry Hofmeister Jr vs Double Eagle Properties LLC,C.Larry Hofmeister Jr,Double Eagle Properties LLC,7 N Kenwood Ave,21224.0,
 2015-05-06,24O15001262,Mortgage,"Carrie M Ward vs Veron J White, et al",Carrie M Ward,"Veron J White, et al",1919 N Forest Park Ave,21207.0,"$126,587.01"
 2015-05-06,24O15001263,Mortgage,"Carrie M Wardn vs Jeaninne Johnson, et al",Carrie M Wardn,"Jeaninne Johnson, et al",1613 E 31st St,21218.0,"$63,272.48"
 2015-05-06,24O15001264,Mortgage,"Carrie M Ward vs James Howard Fields, et al",Carrie M Ward,"James Howard Fields, et al",2202 Mayfield Ave,21213.0,"$275,150.40"
@@ -1315,6 +1344,8 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-05-13,24O15001312,Mortgage,Carrie M Ward vs Pamela E Skelding,Carrie M Ward,Pamela E Skelding,3105 Wisteria Avenue,21214.0,"$185,508.24"
 2015-05-13,24O15001313,Mortgage,Carrie M Ward vs Everett Dunlap,Carrie M Ward,Everett Dunlap,2700 Ellicott Drive,21216.0,"$70,601.61"
 2015-05-13,24O15001314,Mortgage,Linda V Donhauser Vs 321 West Lexington LLC,Linda V Donhauser,321 West Lexington LLC,121 And 123 North Eutaw Street,,
+2015-05-13,24O15001314,Mortgage,Linda V Donhauser Vs 321 West Lexington LLC,Linda V Donhauser,321 West Lexington LLC,321 And 323 West,,
+2015-05-13,24O15001314,Mortgage,Linda V Donhauser Vs 321 West Lexington LLC,Linda V Donhauser,321 West Lexington LLC,322 Marion Street,,
 2015-05-13,24O15001315,Mortgage,C.Larry Hofmeister Jr vs Sherry S Coleman,C.Larry Hofmeister Jr,Sherry S Coleman,4411 Kavon Avenue,21206.0,"$60,261.82"
 2015-05-13,24O15001316,Mortgage,Diane S Rosenberg vs Dwayne Williams,Diane S Rosenberg,Dwayne Williams,6100 Marlora Road,21239.0,"$219,711.12"
 2015-05-13,24O15001317,Mortgage,Edward S Cohn vs Abiodun Olorunwunmi,Edward S Cohn,Abiodun Olorunwunmi,532 N Potomac Street,21205.0,"$159,867.89"
@@ -1405,7 +1436,57 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-05-26,24O15001402,Mortgage,"John E Driscoll III vs Glenda Simon, et al",John E Driscoll III,"Glenda Simon, et al",5123 Benton Heights Avenue,21206.0,"$112,207.18"
 2015-05-26,24O15001403,Mortgage,John E Driscoll III vs Ernest G Onyebilanma,John E Driscoll III,Ernest G Onyebilanma,2910 Oakcrest Avenue,21234.0,"$339,082.48"
 2015-05-26,24O15001404,Mortgage,"John E Driscoll III vs Tasdiqah A Wilder, et al",John E Driscoll III,"Tasdiqah A Wilder, et al",3502 Rosemont Avenue,21206.0,"$271,026.44"
-2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1020 Bennett Avenue,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1020 Bennett Avenue Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1020 Bennett Avenue Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1101 Harlem Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1101 Harlem Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1101 Harlem Avenue Apt C,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1105 Harlem Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1105 Harlem Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1114 Harlem Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1114 Harlem Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1410 W Baltimore Street,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1410 W Baltimore Street Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1410 W Baltimore Street Apt C,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1412 W Baltimore Street,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1504 W Baltimore Street,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1506 W Baltimore Street Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1506 W Baltimore Street Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1506 W Baltimore Street Apt C,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1508 W Baltimore Street Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1508 W Baltimore Street Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1508 W Baltimore Street Apt C,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1510 W Baltimore Street Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1510 W Baltimore Street Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1510 W Baltimore Street Apt C,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1521 W Baltimore Street Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1521 W Baltimore Street Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1521 W Baltimore Street Apt C,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1529 W Baltimore Street Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1529 W Baltimore Street Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1529 W Baltimore Street Apt C,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",1529 W Baltimore Street Apt D,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",701 Carrollton Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",701 Carrollton Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",701 Carrollton Avenue Apt C,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",903 Bennett Avenue Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",903 Bennett Avnue Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",905 Harlem Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",905 Harlem Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",906 Bennett Avenue Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",906 Bennett Avenue Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",907 Harlem Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",907 Harlem Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",909 Harlem Avenue Apt A,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",909 Harlem Avenue Apt B,21217.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",925 Bennett Avenue Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",925 Bennett Avenue Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",926 Bennett Avenue Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",926 Bennett Avenue Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",935 Bennett Avenue,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",943 Bennett Avenue Apt A,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",943 Bennett Avenue Apt B,21223.0,
+2015-05-26,24O15001405,Mortgage,"M.Arnold Politzer vs HP West Baltimore LLC, et al",M.Arnold Politzer,"HP West Baltimore LLC, et al",944 Bennett Avenue,21223.0,
 2015-05-26,24O15001406,Mortgage,"Mark S Devan vs Francis X Wright, et al",Mark S Devan,"Francis X Wright, et al",318 Kerneway Baltimore,21212.0,"$468,597.55"
 2015-05-27,24O15001407,Mortgage,James E Clarke Vs Deborah A Williams,James E Clarke,Deborah A Williams,4602 Luerssen Avenue,21206.0,"$212,830.05"
 2015-05-27,24O15001408,Mortgage,John E Driscoll III vs Rashid A Muhammad,John E Driscoll III,Rashid A Muhammad,856 Carroll Street,21230.0,"$69,676.51"
@@ -1483,6 +1564,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-06-04,24O15001480,Mortgage,"Keith M Yacko vs Ronald Rozankowski Jr, et al",Keith M Yacko,"Ronald Rozankowski Jr, et al",5113 Linden Heights Avenue,21215.0,"$50,796.88"
 2015-06-04,24O15001481,Mortgage,"Carrie M Ward vs Thomas Mcdermott, et al",Carrie M Ward,"Thomas Mcdermott, et al",3517 Keswick Road,21211.0,"$121,458.34"
 2015-06-04,24O15001482,Mortgage,James E Clarke vs Joanna Rosario,James E Clarke,Joanna Rosario,2717 Chesterfield Ave,21213.0,
+2015-06-04,24O15001482,Mortgage,James E Clarke vs Joanna Rosario,James E Clarke,Joanna Rosario,2922 E Baltimore Street,21224.0,
 2015-06-04,24O15001483,Mortgage,Carrie M Ward vs Lynnae C Roberts,Carrie M Ward,Lynnae C Roberts,747 Linnard Street,21229.0,"$45,150.98"
 2015-06-04,24O15001484,Mortgage,"Carrie M Ward vs John R Fick, et al",Carrie M Ward,"John R Fick, et al",2710 Inglewood Avenue,21234.0,"$165,604.56"
 2015-06-04,24O15001485,Mortgage,Carrie M Ward vs David A Flagg,Carrie M Ward,David A Flagg,2132 Whistler Avenue,21230.0,"$79,299.09"
@@ -1707,6 +1789,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-07-02,24O15001704,Mortgage,"Carrie M Ward Vs Delandra M Navarro, Et Al",Carrie M Ward,"Delandra M Navarro, Et Al",515 Old Orchard Road,21229.0,"$338,483.32"
 2015-07-02,24O15001705,Mortgage,Carrie M Ward vs Demetra D Frazier,Carrie M Ward,Demetra D Frazier,149 South Morley Street,21229.0,"$84,546.45"
 2015-07-02,24O15001706,Mortgage,Kenneth R Rhoad vs Rushford Enterprises LLC,Kenneth R Rhoad,Rushford Enterprises LLC,874 Washington Boulevard,21230.0,
+2015-07-02,24O15001706,Mortgage,Kenneth R Rhoad vs Rushford Enterprises LLC,Kenneth R Rhoad,Rushford Enterprises LLC,876 Washington Boulevard,21230.0,
 2015-07-02,24O15001707,Mortgage,Mark S Devan vs Brenda Dorsey,Mark S Devan,Brenda Dorsey,5504 Wilvan Avenue,21207.0,"$146,335.32"
 2015-07-02,24O15001708,Mortgage,Mark S Devan vs Tirell M White,Mark S Devan,Tirell M White,505 North Lakewood Avenue,21205.0,"$96,348.89"
 2015-07-02,24O15001709,Mortgage,Kristine D Brown vs Nigel Smith,Kristine D Brown,Nigel Smith,2053 Division Street,21217.0,"$245,811.49"
@@ -1772,6 +1855,15 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-07-10,24O15001768,Mortgage,John E Driscoll III vs Timothy Rice Jr,John E Driscoll III,Timothy Rice Jr,612 North Decker Avenue,21205.0,"$120,028.73"
 2015-07-10,24O15001769,Mortgage,"John E Driscoll III vs Mark E Mosley, et al",John E Driscoll III,"Mark E Mosley, et al",2615 Robb Street,21218.0,"$49,129.83"
 2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2710 Fox Street,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2711 Huntington Avenue,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2713 Huntingdon Avenue,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2714 Fox Street,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2715 Huntingdon Avenue,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2716 Fox Street,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2717 Huntington Avneue Baltimore,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2719 Huntingdon Avenue,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2721 Huntingdon Avenue,21211.0,
+2015-07-10,24O15001771,Mortgage,J.Patrick Gill Vs 2710 Fox Street LLC,J.Patrick Gill,2710 Fox Street LLC,2722 Fox Street,21211.0,
 2015-07-13,24O15001772,Mortgage,Jeffrey Nadel Vs Daniel S Hughes,Jeffrey Nadel,Daniel S Hughes,4224 Parkmont Avenue,21206.0,"$247,255.32"
 2015-07-13,24O15001773,Mortgage,"James E Clarke vs James Craig, et al",James E Clarke,"James Craig, et al",1440 Carroll Street,21230.0,"$103,326.53"
 2015-07-13,24O15001774,Mortgage,James E Clarke Vs Troy Cottrell Et Al,James E Clarke,Troy Cottrell Et Al,5726 Onnen Road,21206.0,"$239,385.50"
@@ -1809,6 +1901,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-07-15,24O15001806,Mortgage,"Carrie M Ward vs Willie D Anderson, et al",Carrie M Ward,"Willie D Anderson, et al",3642 Old York Road,21218.0,"$127,711.83"
 2015-07-15,24O15001807,Mortgage,"Carrie M Ward vs Gwendolyn P Lewis, et al",Carrie M Ward,"Gwendolyn P Lewis, et al",5315 Peerless Avenue,21207.0,"$213,857.06"
 2015-07-16,24O15001808,Mortgage,James W Holderness vs Kingodm Investment Enterprises LLC,James W Holderness,Kingodm Investment Enterprises LLC,1530 Argyle Ave,21217.0,
+2015-07-16,24O15001808,Mortgage,James W Holderness vs Kingodm Investment Enterprises LLC,James W Holderness,Kingodm Investment Enterprises LLC,229 N Rose Street,21224.0,
 2015-07-16,24O15001809,Mortgage,Keith M Yacko vs Herman Spivey,Keith M Yacko,Herman Spivey,5900 Bowleys Lane,21206.0,"$357,034.41"
 2015-07-16,24O15001810,Mortgage,Mark S Devan vs William Brown,Mark S Devan,William Brown,1713 Regent Road,21209.0,"$352,738.40"
 2015-07-16,24O15001811,Mortgage,"Carrie M Ward vs Shelley Oliver, et al",Carrie M Ward,"Shelley Oliver, et al",4505 Valley View Avenue,21206.0,"$199,190.54"
@@ -1843,6 +1936,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-07-21,24O15001840,Mortgage,"Kristine D Brown vs Maurice N Jones, et al",Kristine D Brown,"Maurice N Jones, et al",6441 Hartwait St,21224.0,"$105,853.62"
 2015-07-21,24O15001841,Mortgage,"Stephen B Jackson vs Peter A Rosenblatt, et al",Stephen B Jackson,"Peter A Rosenblatt, et al",4810 Norwood Road,21212.0,"$152,994.14"
 2015-07-21,24O15001842,Mortgage,"John E Driscoll III vs Ignatius K Kyeremeh, et al",John E Driscoll III,"Ignatius K Kyeremeh, et al",411 North Bend Road,21229.0,
+2015-07-21,24O15001842,Mortgage,"John E Driscoll III vs Ignatius K Kyeremeh, et al",John E Driscoll III,"Ignatius K Kyeremeh, et al",415 North Bend Road,21229.0,
 2015-07-21,24O15001843,Mortgage,John E Driscoll III vs Candace C Carter,John E Driscoll III,Candace C Carter,819 Kevin Road,21229.0,"$101,609.39"
 2015-07-21,24O15001844,Mortgage,Carrie M Ward vs Lois M Keidel,Carrie M Ward,Lois M Keidel,1706 Wilmington Avenue,21230.0,"$95,400.13"
 2015-07-21,24O15001845,Mortgage,Carrie M Ward vs Ronald Cameau,Carrie M Ward,Ronald Cameau,2400 Brentwood Avenue,21218.0,"$50,698.54"
@@ -1907,6 +2001,8 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-07-28,24O15001904,Mortgage,Martin S Goldberg vs Adlade O Burton,Martin S Goldberg,Adlade O Burton,5008 W Forest Park Avenue,21207.0,"$241,787.54"
 2015-07-28,24O15001905,Mortgage,Jeffrey Nadel vs Estate Of Shannan C McBride,Jeffrey Nadel,Estate Of Shannan C McBride,4402 Ashcrest Avenue,21206.0,"$300,848.03"
 2015-07-28,24O15001906,Mortgage,"James D O'connor vs Yeong Yu LLC, et al",James D O'connor,"Yeong Yu LLC, et al",5416 Harford Road,21224.0,
+2015-07-28,24O15001906,Mortgage,"James D O'connor vs Yeong Yu LLC, et al",James D O'connor,"Yeong Yu LLC, et al",5418 Harford Road,21224.0,
+2015-07-28,24O15001906,Mortgage,"James D O'connor vs Yeong Yu LLC, et al",James D O'connor,"Yeong Yu LLC, et al",5420 Harford Road,21224.0,
 2015-07-28,24O15001907,Mortgage,Mark S Devan vs Kevin Wheeler,Mark S Devan,Kevin Wheeler,1713 Rosedale Street,21216.0,"$86,103.89"
 2015-07-28,24O15001908,Mortgage,Diane S Rosenberg vs Clyde H Campbell,Diane S Rosenberg,Clyde H Campbell,408 Seagull Avenue,21225.0,"$91,645.38"
 2015-07-28,24O15001909,Mortgage,Diane S Rosenberg vs Tirrell M White,Diane S Rosenberg,Tirrell M White,625 Glenwood Avenue,21212.0,"$113,377.53"
@@ -2150,6 +2246,7 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-08-25,24O15002147,Mortgage,"Diane S Rosenberg vs Myung S Cha, et al",Diane S Rosenberg,"Myung S Cha, et al",2209 Huntingdon Avenue,21211.0,"$126,570.50"
 2015-08-25,24O15002148,Mortgage,Diane S Rosenberg vs Monica S Stith,Diane S Rosenberg,Monica S Stith,4711 Pilgrim Road,21214.0,"$143,877.07"
 2015-08-25,24O15002149,Mortgage,Ronald B Katz vs Bee Home LLC,Ronald B Katz,Bee Home LLC,2310 Druid Park Drive,21215.0,
+2015-08-25,24O15002149,Mortgage,Ronald B Katz vs Bee Home LLC,Ronald B Katz,Bee Home LLC,637 East 36th Street,21218.0,
 2015-08-26,24O15002150,Mortgage,Carrie M Ward vs Karen Robinson,Carrie M Ward,Karen Robinson,1527 Northgate Road,21218.0,"$142,507.74"
 2015-08-26,24O15002151,Mortgage,Keith M Yacko vs Keith Alton Decker,Keith M Yacko,Keith Alton Decker,2833 Rosalie Avenue,21234.0,"$164,271.47"
 2015-08-26,24O15002152,Mortgage,Mark S Devan vs Vanessa Juanita Green,Mark S Devan,Vanessa Juanita Green,703 Melville Avenue,21218.0,"$86,658.84"
@@ -2251,15 +2348,40 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-09-04,24O15002248,Mortgage,"William C Rogers Jr vs Sindix, LLC",William C Rogers Jr,"Sindix, LLC",1638 N Gilmor Street,21217.0,"$55,152.87"
 2015-09-04,24O15002248,Mortgage,"William C Rogers Jr vs Sindix, LLC",William C Rogers Jr,"Sindix, LLC",2520 Shirley Avenue,21215.0,
 2015-09-04,24O15002249,Mortgage,"William C Rogers Jr vs Rimelon, LLC",William C Rogers Jr,"Rimelon, LLC",1715 E Lafayette Avenue,21213.0,
+2015-09-04,24O15002249,Mortgage,"William C Rogers Jr vs Rimelon, LLC",William C Rogers Jr,"Rimelon, LLC",2734 Winchester Street,21216.0,
 2015-09-04,24O15002249,Mortgage,"William C Rogers Jr vs Rimelon, LLC",William C Rogers Jr,"Rimelon, LLC",2903 Belmont Avenue,21216.0,"$88,498.16"
 2015-09-04,24O15002250,Mortgage,"William C Rogers Jr vs Teskin, LLC",William C Rogers Jr,"Teskin, LLC",1560 Clifton Avenue,21217.0,"$83,067.03"
 2015-09-04,24O15002250,Mortgage,"William C Rogers Jr vs Teskin, LLC",William C Rogers Jr,"Teskin, LLC",1627 Edmondson Avenue,21223.0,
+2015-09-04,24O15002250,Mortgage,"William C Rogers Jr vs Teskin, LLC",William C Rogers Jr,"Teskin, LLC",2015 N Smallwood Street,21216.0,
 2015-09-04,24O15002251,Mortgage,"William C Rogers Jr vs Sentibis, LLC",William C Rogers Jr,"Sentibis, LLC",1014 N Patterson Park Avenue,21205.0,"$110,215.17"
 2015-09-04,24O15002251,Mortgage,"William C Rogers Jr vs Sentibis, LLC",William C Rogers Jr,"Sentibis, LLC",1218 N Woodyear Street,21217.0,
+2015-09-04,24O15002251,Mortgage,"William C Rogers Jr vs Sentibis, LLC",William C Rogers Jr,"Sentibis, LLC",4732 Wilern Avenue,21215.0,
+2015-09-04,24O15002251,Mortgage,"William C Rogers Jr vs Sentibis, LLC",William C Rogers Jr,"Sentibis, LLC",507 E 30TH Street,21218.0,
 2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",1006 McKean Avenue,21217.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",1229 E Lanvale Street,21202.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",1637 McKean Avenue,21217.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",1919 Walbrook Avenue,21217.0,
 2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",2013 N Smallwood Street,21216.0,"$880,974.73"
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",2014 Cliftwood Avenue,21213.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",2144 Vine Street,21223.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",2507 E Northern Parkway,21214.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",2510 Wilkens Avenue,21223.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",4605 Moravia Road,21206.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",535 N Carey Street,21223.0,
+2015-09-04,24O15002252,Mortgage,"William C Rogers Jr vs Invelon, LLC",William C Rogers Jr,"Invelon, LLC",614 N Ashburton Street,21216.0,
 2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",1714 E 28th Street,21218.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",1808 Druid Hill Avenue,21217.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",1817 E North Avenue,21213.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",1818 Druid Hill Avenue,21217.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",1907 Druid Hill Avenue,21217.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",2402 Llewelyn Avenue,21213.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",2515 W Pratt Street,21223.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",2534 W Fairmount Avenue,21223.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",309 Furrow Street,21223.0,
 2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",330 S Fulton Avenue,21223.0,"$480,595.21"
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",538 N Payson Street,21223.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",603 S Payson Street,21223.0,
+2015-09-04,24O15002253,Mortgage,"William C Rogers Jr vs Datlin, LLC, et al",William C Rogers Jr,"Datlin, LLC, et al",624 N Bouldin Street,21205.0,
 2015-09-08,24O15002254,Mortgage,Allan P Feigelson vs Desiree Myrick,Allan P Feigelson,Desiree Myrick,4418 Kavon Avenue,21206.0,"$268,964.06"
 2015-09-08,24O15002255,Mortgage,"Russell S Drazin vs William Thompson, et al",Russell S Drazin,"William Thompson, et al",316 Park Avenue,21206.0,"$201,769.74"
 2015-09-08,24O15002256,Mortgage,Diane S Rosenberg vs Estate Of Shirley Fuller,Diane S Rosenberg,Estate Of Shirley Fuller,2739 Gwynns Falls Pkwy,21216.0,"$98,990.92"
@@ -2791,6 +2913,8 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-10-28,24O15002782,Mortgage,William C Rogers Jr vs 924 South Dekcer Avenue LLC,William C Rogers Jr,924 South Dekcer Avenue LLC,605 Linnard St,21229.0,"$58,880.52"
 2015-10-28,24O15002783,Mortgage,William C rogers Jr vs Holabird Investments LLC,William C rogers Jr,Holabird Investments LLC,828 Woodward Street,21230.0,"$90,763.38"
 2015-10-28,24O15002784,Mortgage,William C Rogers Jr vs Philip Abramowitz,William C Rogers Jr,Philip Abramowitz,2701 Allendal Rd,21216.0,
+2015-10-28,24O15002784,Mortgage,William C Rogers Jr vs Philip Abramowitz,William C Rogers Jr,Philip Abramowitz,3411 Bateman Ave,21216.0,
+2015-10-28,24O15002784,Mortgage,William C Rogers Jr vs Philip Abramowitz,William C Rogers Jr,Philip Abramowitz,3713 Chatham Rd,21215.0,
 2015-10-29,24O15002785,Mortgage,"Edward S Cohn vs George Wiggan, et al",Edward S Cohn,"George Wiggan, et al",1352 N Calhoun St,21217.0,"$114,102.72"
 2015-10-29,24O15002786,Mortgage,"Keith M Yacko vs Beverly A McCullough(deceased), et al",Keith M Yacko,"Beverly A McCullough(deceased), et al",3415 Olympia Ave,21215.0,"$200,695.26"
 2015-10-29,24O15002787,Mortgage,John E Driscoll III vs Tiffany Millings,John E Driscoll III,Tiffany Millings,3024 Wylie Ave,21215.0,"$104,635.23"
@@ -3068,7 +3192,17 @@ Filing Date,Case Number,Case Type,Title,Plaintiff,Defendant,Address,Zip Code,Par
 2015-11-24,24O15003057,Mortgage,John E Driscoll 111 vs Kevin Ragins,John E Driscoll 111,Kevin Ragins,620 Montpelier Street,21218.0,"$180,441.62"
 2015-11-24,24O15003058,Mortgage,"John E Driscoll 111 Vs William Jones Jr, Et Al",John E Driscoll 111,"William Jones Jr, Et Al",4426 Powell Avenue,21206.0,"$195,756.52"
 2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1715 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1717 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1719 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1720  1724 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1721 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1726 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1728 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1730 Maryland Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1732 Maryland Avenue,,
 2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",1734 Maryland Avenue,21201.0,"$1,023,011.31"
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",19 W Lafayette Avenue,,
+2015-11-24,24O15003059,Mortgage,"Richard E Hagerty vs The People's Community Health Centers, Inc.",Richard E Hagerty,"The People's Community Health Centers, Inc.",21 W Lafayette Avenue,,
 2015-11-24,24O15003060,Mortgage,Martin S Goldberg vs Darsheika Sherrel Giles,Martin S Goldberg,Darsheika Sherrel Giles,5738 White Avenue,21206.0,"$119,045.55"
 2015-11-24,24O15003061,Mortgage,Jeffrey B Fisher vs Cynthia Winkler,Jeffrey B Fisher,Cynthia Winkler,3958 Penhurst Avenue,21215.0,"$121,914.78"
 2015-11-24,24O15003062,Mortgage,Diane S Rosenberg vs Richard Abrams,Diane S Rosenberg,Richard Abrams,4801 Herring Run Drive,21214.0,"$113,435.80"

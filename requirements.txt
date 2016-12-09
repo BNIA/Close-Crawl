@@ -2,6 +2,7 @@ beautifulsoup4==4.5.1
 mechanize==0.2.5
 numpy==1.11.2
 pandas==0.19.1
+Pillow==3.4.2
 PySocks==1.5.7
 python-dateutil==2.5.3
 pytz==2016.7

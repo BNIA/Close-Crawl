@@ -3,15 +3,6 @@
 
 """Miner
 
-This module implements post-scraping cleaning processes on the raw initial
-dataset. Processes include stripping excess strings off Address values,
-removing Zip Code and Partial Cost values mislabeled as Address, and merging
-rows containing blank values in alternating features.
-
-The script works as an internal module for Close Crawl, but can be executed
-as a standalone to manually process datasets:
-
-    $ python cleaned_data.py <path/to/old/dataset> <path/of/new/dataset>
 
 TODO:
     Finish docs
@@ -26,9 +17,9 @@ from os import path, walk
 from bs4 import BeautifulSoup
 from tqdm import trange
 
-from patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
-from settings import HTML_DIR, HTML_FILE, NO_CASE
-from settings import FEATURES, FIELDS, INTERNAL_FIELDS
+from .patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
+from .settings import HTML_DIR, HTML_FILE, NO_CASE
+from .settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
 
@@ -106,6 +97,7 @@ def distribute(case_num, feature_list):
     for address in business:
 
         str_address = filter_addr(str(address[-1]))
+        print(str_address)
 
         temp_features["Title"] = feature_list["Title"]
         temp_features["Case Type"] = feature_list["Case Type"]
