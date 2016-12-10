@@ -138,7 +138,7 @@ class ScrapeMenu(Frame):
         label = Label(self, text="Scrape New Cases", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        entries = self.makeform(self, fields)
+        entries = self.form(self, fields)
 
         run_button = Button(
             self, text="Run",
@@ -154,7 +154,7 @@ class ScrapeMenu(Frame):
 
         exit_button.pack(pady=10, padx=5, side="bottom")
 
-    def makeform(self, parent, fields):
+    def form(self, parent, fields):
 
         entries = []
 
