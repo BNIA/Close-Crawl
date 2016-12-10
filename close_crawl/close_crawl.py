@@ -142,14 +142,14 @@ class ScrapeMenu(Frame):
 
         run_button = Button(
             self, text="Run",
-            command=lambda: controller.quit()
+            command=lambda: main(**self.unpack_form(fields, entries))
         )
 
-        run_button.pack(pady=10, padx=5, side="bottom")
+        run_button.pack(pady=10, padx=5)
 
         exit_button = Button(
             self, text="Exit",
-            command=lambda: main(**self.call_main(fields, entries))
+            command=lambda: controller.quit()
         )
 
         exit_button.pack(pady=10, padx=5, side="bottom")
@@ -161,14 +161,14 @@ class ScrapeMenu(Frame):
         for field in fields:
             row = Frame(parent)
             lab = Label(row, width=15, text=field, anchor='w')
-            ent = Entry(row)
+            entry = Entry(row)
             row.pack(side="top", fill='x', padx=5, pady=5)
             lab.pack(side="left")
-            ent.pack(side="right", expand=True, fill='x')
-            entries.append(ent)
+            entry.pack(side="right", expand=True, fill='x')
+            entries.append(entry)
         return entries
 
-    def call_main(self, fields, entries):
+    def unpack_form(self, fields, entries):
 
         packed_params = {}
 

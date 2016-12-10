@@ -29,7 +29,7 @@ from .spider import Spider
 
 
 def main(case_type, case_year, output, cases='',
-         lower_bound=0, upper_bound=0, anonymize=True, debug=True):
+         lower_bound=0, upper_bound=0, anonymize=False, debug=False):
     """Main function for Close Crawl.
 
     Args:
