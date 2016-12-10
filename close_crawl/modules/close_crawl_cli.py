@@ -79,7 +79,7 @@ def main(case_type, case_year, output, cases='',
             upper_bound = upper_bound if upper_bound > lower_bound \
                 else lower_bound + 500
 
-        case_list = range(lower_bound, upper_bound + 1)
+        case_list = range(int(lower_bound), int(upper_bound) + 1)
 
     else:
 
@@ -132,6 +132,7 @@ def main(case_type, case_year, output, cases='',
     )
     print("Mining runtime: {0:.2f} s".format((end_mine - start_mine)))
     print("Program runtime: {0:.2f} s".format((end - start)))
+    print("------------ SCRAPING COMPLETED ------------")
 
 
 if __name__ == '__main__':

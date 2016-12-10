@@ -13,6 +13,7 @@ from PIL import ImageTk, Image
 try:
     # Python 2
     from Tkinter import Frame, Tk
+    import tkFileDialog
     from ttk import Button, Entry, Label
 except:
     # Python 3
@@ -22,7 +23,8 @@ except:
 from modules._version import __version__
 from modules.close_crawl_cli import main
 
-LARGE_FONT = ("Verdana", 12)
+LARGE_FONT = ("Helvetica", 12)
+SMALL_FONT = ("Helvetica", 9)
 BASE_PATH = path.dirname(path.abspath(__file__))
 
 
@@ -125,24 +127,66 @@ class ScrapeMenu(Frame):
 
         Frame.__init__(self, parent)
 
+        fields = [
+            "Case Type",
+            "Case Year",
+            "Output",
+            "Lower Bound",
+            "Upper Bound",
+        ]
+
         label = Label(self, text="Scrape New Cases", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        type_entry = Entry(self)
-        type_entry.pack(side="right")
+        entries = self.form(self, fields)
 
-        type_label = Label(self, text="Case Type", font=LARGE_FONT)
-        type_label.pack(side="left")
-
-        exit_button = Button(
-            self, text="Exit",
+        run_button = Button(
+            self, text="Run",
             command=lambda: controller.quit()
         )
 
-        exit_button.pack(pady=10, padx=10)
+        run_button.pack(pady=10, padx=5, side="bottom")
+
+        exit_button = Button(
+            self, text="Exit",
+            command=lambda: main(**self.call_main(fields, entries))
+        )
+
+        exit_button.pack(pady=10, padx=5, side="bottom")
+
+    def form(self, parent, fields):
+
+        entries = []
+
+        for field in fields:
+            row = Frame(parent)
+            lab = Label(row, width=15, text=field, anchor='w')
+            ent = Entry(row)
+            row.pack(side="top", fill='x', padx=5, pady=5)
+            lab.pack(side="left")
+            ent.pack(side="right", expand=True, fill='x')
+            entries.append(ent)
+        return entries
+
+    def call_main(self, fields, entries):
+
+        packed_params = {}
+
+        for field, entry in zip(fields, entries):
+            packed_params[str(field.lower().replace(' ', '_'))] = entry.get()
+
+        print(packed_params)
+        return packed_params
+
+    def file_save(self):
+        f = tkFileDialog.asksaveasfile(mode='w', defaultextension=".txt")
+        if not f:  # asksaveasfile return `None` if dialog closed with "cancel".
+            return
+        text2save = str(text.get(1.0, END))  # starts from `1.0`, not `0.0`
+        f.write(text2save)
+        f.close()  # `()` was missing.
 
 
 if __name__ == '__main__':
-
     app = CloseCrawl()
     app.mainloop()
