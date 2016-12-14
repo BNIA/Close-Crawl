@@ -1,0 +1,2 @@
+# pip install https://github.com/pyinstaller/pyinstaller/archive/develop.zip
+PyInstaller==3.3.dev0+483c819

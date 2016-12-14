@@ -38,7 +38,8 @@ class CloseCrawl(Tk):
         Tk.wm_title(self, "Close Crawl " + __version__)
 
         if platform == "win32":
-            Tk.iconbitmap(self, "logo_16.png")
+            # Tk.iconbitmap(self, "logo_16.png")
+            pass
 
         container = Frame(self)
 
