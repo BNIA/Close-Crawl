@@ -8,17 +8,19 @@
 from __future__ import absolute_import, print_function, unicode_literals
 
 from os import path
+from sys import platform
 
-from PIL import ImageTk, Image
 try:
     # Python 2
     from Tkinter import Frame, Tk
-    import tkFileDialog
+    import tkFileDialog as file_dialog
     from ttk import Button, Entry, Label
 except:
     # Python 3
     import tkinter as tk
+    from tkinter import filedialog as file_dialog
     from tkinter.ttk import Button, Entry, Label
+from PIL import ImageTk, Image
 
 from modules._version import __version__
 from modules.close_crawl_cli import main
@@ -34,10 +36,9 @@ class CloseCrawl(Tk):
 
         Tk.__init__(self, *args, **kwargs)
         Tk.wm_title(self, "Close Crawl " + __version__)
-        # TODO: add icon on GUI that supports both OS
-        # tk.Tk.iconbitmap(
-        #     self, "/logo_16.ico"
-        # )
+
+        if platform == "win32":
+            Tk.iconbitmap(self, "logo_16.png")
 
         container = Frame(self)
 
@@ -67,9 +68,7 @@ class WelcomePage(Frame):
 
         Frame.__init__(self, parent)
 
-        welcome_image = Image.open(
-            path.join(path.dirname(BASE_PATH), "static", "logo.png")
-        )
+        welcome_image = Image.open(path.join(BASE_PATH, "logo.png"))
         welcome_image = welcome_image.resize((250, 250), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(welcome_image)
         image_label = Label(self, image=photo)
@@ -178,13 +177,12 @@ class ScrapeMenu(Frame):
         print(packed_params)
         return packed_params
 
-    def file_save(self):
-        f = tkFileDialog.asksaveasfile(mode='w', defaultextension=".txt")
-        if not f:  # asksaveasfile return `None` if dialog closed with "cancel".
-            return
-        text2save = str(text.get(1.0, END))  # starts from `1.0`, not `0.0`
-        f.write(text2save)
-        f.close()  # `()` was missing.
+    # def file_save(self):
+    #     f = tkFileDialog.asksaveasfile(mode='w', defaultextension=".csv")
+    #     if not f:  # asksaveasfile return `None` if dialog closed with "cancel".
+    #         return
+    #     f.write(text2save)
+    #     f.close()
 
 
 if __name__ == '__main__':
