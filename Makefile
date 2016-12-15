@@ -13,7 +13,7 @@ install:
 .PHONY: clean
 clean:
 	# clean out Python cache and temporary files
-	@find . \( -name "*.pyc" -o -name "test_out.csv" \) -type f -delete
+	@find . \( -name "*.pyc" -o -name "output.csv" \) -type f -delete
 	@find . -name "__pycache__" -type d -delete
 	@find . -name "checkpoint.json" -type f -delete
 
