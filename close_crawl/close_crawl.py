@@ -3,6 +3,7 @@
 
 """close_crawl
 
+TODO: DOCS
 """
 
 from __future__ import absolute_import, print_function, unicode_literals
@@ -12,7 +13,7 @@ from sys import platform
 
 try:
     # Python 2
-    from Tkinter import Frame, Tk
+    from Tkinter import Frame, StringVar, Tk
     import tkFileDialog as file_dialog
     from ttk import Button, Entry, Label
 except:
@@ -125,9 +126,13 @@ class ScrapeMenu(Frame):
 
     def __init__(self, parent, controller):
 
-        Frame.__init__(self, parent)
+        self.dir_opt = {
+            "parent": self,
+            "mustexist": False,
+            "title": "Directory to save output"
+        }
 
-        fields = [
+        self.fields = [
             "Case Type",
             "Case Year",
             "Output",
@@ -135,14 +140,25 @@ class ScrapeMenu(Frame):
             "Upper Bound",
         ]
 
+        self.dir_path = path.dirname(__file__)
+
+        Frame.__init__(self, parent)
+
         label = Label(self, text="Scrape New Cases", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        entries = self.form(self, fields)
+        entries = self.form(self)
+
+        path_button = Button(
+            self, text="Select Output Path",
+            command=lambda: self.output_file_path()
+        )
+
+        path_button.pack(pady=10, padx=5)
 
         run_button = Button(
             self, text="Run",
-            command=lambda: main(**self.unpack_form(fields, entries))
+            command=lambda: main(**self.unpack_form(self.fields, entries))
         )
 
         run_button.pack(pady=10, padx=5)
@@ -154,18 +170,25 @@ class ScrapeMenu(Frame):
 
         exit_button.pack(pady=10, padx=5, side="bottom")
 
-    def form(self, parent, fields):
+    def form(self, parent):
 
         entries = []
 
-        for field in fields:
+        for field in self.fields:
+
             row = Frame(parent)
-            lab = Label(row, width=15, text=field, anchor='w')
+            label = Label(row, width=15, text=field, anchor='w')
+
             entry = Entry(row)
+
+            if field == "Output":
+                entry.insert(0, "output.csv")
+
             row.pack(side="top", fill='x', padx=5, pady=5)
-            lab.pack(side="left")
+            label.pack(side="left")
             entry.pack(side="right", expand=True, fill='x')
             entries.append(entry)
+
         return entries
 
     def unpack_form(self, fields, entries):
@@ -175,15 +198,15 @@ class ScrapeMenu(Frame):
         for field, entry in zip(fields, entries):
             packed_params[str(field.lower().replace(' ', '_'))] = entry.get()
 
-        print(packed_params)
+        packed_params["output"] = path.join(
+            self.dir_path, packed_params["output"]
+        )
+
         return packed_params
 
-    # def file_save(self):
-    #     f = tkFileDialog.asksaveasfile(mode='w', defaultextension=".csv")
-    #     if not f:  # asksaveasfile return `None` if dialog closed with "cancel".
-    #         return
-    #     f.write(text2save)
-    #     f.close()
+    def output_file_path(self):
+
+        self.dir_path = file_dialog.askdirectory(**self.dir_opt)
 
 
 if __name__ == '__main__':
