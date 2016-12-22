@@ -3,6 +3,11 @@
 
 """local_browser
 
+NOTICE: Close Crawl runs its browser form submissions through Mechanize.
+The module, however, is deprecated and does not support Python 3. The more
+stable and maintained Mechanize and BeautifulSoup wrapper, MechanicalSoup,
+will be replacing the Mechanize methods to support Python 3.
+
 This module contains the configurations and settings for the browser used for
 crawling and scraping through the pages in Close Crawl. The script contains the
 implementation of the Session class which inherits attributes from the classobj
@@ -12,7 +17,6 @@ The script works as an internal module for Close Crawl, but can be imported
 as a module for testing purposes.
 
 TODO:
-    Finish docs
     Replace deprecated Mechanize with MechanicalSoup
 
 """
@@ -30,7 +34,7 @@ from .settings import HEADER, URL
 class Session(object):
 
     def __init__(self):
-        """Constructor for Session
+        """Constructor
 
         Args:
             None
@@ -96,12 +100,23 @@ class Session(object):
             "http://icanhazip.com").read())
 
     def case_id_form(self, case):
+        """Grabs the form in the case searching page, and inputs the
+        case number to return the response.
 
+        Args:
+            case (`str`): case ID to be scraped
+
+        Returns:
+            response (`str`): HTML response
+        """
+
+        # iterate through the forms to find the correct one
         for form in self.browser.forms():
             if form.attrs['name'] == 'inquiryFormByCaseNum':
                 self.browser.form = form
                 break
 
+        # submit case ID and return the response
         self.browser.form['caseId'] = case
         self.browser.submit()
         response = self.browser.response().read()
@@ -110,6 +125,14 @@ class Session(object):
         return response
 
     def disclaimer_form(self):
+        """Navigates to the URL to proceed to the case searching page
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
 
         # visit the site
         self.browser.open(URL)
