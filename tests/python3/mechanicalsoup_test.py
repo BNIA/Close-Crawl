@@ -1,4 +1,6 @@
 """Example app to login to GitHub"""
+import http.cookiejar
+
 import mechanicalsoup
 
 from settings import URL

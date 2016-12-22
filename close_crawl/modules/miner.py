@@ -10,6 +10,7 @@ TODO:
 """
 
 from __future__ import absolute_import, print_function, unicode_literals
+
 from csv import DictWriter
 from json import dump, dumps, load
 from os import path, walk
@@ -18,7 +19,7 @@ from bs4 import BeautifulSoup
 from tqdm import trange
 
 from .patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
-from .settings import HTML_DIR, HTML_FILE, NO_CASE
+from .settings import HTML_FILE, NO_CASE
 from .settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
 features = [i + ':' for i in FEATURES]
@@ -184,8 +185,9 @@ def export(file_array, out_db, gui=False):
 
 if __name__ == '__main__':
 
-    file_array = sorted([filenames for (dirpath, dirnames, filenames)
-                         in walk(HTML_DIR)][0])
+    from sys import argv
 
-    out_db = 'test_out.csv'
-    export(file_array, out_db)
+    export(sorted(
+        [filenames for (dirpath, dirnames, filenames)
+         in walk(argv[1])][0]), argv[2]
+    )

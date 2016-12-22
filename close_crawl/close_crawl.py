@@ -13,12 +13,12 @@ from sys import platform
 
 try:
     # Python 2
-    from Tkinter import Frame, StringVar, Tk
+    from Tkinter import Frame, Tk
     import tkFileDialog as file_dialog
     from ttk import Button, Entry, Label
 except:
     # Python 3
-    import tkinter as tk
+    import tkinter as Tk
     from tkinter import filedialog as file_dialog
     from tkinter.ttk import Button, Entry, Label
 from PIL import ImageTk, Image
@@ -38,6 +38,7 @@ class CloseCrawl(Tk):
         Tk.__init__(self, *args, **kwargs)
         Tk.wm_title(self, "Close Crawl " + __version__)
 
+        # TODO: add bitmap icon for Windows systems
         if platform == "win32":
             # Tk.iconbitmap(self, "logo_16.png")
             pass
