@@ -16,7 +16,7 @@ try:
     from Tkinter import Frame, Tk
     import tkFileDialog as file_dialog
     from ttk import Button, Entry, Label
-except:
+except ImportError:
     # Python 3
     import tkinter as Tk
     from tkinter import filedialog as file_dialog
