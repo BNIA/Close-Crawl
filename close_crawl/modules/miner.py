@@ -25,169 +25,179 @@ from .settings import FEATURES, FIELDS, INTERNAL_FIELDS
 features = [i + ':' for i in FEATURES]
 
 
-def scrape(case_num, html_data):
-    """Scrapes the desired features
+class Miner(object):
 
-    Args:
-        html_data: <str>, source HTML
+    def __init__(self, responses, output, gui=False):
 
-    Returns:
-        scraped_features: <dict>, features scraped and mapped from content
-    """
+        self.responses = responses
+        self.output = output
+        self.gui = gui
 
-    soup = BeautifulSoup(html_data, "html.parser")
-    td_list = soup.find_all("tr")
+    def scrape(self, case_num, html_data):
+        """Scrapes the desired features
 
-    feature_list = []
-    for tag in td_list:
+        Args:
+            html_data: <str>, source HTML
+
+        Returns:
+            scraped_features: <dict>, features scraped and mapped from content
+        """
+
+        soup = BeautifulSoup(html_data, "html.parser")
+        td_list = soup.find_all("tr")
+
+        feature_list = []
+        for tag in td_list:
+            try:
+                tag = [j.string for j in tag.findAll("span")]
+                if set(tuple(tag)) & set(features):
+                    try:
+                        tag = [i for i in tag if "(each" not in i.lower()]
+                    except AttributeError:
+                        continue
+                    feature_list.append(tag)
+
+            except IndexError:
+                continue
+
         try:
-            tag = [j.string for j in tag.findAll("span")]
-            if set(tuple(tag)) & set(features):
-                try:
-                    tag = [i for i in tag if "(each" not in i.lower()]
-                except AttributeError:
-                    continue
-                feature_list.append(tag)
+            # flatten multidimensional list
+            feature_list = [item.replace(':', '')
+                            for sublist in feature_list for item in sublist]
 
-        except IndexError:
-            continue
+        except Exception as e:
+            print(e, feature_list)
 
-    try:
-        # flatten multidimensional list
-        feature_list = [item.replace(':', '')
-                        for sublist in feature_list for item in sublist]
+        return self.distribute(case_num, feature_list)
 
-    except Exception as e:
-        print(e, feature_list)
+    def distribute(self, case_num, feature_list):
 
-    return distribute(case_num, feature_list)
+        # break up elements with n-tuples greater than 2
+        # then convert list of tuples to dict for faster lookup
+        business = [
+            tuple(feature_list[i:i + 2])
+            for i in range(0, len(feature_list), 2)
+            if any(x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS)
+        ]
 
+        feature_list = dict([
+            tuple(feature_list[i:i + 2])
+            for i in range(0, len(feature_list), 2)
+            if feature_list[i:i + 2][0] in FEATURES
+        ])
 
-def distribute(case_num, feature_list):
+        filt = []
 
-    # break up elements with n-tuples greater than 2
-    # then convert list of tuples to dict for faster lookup
-    business = [
-        tuple(feature_list[i:i + 2])
-        for i in range(0, len(feature_list), 2)
-        if any(x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS)
-    ]
+        for ii in range(len(business)):
+            try:
+                if business[ii][1].upper() == "PROPERTY ADDRESS" and \
+                        business[ii + 1][0].upper() == \
+                        "BUSINESS OR ORGANIZATION NAME":
+                    filt.append(business[ii + 1])
 
-    feature_list = dict([
-        tuple(feature_list[i:i + 2])
-        for i in range(0, len(feature_list), 2)
-        if feature_list[i:i + 2][0] in FEATURES
-    ])
+            except IndexError:
+                print("Party Type issue at Case", feature_list["Case Number"])
 
-    filt = []
-
-    for ii in range(len(business)):
-        try:
-            if business[ii][1].upper() == "PROPERTY ADDRESS" and \
-                    business[ii + 1][0].upper() == \
-                    "BUSINESS OR ORGANIZATION NAME":
-                filt.append(business[ii + 1])
-
-        except IndexError:
-            print("Party Type issue at Case", feature_list["Case Number"])
-
-    business = filt
-    scraped_features = []
-    temp_features = {}
-
-    for address in business:
-
-        str_address = filter_addr(str(address[-1]))
-
-        temp_features["Title"] = feature_list["Title"]
-        temp_features["Case Type"] = feature_list["Case Type"]
-        temp_features["Case Number"] = feature_list["Case Number"]
-        temp_features["Filing Date"] = feature_list["Filing Date"]
-
-        # break up Title feature into Plaintiff and Defendant
-        try:
-            temp_features["Plaintiff"], temp_features["Defendant"] = \
-                TITLE_SPLIT_PAT.split(temp_features["Title"])
-
-        except ValueError:
-            temp_features["Plaintiff"], temp_features["Defendant"] = \
-                ('', '')
-
-        if temp_features["Case Type"].upper() == "FORECLOSURE":
-            temp_features["Case Type"] = "Mortgage"
-
-        temp_features["Address"] = str_address if str_address else address[-1]
-
-        temp_features["Zip Code"] = ''.join(
-            ZIP_PAT.findall(address[-1])
-        )
-
-        temp_features["Partial Cost"] = ''.join(
-            MONEY_PAT.findall(address[-1])
-        )
-
-        scraped_features.append(temp_features)
+        business = filt
+        scraped_features = []
         temp_features = {}
 
-    if not scraped_features:
+        for address in business:
 
-        if not path.isfile(NO_CASE):
-            with open(NO_CASE, 'w') as no_case_file:
-                dump([], no_case_file)
+            str_address = filter_addr(str(address[-1]))
 
-        with open(NO_CASE, 'r+') as no_case_file:
-            no_case_data = load(no_case_file)
-            no_case_data.append(str(case_num[:-5]))
-            no_case_file.seek(0)
-            no_case_file.write(dumps(sorted(list(set(no_case_data)))))
-            no_case_file.truncate()
+            temp_features["Title"] = feature_list["Title"]
+            temp_features["Case Type"] = feature_list["Case Type"]
+            temp_features["Case Number"] = feature_list["Case Number"]
+            temp_features["Filing Date"] = feature_list["Filing Date"]
 
-    return scraped_features
+            # break up Title feature into Plaintiff and Defendant
+            try:
+                temp_features["Plaintiff"], temp_features["Defendant"] = \
+                    TITLE_SPLIT_PAT.split(temp_features["Title"])
 
+            except ValueError:
+                temp_features["Plaintiff"], temp_features["Defendant"] = \
+                    ('', '')
 
-def export(file_array, out_db, gui=False):
+            if temp_features["Case Type"].upper() == "FORECLOSURE":
+                temp_features["Case Type"] = "Mortgage"
 
-    dataset = []
-    file_exists = path.isfile(out_db)
+            temp_features[
+                "Address"] = str_address if str_address else address[-1]
 
-    case_range = trange(len(file_array), desc='Mining', leave=True) \
-        if not gui else range(len(file_array))
+            temp_features["Zip Code"] = ''.join(
+                ZIP_PAT.findall(address[-1])
+            )
 
-    for file_name in case_range:
-        with open(
-            HTML_FILE.format(case=file_array[file_name]), 'r'
-        ) as html_src:
+            temp_features["Partial Cost"] = ''.join(
+                MONEY_PAT.findall(address[-1])
+            )
 
-            row = scrape(file_array[file_name], html_src.read())
+            scraped_features.append(temp_features)
+            temp_features = {}
 
-            if not gui:
-                case_range.set_description(
-                    "Mining {}".format(file_array[file_name])
-                )
+        if not scraped_features:
 
-            dataset.extend(row)
+            if not path.isfile(NO_CASE):
+                with open(NO_CASE, 'w') as no_case_file:
+                    dump([], no_case_file)
 
-    with open(out_db, 'a') as csv_file:
-        writer = DictWriter(
-            csv_file,
-            fieldnames=[col for col in FIELDS if col not in [
-                'Business or Organization Name',
-                'Party Type',
-            ]]
-        )
+            with open(NO_CASE, 'r+') as no_case_file:
+                no_case_data = load(no_case_file)
+                no_case_data.append(str(case_num[:-5]))
+                no_case_file.seek(0)
+                no_case_file.write(dumps(sorted(list(set(no_case_data)))))
+                no_case_file.truncate()
 
-        if not file_exists:
-            writer.writeheader()
+        return scraped_features
 
-        for row in dataset:
-            writer.writerow(row)
+    def export(self):
+
+        dataset = []
+        file_exists = path.isfile(self.output)
+
+        case_range = trange(len(self.responses), desc='Mining', leave=True) \
+            if not self.gui else range(len(self.responses))
+
+        for file_name in case_range:
+            with open(
+                HTML_FILE.format(case=self.responses[file_name]), 'r'
+            ) as html_src:
+
+                row = self.scrape(self.responses[file_name], html_src.read())
+
+                if not self.gui:
+                    case_range.set_description(
+                        "Mining {}".format(self.responses[file_name])
+                    )
+
+                dataset.extend(row)
+
+        with open(self.output, 'a') as csv_file:
+            writer = DictWriter(
+                csv_file,
+                fieldnames=[
+                    col for col in FIELDS if col not in [
+                        'Business or Organization Name',
+                        'Party Type',
+                    ]
+                ]
+            )
+
+            if not file_exists:
+                writer.writeheader()
+
+            for row in dataset:
+                writer.writerow(row)
 
 
 if __name__ == '__main__':
 
     from sys import argv
 
-    export(sorted(
+    miner_obj = Miner(sorted(
         [filenames for (dirpath, dirnames, filenames)
-         in walk(argv[1])][0]), argv[2]
-    )
+         in walk(argv[1])][0]), argv[2])
+
+    miner_obj.export()
