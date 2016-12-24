@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import absolute_import, print_function, unicode_literals
-
 from os import path, walk
+
 from pandas import read_csv
 
 from .context import modules
@@ -19,7 +19,7 @@ def test_scrape():
     miner_obj = miner.Miner(
         sorted([filenames for (dirpath, dirnames, filenames)
                 in walk("responses")][0]),
-        TEST_OUTPUT, True
+        TEST_OUTPUT, gui=True
     )
 
     miner_obj.export()
@@ -32,5 +32,4 @@ def test_accuracy():
 
     original_df = read_csv(path.join(BASE_DIR, "origin_output.csv"))
     new_df = read_csv(path.join(BASE_DIR, TEST_OUTPUT))
-    print(original_df.equals(new_df))
     assert(original_df.equals(new_df))

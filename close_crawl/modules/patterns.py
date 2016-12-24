@@ -3,7 +3,7 @@
 
 """Patterns
 
-Regular expression patterns and string filtering functions implemented in the 
+Regular expression patterns and string filtering functions implemented in the
 project. This file is intended to only be used as a non-executable script.
 
 TODO:
@@ -17,26 +17,18 @@ IGNORECASE = 2  # case insensitive regex pattern flag
 PUNCTUATION = punctuation.replace('#', '')  # all punctuations except '#'
 
 street_address = re_compile(
-    '(\d{1,4} [\w\s]{1,20}'
-    '(?:st(reet)?|ln|lane|ave(nue)?|r(?:oa)?d'
-    '|highway|hwy|sq(uare)?|tr(?:ai)l|dr(?:ive)?'
-    '|c(?:our)?t|parkway|pkwy|cir(cle)?'
-    '|boulevard|blvd|pl(?:ace)?|(apt|unit).[A-Z]{1}|'
-    'ter(?:race)?)\W?(?=\s|$))', 2)
-
-# street_address = re_compile(
-#     '('  # begin group
-#     '\d{1,4}'  # house number
-#     '[\w\s]{1,20}'  # street name
-#     '(?:st(reet)?|ln|lane|ave(nue)?'  # (st)reet, lane, ln, (ave)nue
-#     '|r(?:oa)?d|highway|hwy|dr(?:ive)?'  # rd, road, hwy, highway, (dr)ive
-#     '|sq(uare)?|tr(?:ai)l|c(?:our)?t'  # (sq)uare, (tr)ail, ct, court
-#     '|parkway|pkwy|cir(cle)?|ter(?:race)?'  # parkway, pkwy, (cir)cle, (ter)race
-#     '|boulevard|blvd|pl(?:ace)?'  # boulevard, bvld, (pl)ace
-#     '|(apt|unit).[A-Z]{1}'  # apt/unit number
-#     ')'  # end group
-#     '\W?(?=\s|$))',  # look ahead for whitespace or end of string
-#     IGNORECASE)  # case insensitive flag
+    '('  # begin group
+    '\d{1,4}\s'  # house number
+    '[\w\s]{1,20}'  # street name
+    '(?:st(reet)?|ln|lane|ave(nue)?'  # (st)reet, lane, ln, (ave)nue
+    '|r(?:oa)?d|highway|hwy|dr(?:ive)?'  # rd, road, hwy, highway, (dr)ive
+    '|sq(uare)?|tr(?:ai)l|c(?:our)?t'  # (sq)uare, (tr)ail, ct, court
+    '|parkway|pkwy|cir(cle)?|ter(?:race)?'  # parkway, pkwy, (cir)cle, (ter)race
+    '|boulevard|blvd|pl(?:ace)?'  # boulevard, bvld, (pl)ace
+    '|(apt|unit).[A-Z]{1}'  # apt/unit number
+    ')'  # end group
+    '\W?(?=\s|$))',  # look ahead for whitespace or end of string
+    IGNORECASE)  # case insensitive flag
 
 # case insensitive delimiter for Titles
 TITLE_SPLIT_PAT = re_compile(" vs ", IGNORECASE)
