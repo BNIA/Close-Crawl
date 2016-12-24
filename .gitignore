@@ -1,16 +1,12 @@
 # Python cache and environments
-.venv/
+.*env/
 *.pyc
 __pycache__/
 
 $ Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
-# Linux temporary files
+# Custom directories and files
 .~lock*
-
-# Directories
 archived_responses/
-
-# Files
 test_output.csv

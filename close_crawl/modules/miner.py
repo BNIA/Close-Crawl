@@ -13,7 +13,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 
 from csv import DictWriter
 from json import dump, dumps, load
-from os import path, walk
+from os import path
 
 from bs4 import BeautifulSoup
 from tqdm import trange
@@ -44,10 +44,10 @@ class Miner(object):
         """
 
         soup = BeautifulSoup(html_data, "html.parser")
-        td_list = soup.find_all("tr")
+        tr_list = soup.find_all("tr")
 
         feature_list = []
-        for tag in td_list:
+        for tag in tr_list:
             try:
                 tag = [j.string for j in tag.findAll("span")]
                 if set(tuple(tag)) & set(features):
@@ -70,11 +70,12 @@ class Miner(object):
 
         return self.distribute(case_num, feature_list)
 
-    def distribute(self, case_num, feature_list):
+    @staticmethod
+    def distribute(case_num, feature_list):
 
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
-        business = [
+        raw_business = [
             tuple(feature_list[i:i + 2])
             for i in range(0, len(feature_list), 2)
             if any(x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS)
@@ -86,30 +87,31 @@ class Miner(object):
             if feature_list[i:i + 2][0] in FEATURES
         ])
 
-        filt = []
+        filtered_business = []
 
-        for ii in range(len(business)):
+        for label, value in enumerate(raw_business):
             try:
-                if business[ii][1].upper() == "PROPERTY ADDRESS" and \
-                        business[ii + 1][0].upper() == \
+                if value[1].upper() == "PROPERTY ADDRESS" and \
+                        raw_business[label + 1][0].upper() == \
                         "BUSINESS OR ORGANIZATION NAME":
-                    filt.append(business[ii + 1])
+                    filtered_business.append(raw_business[label + 1])
 
             except IndexError:
                 print("Party Type issue at Case", feature_list["Case Number"])
 
-        business = filt
         scraped_features = []
-        temp_features = {}
 
-        for address in business:
+        for address in filtered_business:
 
             str_address = filter_addr(str(address[-1]))
 
-            temp_features["Title"] = feature_list["Title"]
-            temp_features["Case Type"] = feature_list["Case Type"]
-            temp_features["Case Number"] = feature_list["Case Number"]
-            temp_features["Filing Date"] = feature_list["Filing Date"]
+            temp_features = {
+                key: value for key, value in feature_list.iteritems()
+                if key in ["Title",
+                           "Case Type",
+                           "Case Number",
+                           "Filing Date"]
+            }
 
             # break up Title feature into Plaintiff and Defendant
             try:
@@ -123,12 +125,10 @@ class Miner(object):
             if temp_features["Case Type"].upper() == "FORECLOSURE":
                 temp_features["Case Type"] = "Mortgage"
 
-            temp_features[
-                "Address"] = str_address if str_address else address[-1]
+            temp_features["Address"] = \
+                str_address if str_address else address[-1]
 
-            temp_features["Zip Code"] = ''.join(
-                ZIP_PAT.findall(address[-1])
-            )
+            temp_features["Zip Code"] = ''.join(ZIP_PAT.findall(address[-1]))
 
             temp_features["Partial Cost"] = ''.join(
                 MONEY_PAT.findall(address[-1])
@@ -190,14 +190,3 @@ class Miner(object):
 
             for row in dataset:
                 writer.writerow(row)
-
-
-if __name__ == '__main__':
-
-    from sys import argv
-
-    miner_obj = Miner(sorted(
-        [filenames for (dirpath, dirnames, filenames)
-         in walk(argv[1])][0]), argv[2])
-
-    miner_obj.export()
