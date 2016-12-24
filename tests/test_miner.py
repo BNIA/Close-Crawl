@@ -3,10 +3,34 @@
 
 from __future__ import absolute_import, print_function, unicode_literals
 
-# from os.path import abspath, dirname, join
-# import sys
+from os import path, walk
+from pandas import read_csv
 
-# MODULE_PATH = join(dirname(abspath(dirname(__file__))), "close_crawl")
-# sys.path.append(MODULE_PATH)
+from .context import modules
+from modules import miner
 
-from .close_crawl.modules import miner
+BASE_DIR = path.dirname(path.abspath(__file__))
+TEST_OUTPUT = "test_output.csv"
+
+
+def test_scrape():
+    """Scrape features from valid pre-downloaded HTML files"""
+
+    miner_obj = miner.Miner(
+        sorted([filenames for (dirpath, dirnames, filenames)
+                in walk("responses")][0]),
+        TEST_OUTPUT, True
+    )
+
+    miner_obj.export()
+
+    assert(path.isfile(TEST_OUTPUT))
+
+
+def test_accuracy():
+    """Verify the accuracy of the output"""
+
+    original_df = read_csv(path.join(BASE_DIR, "origin_output.csv"))
+    new_df = read_csv(path.join(BASE_DIR, TEST_OUTPUT))
+    print(original_df.equals(new_df))
+    assert(original_df.equals(new_df))
