@@ -14,8 +14,9 @@ install:
 clean:
 	# clean out Python cache and temporary files
 	@find . \( -name "*.pyc" -o -name "output.csv" \) -type f -delete
+	@find . -name "*.json" -type f -delete
+	@find . -name "test_output.csv" -type f -delete
 	@find . -name "__pycache__" -type d -delete
-	@find . -name "checkpoint.json" -type f -delete
 
 
 .PHONY: upgrade
@@ -30,10 +31,3 @@ update:
 	# update PIP requirements
 	@test 1 -eq $(IN_VENV) && pip freeze > $(REQ) \
 	|| echo 'Activate virtual environment first'
-
-
-# no tests yet
-# .PHONY: test
-# test:
-# 	# run backend unit tests
-# 	@nosetests -v tests
