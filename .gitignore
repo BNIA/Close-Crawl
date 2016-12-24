@@ -10,6 +10,7 @@ $ Jupyter Notebook checkpoints
 .~lock*
 
 # Directories
-responses/
 archived_responses/
-responses_debug/
+
+# Files
+test_output.csv
