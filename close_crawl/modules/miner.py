@@ -34,7 +34,7 @@ class Miner(object):
         self.dataset = []
 
     @staticmethod
-    def scrape(self, html_data):
+    def scrape(html_data):
         """Scrapes the desired features
 
         Args:
@@ -72,7 +72,7 @@ class Miner(object):
         return feature_list
 
     @staticmethod
-    def distribute(self, case_num, feature_list):
+    def distribute(case_num, feature_list):
 
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
