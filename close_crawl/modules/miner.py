@@ -6,6 +6,7 @@
 
 TODO:
     Finish docs
+    Refactor to lower complexity
 
 """
 
@@ -32,6 +33,57 @@ class Miner(object):
         self.output = output
         self.gui = gui
         self.dataset = []
+
+    def scan_files(self):
+
+        case_range = trange(len(self.responses), desc='Mining', leave=True) \
+            if not self.gui else range(len(self.responses))
+
+        for file_name in case_range:
+            with open(
+                HTML_FILE.format(case=self.responses[file_name]), 'r'
+            ) as html_src:
+
+                if not self.gui:
+                    case_range.set_description(
+                        "Mining {}".format(self.responses[file_name])
+                    )
+
+                feature_list = self.scrape(html_src.read())
+                row = self.distribute(feature_list)
+
+                if not row:
+
+                    if not path.isfile(NO_CASE):
+                        with open(NO_CASE, 'w') as no_case_file:
+                            dump([], no_case_file)
+
+                    with open(NO_CASE, 'r+') as no_case_file:
+                        no_case_data = load(no_case_file)
+                        no_case_data.append(str(self.responses[file_name][:-5]))
+                        no_case_file.seek(0)
+                        no_case_file.write(dumps(sorted(set(no_case_data))))
+                        no_case_file.truncate()
+
+                self.dataset.extend(row)
+
+    def export(self):
+
+        file_exists = path.isfile(self.output)
+
+        with open(self.output, 'a') as csv_file:
+            writer = DictWriter(
+                csv_file,
+                fieldnames=[
+                    col for col in FIELDS if col not in INTERNAL_FIELDS
+                ]
+            )
+
+            if not file_exists:
+                writer.writeheader()
+
+            for row in self.dataset:
+                writer.writerow(row)
 
     @staticmethod
     def scrape(html_data):
@@ -66,13 +118,13 @@ class Miner(object):
             feature_list = [item.replace(':', '')
                             for sublist in feature_list for item in sublist]
 
-        except Exception as e:
-            print(e, feature_list)
+        except AttributeError:
+            pass
 
         return feature_list
 
     @staticmethod
-    def distribute(case_num, feature_list):
+    def distribute(feature_list):
 
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
@@ -138,55 +190,17 @@ class Miner(object):
             scraped_features.append(temp_features)
             temp_features = {}
 
-        if not scraped_features:
+        # if not scraped_features:
 
-            if not path.isfile(NO_CASE):
-                with open(NO_CASE, 'w') as no_case_file:
-                    dump([], no_case_file)
+        #     if not path.isfile(NO_CASE):
+        #         with open(NO_CASE, 'w') as no_case_file:
+        #             dump([], no_case_file)
 
-            with open(NO_CASE, 'r+') as no_case_file:
-                no_case_data = load(no_case_file)
-                no_case_data.append(str(case_num[:-5]))
-                no_case_file.seek(0)
-                no_case_file.write(dumps(sorted(list(set(no_case_data)))))
-                no_case_file.truncate()
+        #     with open(NO_CASE, 'r+') as no_case_file:
+        #         no_case_data = load(no_case_file)
+        #         no_case_data.append(str(case_num[:-5]))
+        #         no_case_file.seek(0)
+        #         no_case_file.write(dumps(sorted(list(set(no_case_data)))))
+        #         no_case_file.truncate()
 
         return scraped_features
-
-    def scan_files(self):
-
-        case_range = trange(len(self.responses), desc='Mining', leave=True) \
-            if not self.gui else range(len(self.responses))
-
-        for file_name in case_range:
-            with open(
-                HTML_FILE.format(case=self.responses[file_name]), 'r'
-            ) as html_src:
-
-                if not self.gui:
-                    case_range.set_description(
-                        "Mining {}".format(self.responses[file_name])
-                    )
-
-                feature_list = self.scrape(html_src.read())
-                row = self.distribute(self.responses[file_name], feature_list)
-
-                self.dataset.extend(row)
-
-    def export(self):
-
-        file_exists = path.isfile(self.output)
-
-        with open(self.output, 'a') as csv_file:
-            writer = DictWriter(
-                csv_file,
-                fieldnames=[
-                    col for col in FIELDS if col not in INTERNAL_FIELDS
-                ]
-            )
-
-            if not file_exists:
-                writer.writeheader()
-
-            for row in self.dataset:
-                writer.writerow(row)

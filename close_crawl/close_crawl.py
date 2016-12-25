@@ -13,14 +13,15 @@ from sys import platform
 
 try:
     # Python 2
-    from Tkinter import Frame, Tk
+    import Tkinter as tk
+    # from Tkinter import tk.Frame, tk.Tk
     import tkFileDialog as file_dialog
-    from ttk import Button, Entry, Label
+    import ttk
 except ImportError:
     # Python 3
-    import tkinter as Tk
+    import tkinter as tk
     from tkinter import filedialog as file_dialog
-    from tkinter.ttk import Button, Entry, Label
+    from tkinter import ttk
 from PIL import ImageTk, Image
 
 from modules._version import __version__
@@ -31,19 +32,19 @@ SMALL_FONT = ("Helvetica", 9)
 BASE_PATH = path.dirname(path.abspath(__file__))
 
 
-class CloseCrawl(Tk):
+class CloseCrawl(tk.Tk):
 
     def __init__(self, *args, **kwargs):
 
-        Tk.__init__(self, *args, **kwargs)
-        Tk.wm_title(self, "Close Crawl " + __version__)
+        tk.Tk.__init__(self, *args, **kwargs)
+        tk.Tk.wm_title(self, "Close Crawl {ver}".format(ver=__version__))
 
         # TODO: add bitmap icon for Windows systems
         if platform == "win32":
-            # Tk.iconbitmap(self, "logo_16.png")
+            # tk.Tk.iconbitmap(self, "logo_16.png")
             pass
 
-        container = Frame(self)
+        container = tk.Frame(self)
 
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
@@ -65,65 +66,68 @@ class CloseCrawl(Tk):
         frame.tkraise()
 
 
-class WelcomePage(Frame):
+class GUIComponents():
+
+    @staticmethod
+    def exit_button(parent, controller):
+
+        exit_button = tk.Button(
+            parent, text="Exit",
+            command=lambda: controller.quit()
+        )
+
+        exit_button.pack(pady=10, padx=10)
+
+
+class WelcomePage(tk.Frame):
 
     def __init__(self, parent, controller):
 
-        Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent)
 
-        welcome_image = Image.open(path.join(BASE_PATH, "logo.png"))
+        welcome_image = Image.open(path.join(BASE_PATH, "static", "logo.png"))
         welcome_image = welcome_image.resize((250, 250), Image.ANTIALIAS)
         photo = ImageTk.PhotoImage(welcome_image)
-        image_label = Label(self, image=photo)
+        image_label = ttk.Label(self, image=photo)
         image_label.welcome_image = photo  # keep a reference
         image_label.pack(pady=10, padx=10)
 
-        welcome_button = Button(
+        welcome_button = ttk.Button(
             self, text="Main Menu",
             command=lambda: controller.show_frame(MainMenu)
         )
 
         welcome_button.pack(padx=10)
 
-        exit_button = Button(
-            self, text="Exit",
-            command=lambda: controller.quit()
-        )
-
-        exit_button.pack(pady=10, padx=10)
+        GUIComponents.exit_button(self, controller)
 
 
-class MainMenu(Frame):
+class MainMenu(tk.Frame):
 
     def __init__(self, parent, controller):
 
-        Frame.__init__(self, parent)
-        label = Label(self, text="Main Menu", font=LARGE_FONT)
+        tk.Frame.__init__(self, parent)
+        label = ttk.Label(self, text="Main Menu", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        run_button = Button(
+        run_button = ttk.Button(
             self, text="Scrape Cases",
             command=lambda: controller.show_frame(ScrapeMenu)
         )
 
         run_button.pack(pady=10, padx=10)
 
-        view_button = Button(
+        view_button = ttk.Button(
             self, text="View Data",
             command=lambda: print("Not yet")
         )
 
         view_button.pack(pady=10, padx=10)
 
-        exit_button = Button(
-            self, text="Exit",
-            command=lambda: controller.quit()
-        )
-
-        exit_button.pack(pady=10, padx=10)
+        GUIComponents.exit_button(self, controller)
 
 
-class ScrapeMenu(Frame):
+class ScrapeMenu(tk.Frame):
 
     def __init__(self, parent, controller):
 
@@ -143,33 +147,28 @@ class ScrapeMenu(Frame):
 
         self.dir_path = path.dirname(__file__)
 
-        Frame.__init__(self, parent)
+        tk.Frame.__init__(self, parent)
 
-        label = Label(self, text="Scrape New Cases", font=LARGE_FONT)
+        label = ttk.Label(self, text="Scrape New Cases", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
         entries = self.form(self)
 
-        path_button = Button(
+        path_button = ttk.Button(
             self, text="Select Output Path",
             command=lambda: self.output_file_path()
         )
 
         path_button.pack(pady=10, padx=5)
 
-        run_button = Button(
+        run_button = ttk.Button(
             self, text="Run",
             command=lambda: main(**self.unpack_form(self.fields, entries))
         )
 
         run_button.pack(pady=10, padx=5)
 
-        exit_button = Button(
-            self, text="Exit",
-            command=lambda: controller.quit()
-        )
-
-        exit_button.pack(pady=10, padx=5, side="bottom")
+        GUIComponents.exit_button(self, controller)
 
     def form(self, parent):
 
@@ -177,10 +176,10 @@ class ScrapeMenu(Frame):
 
         for field in self.fields:
 
-            row = Frame(parent)
-            label = Label(row, width=15, text=field, anchor='w')
+            row = tk.Frame(parent)
+            label = ttk.Label(row, width=15, text=field, anchor='w')
 
-            entry = Entry(row)
+            entry = ttk.Entry(row)
 
             if field == "Output":
                 entry.insert(0, "output.csv")

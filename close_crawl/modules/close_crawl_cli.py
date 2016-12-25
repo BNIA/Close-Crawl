@@ -23,7 +23,7 @@ from shutil import rmtree
 from time import time
 
 from .cleaner import Cleaner
-from .miner import export
+from .miner import Miner
 from .settings import CHECKPOINT, HTML_DIR
 from .spider import Spider
 
@@ -104,7 +104,9 @@ def main(case_type, case_year, output, cases='',
                   in walk(HTML_DIR)][0]
 
     start_mine = time()
-    export(file_array, temp_output)
+    miner = Miner(file_array, temp_output)
+    miner.scan_files()
+    miner.export()
     end_mine = time()
 
     df_obj = Cleaner(temp_output)
