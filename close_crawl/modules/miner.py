@@ -33,6 +33,7 @@ class Miner(object):
         self.gui = gui
         self.dataset = []
 
+    @staticmethod
     def scrape(self, html_data):
         """Scrapes the desired features
 
@@ -70,6 +71,7 @@ class Miner(object):
 
         return feature_list
 
+    @staticmethod
     def distribute(self, case_num, feature_list):
 
         # break up elements with n-tuples greater than 2
