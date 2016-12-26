@@ -1,0 +1,190 @@
+{% extends 'datato/components/base.html' %}
+{% load static from staticfiles %}
+{% load jsonify %}
+
+{% block title %}| {{ dataframe.name_of_data }}{% endblock %}
+{% block home-url %}{% url 'index' %}{% endblock %}
+
+{% block nav-options %}
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="page-scroll" href="{% url 'dashboard' %}">
+                    Dashboard
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+{% endblock %}
+
+{% block content %}
+
+    <section class="bg-primary" id="about" style="background-color: #00a79d;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">{{ dataframe.name_of_data }}</h2>
+                    <hr class="light">
+                    <form class="form-inline" method="POST">
+                        {% csrf_token %}
+
+                        <label for="id_features_0">
+                            <h2>Features:</h2>
+                        </label>
+
+                        <ul id="id_features">
+                            {% for index, col in features_form.fields.features.widget.choices %}
+
+                                <li>
+                                    <input class="styled-checkbox features"
+                                           checked=""
+                                           id="id_features_{{ index|add:'-1' }}"
+                                           name="features" type="checkbox"
+                                           value="{{ col }}"/>
+                                    <label class="styled-checkbox"
+                                           for="id_features_{{ index|add:'-1' }}">
+                                        {{ col }}
+                                    </label>
+                                </li>
+
+                                {% if col not in dataset.describe.keys %}
+                                    <p>Feature description not available</p>
+
+                                {% else %}
+                                    {% for feature, attr in dataset.describe.items %}
+                                        {% if feature == col and not features_form.fields.features.widget.attrs.checked %}
+                                            <div class="feature-describe">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        {% for header in attr.keys %}
+                                                            <th>{{ header }}</th>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        {% for report in attr.values %}
+                                                            <td>{{ report }}</td>
+                                                        {% endfor %}
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+
+                            {% endfor %}
+                        </ul>
+
+                        <input type="submit" value="submit"
+                               class="page-scroll btn btn-default btn-xl sr-button">
+
+                    </form>
+
+                    <div class="row">
+                        <div class="col-sm-offset-5 col-sm-2 text-center">
+
+                            <!-- Head modal button -->
+                            <button type="button"
+                                    class="page-scroll btn btn-default btn-xl sr-button"
+                                    data-toggle="modal" data-target="#df_head">
+                                Head
+                            </button>
+
+                            <!-- Tail modal button -->
+                            <button type="button"
+                                    class="page-scroll btn btn-default btn-xl sr-button"
+                                    data-toggle="modal" data-target="#df_tail">
+                                Tail
+                            </button>
+
+                            <!-- Grid Search button -->
+                            <a href="{% url 'gridsearch' dataframe_id=dataframe_id %}"
+                               class="page-scroll btn btn-default btn-xl sr-button">
+                                Grid Search
+                            </a>
+
+
+                            <!-- Chart button -->
+                            <a href="{% url 'explore' dataframe_id=dataframe_id %}"
+                               class="page-scroll btn btn-default btn-xl sr-button">
+                                Chart
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Head Modal -->
+    <div class="portfolio-modal modal fade" id="df_head" tabindex="-1"
+         role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Head</h2>
+                            <hr class="star-primary">
+                            <div class="table-responsive">
+                                {{ dataset.head | safe }}
+                            </div>
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                <i class="fa fa-times"></i>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Tail Modal -->
+    <div class="portfolio-modal modal fade" id="df_tail" tabindex="-1"
+         role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Tail</h2>
+                            <hr class="star-primary">
+                            <div class="table-responsive">
+                                {{ dataset.tail | safe }}
+                            </div>
+                            <button type="button" class="btn btn-default"
+                                    data-dismiss="modal">
+                                <i class="fa fa-times"></i>
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
