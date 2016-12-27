@@ -9,7 +9,7 @@ and constraints for the case type, year and output data file.
 Usage:
     $ python main.py <case_type> <case_year> <path/of/new/dataset>
       <opt: lower_bound> <opt: upper_bound>
-      <opt: anonymize> <opt: debug>
+      <opt: anon> <opt: debug>
 
 Example usage:
     $ python main.py O 2015 test_set.csv -l=300 -u=600 -a=0 -d=1
@@ -29,7 +29,7 @@ from .spider import Spider
 
 
 def main(case_type, case_year, output, cases='',
-         lower_bound=0, upper_bound=0, anonymize=False, debug=False):
+         lower_bound=0, upper_bound=0, anon=False, debug=False):
     """Main function for Close Crawl.
 
     Args:
@@ -39,7 +39,7 @@ def main(case_type, case_year, output, cases='',
             extension (.csv)
         lower_bound (`int`, optional): lower bound of range of cases
         upper_bound (`int`, optional): upper bound of range of cases
-        anonymize (`bool`, optional): option to spoof IP address for
+        anon (`bool`, optional): option to spoof IP address for
             scraping. Default -> True
             WARNING: THIS OPTION IS HIGHLY DEPENDANT ON TYPE OF MACHINE AND
             SEVERAL SYSTEM DEPENDANCIES AND REQUIREMENTS, POSSIBLY REQUIRES
@@ -91,7 +91,7 @@ def main(case_type, case_year, output, cases='',
     spider = Spider(
         case_type, case_year,
         bounds=case_list,
-        anonymize=anonymize, gui=False
+        anon=anon, gui=False
     )
 
     spider.save_response()

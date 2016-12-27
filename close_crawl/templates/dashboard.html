@@ -1,114 +1,27 @@
-{% extends 'datato/components/base.html' %}
-{% load jsonify %}
+{% extends "components/base.html" %}
 
-{% block title %}| Dashboard{% endblock %}
-{% block home-url %}{% url 'index' %}{% endblock %}
+{% block nav_options %}
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a class="page-scroll" href="/shutdown">Shut down</a>
+            </li>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+
+{% endblock %}
 
 {% block content %}
 
-    <section id="services" style="background-color: #00a79d;">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h1 class="section-heading" style="color: #fff; text-transform: uppercase;">Dashboard</h1>
-                    <hr style="border-color: #00aeef;" class="primary">
-                </div>
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <a href="{{ url_for('scrape') }}" class="btn btn-primary btn-xl page-scroll">Scrape Cases</a>
+                <a href="#" class="btn btn-primary btn-xl page-scroll">Other</a>
             </div>
         </div>
-
-        <div class="container">
-
-            {% for dataframe_object in dataframe_objects %}
-
-                {% if forloop.first %}<div class="row">{% endif %}
-
-                    <div class="col-lg-3 col-md-6 text-center" style="padding-bottom: 5px;">
-                        <div class="service-box hvr-bob" style="background-color: #fff; padding: 20px; border-radius: 25px;">
-                            <i class="fa fa-4x fa-table text-primary sr-icons"></i>
-                                <a href="{% url 'dataframe' dataframe_id=dataframe_object.id %}">
-                                    <h2 style="color: #1b75bc;">
-                                        {{ dataframe_object.name_of_data }}
-                                    </h2>
-                                </a>
-                            <p class="text-muted">Check out all your datasets below</p>
-                        </div>
-                    </div>
-                {% if forloop.counter|divisibleby:4 %}
-                    </div>
-                    <div class="row">
-                    <hr style="border-color: #00a79d; margin: 0;">
-
-                {% endif %}
-
-                {% if forloop.last %}
-                    </div>
-                {% endif %}
-
-            {% endfor %}
-        </div>
-
-        <div class="container">
-            <hr class="primary">
-            <div class="row">
-                <div class="col-sm-offset-5 col-sm-2 text-center">
-                    <button type="button" class="page-scroll btn btn-default btn-xl sr-button"
-                        data-toggle="modal" data-target="#upload_modal">
-                        Upload
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Upload Modal -->
-    <div class="portfolio-modal modal fade" id="upload_modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl">
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2">
-                        <div class="modal-body">
-                            <h2>UPLOAD NEW DATASET</h2>
-                            <hr class="star-primary">
-                            <div class="col-md-12">
-                                <form class="form-inline" id="signup_form" method="post"
-                                      action="{% url 'dashboard' %}"
-                                      enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="row">
-                                        <input class="file file-loading" id="id_data_set_upload"
-                                        name="data_set_upload" type="file"
-                                        data-allowed-file-extensions='{{ extensions | jsonify }}'
-                                        data-show-preview="false" required/>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group" style="float: left;">
-                                            <label>NAME YOUR DATASET </label>
-                                            <input type="text" class="form-control" id="id_name_of_data"
-                                            maxlength="32" name="name_of_data" required />
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <button type="button" class="btn btn-default" data-dismiss="modal">
-                                <i class="fa fa-times"></i>
-                                Close
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    </header>
 
 {% endblock %}

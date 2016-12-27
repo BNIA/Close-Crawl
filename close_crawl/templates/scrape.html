@@ -1,0 +1,49 @@
+{% extends "components/base.html" %}
+
+{% block nav_options %}
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a class="page-scroll" href="/shutdown">Shut down</a>
+        </li>
+    </ul>
+</div>
+<!-- /.navbar-collapse -->
+{% endblock %}
+
+{% block content %}
+<header>
+    <div class="header-content">
+        <div class="header-content-inner">
+
+            <h1>Scrape</h1>
+            <p></p>
+            <form action="scrape" method="POST" name="login">
+                <p>
+                    {% for subfield in form.case_type %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.case_year }}
+                </p>
+                <p>{{ form.debug }} Debug | {{ form.anon }} Anonymize</p>
+                <div> 
+                    <p><label for="case_range">Range of cases</label>: </p>
+                    <b>{{ min_val }}</b>
+                    <input id="ex2" type="text" class="span2" name="case_range" 
+                    value="" data-slider-min="{{ min_val }}" data-slider-max="{{ max_val }}" data-slider-step="1" 
+                    data-slider-value="[{{ min_val }}, {{ max_val }}]"/>
+                    <b>{{ max_val }}</b>
+                </div>
+                <p><input type="submit" value="Scrape"></p>
+
+            </form>
+        </div>
+    </div>
+</header>
+{% endblock %}
