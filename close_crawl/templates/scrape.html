@@ -35,9 +35,13 @@
                 <div> 
                     <p><label for="case_range">Range of cases</label>: </p>
                     <b>{{ min_val }}</b>
-                    <input id="ex2" type="text" class="span2" name="case_range" 
-                    value="" data-slider-min="{{ min_val }}" data-slider-max="{{ max_val }}" data-slider-step="1" 
-                    data-slider-value="[{{ min_val }}, {{ max_val }}]"/>
+                    <ul>
+                        <input id="lower" name="lower_bound" data-slider-id='ex1Slider' type="text" data-slider-min="{{ min_val }}" data-slider-max="4000" data-slider-step="1" data-slider-value="{{ min_val }}" data-slider-enabled="true"/>
+                        <input id="lower-enabled" type="checkbox"/> Commit
+                    </ul>
+                    <ul>
+                        <input id="upper" name="upper_bound" data-slider-id='ex1Slider' type="text" data-slider-min="{{ min_val }}" data-slider-max="4000" data-slider-step="1" data-slider-value="{{ min_val }}" data-slider-enabled="false"/>
+                    </ul>
                     <b>{{ max_val }}</b>
                 </div>
                 <p><input type="submit" value="Scrape"></p>

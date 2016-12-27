@@ -21,21 +21,20 @@
 <!-- Theme -->
 <script src="{{ url_for('static', filename='scripts/creative.min.js') }}"></script>
 
-{# Grid search sliders #}
-<script type="text/javascript">
-
-    $("#id_test_train_ratio").slider();
-    $("#id_test_train_ratio").on("slide", function (slideEvt) {
-        $("#test_train_slider_val").text(slideEvt.value);
-    });
-
-    $("#id_shuffle_ratio").slider();
-    $("#id_shuffle_ratio").on("slide", function (slideEvt) {
-        $("#shuffle_slider_val").text(slideEvt.value);
-    });
-
-</script>
-
 <script>
-    var slider = new Slider('#ex2', {});
+
+    var lower_slider = new Slider("#lower", {tooltip: 'always'});
+    var upper_slider = new Slider("#upper", {tooltip: 'always'});
+
+    $("#lower-enabled").click(function() {
+        if(this.checked) {
+            lower_slider.disable();
+            upper_slider.enable();
+        }
+        else {
+            lower_slider.enable();
+            upper_slider.disable();
+        }
+    });
+
 </script>

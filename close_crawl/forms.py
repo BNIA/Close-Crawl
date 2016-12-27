@@ -11,6 +11,7 @@ class ScrapeForm(Form):
                            default=settings.CASE_TYPE[0][0],
                            choices=settings.CASE_TYPE)
     case_year = SelectField('case_year', choices=settings.CASE_YEAR)
-    case_range = DecimalRangeField('Range of cases', default=1)
+    lower_bound = DecimalRangeField('Range of cases', default=1)
+    upper_bound = DecimalRangeField('Range of cases', default=1)
     debug = BooleanField('Debug', default=False)
     anon = BooleanField('Anonymize', default=False)

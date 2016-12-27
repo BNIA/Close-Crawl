@@ -30,9 +30,9 @@ def scrape():
             key: value[0] for key, value in dict(request.form).items()
         }
 
-        form_data["lower_bound"], form_data["upper_bound"] = \
-            form_data["case_range"].split(',')
-        del form_data["case_range"]
+        # form_data["lower_bound"], form_data["upper_bound"] = \
+        #     form_data["case_range"].split(',')
+        # del form_data["case_range"]
         print(form_data)
 
         return redirect('/')
