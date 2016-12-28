@@ -89,9 +89,8 @@ def main(case_type, case_year, output, cases='',
     start_crawl = time()
 
     spider = Spider(
-        case_type, case_year,
-        bounds=case_list,
-        anon=anon, gui=False
+        case_type=case_type, year=case_year,
+        bounds=case_list, anonymize=anon, gui=False
     )
 
     spider.save_response()

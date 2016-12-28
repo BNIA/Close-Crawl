@@ -1,53 +1,104 @@
 {% extends "components/base.html" %}
 
-{% block nav_options %}
-<!-- Collect the nav links, forms, and other content for toggling -->
-<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a class="page-scroll" href="/shutdown">Shut down</a>
-        </li>
-    </ul>
-</div>
-<!-- /.navbar-collapse -->
-{% endblock %}
-
 {% block content %}
-<header>
-    <div class="header-content">
-        <div class="header-content-inner">
-
-            <h1>Scrape</h1>
-            <p></p>
-            <form action="scrape" method="POST" name="login">
-                <p>
-                    {% for subfield in form.case_type %}
-                    <tr>
-                        <td>{{ subfield }}</td>
-                        <td>{{ subfield.label }}</td>
-                    </tr>
-                    {% endfor %}
-                </p>
-                <p>
-                    {{ form.case_year }}
-                </p>
-                <p>{{ form.debug }} Debug | {{ form.anon }} Anonymize</p>
-                <div> 
-                    <p><label for="case_range">Range of cases</label>: </p>
-                    <b>{{ min_val }}</b>
-                    <ul>
-                        <input id="lower" name="lower_bound" data-slider-id='ex1Slider' type="text" data-slider-min="{{ min_val }}" data-slider-max="4000" data-slider-step="1" data-slider-value="{{ min_val }}" data-slider-enabled="true"/>
-                        <input id="lower-enabled" type="checkbox"/> Commit
-                    </ul>
-                    <ul>
-                        <input id="upper" name="upper_bound" data-slider-id='ex1Slider' type="text" data-slider-min="{{ min_val }}" data-slider-max="4000" data-slider-step="1" data-slider-value="{{ min_val }}" data-slider-enabled="false"/>
-                    </ul>
-                    <b>{{ max_val }}</b>
-                </div>
-                <p><input type="submit" value="Scrape"></p>
-
-            </form>
-        </div>
+<div class="col-md-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Form Basic Elements <small>different form elements</small></h2>
+      <div class="clearfix"></div>
     </div>
-</header>
+    <div class="x_content">
+      <br />
+
+
+      <form method="POST" class="form-horizontal form-label-left">
+
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <input id="output" name="output" type="text" class="form-control" value="output.csv">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <select id="case_year" name="case_year" class="form-control">
+              {% for subfield in form.case_year %}
+                <option>{{ subfield.label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 col-sm-3 col-xs-12 control-label">Case Ranges
+            <br>
+            <small class="text-navy">Normal Bootstrap elements</small>
+          </label>
+
+          <div class="col-md-9 col-sm-9 col-xs-12">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input id="lower_bound_id" name="lower_bound" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true"/>
+              <label>Lower</label>
+              <label>
+                <input id="lower-enabled"type="checkbox" class="js-switch"/> Checked
+              </label>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input id="upper_bound_id" name="upper_bound" data-slider-id='upper_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="false"/>
+              <label>Upper</label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
+            <br>
+            <small class="text-navy">Normal Bootstrap elements</small>
+          </label>
+
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="radio">
+              <label>
+                <input checked id="case_type-0" name="case_type" type="radio" value="O" class="flat"> Mortgage
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input id="case_type-1" name="case_type" type="radio" value="C" class="flat"> Tax
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Switch</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="">
+              <label>
+                <input id="debug" name="debug" type="checkbox" class="js-switch"/> Debug
+              </label>
+            </div>
+            <div class="">
+              <label>
+                <input id="anon" name="anon" type="checkbox" class="js-switch"/> Anonymize
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="ln_solid"></div>
+        <div class="form-group">
+          <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success">Scrape</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
