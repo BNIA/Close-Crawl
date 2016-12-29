@@ -69,6 +69,16 @@ class CloseCrawl(tk.Tk):
 class GUIComponents():
 
     @staticmethod
+    def show_frame_button(parent, controller, text, frame):
+
+        welcome_button = ttk.Button(
+            parent, text=text,
+            command=lambda: controller.show_frame(frame)
+        )
+
+        welcome_button.pack(padx=10)
+
+    @staticmethod
     def exit_button(parent, controller):
 
         exit_button = tk.Button(
@@ -92,12 +102,9 @@ class WelcomePage(tk.Frame):
         image_label.welcome_image = photo  # keep a reference
         image_label.pack(pady=10, padx=10)
 
-        welcome_button = ttk.Button(
-            self, text="Main Menu",
-            command=lambda: controller.show_frame(MainMenu)
+        GUIComponents.show_frame_button(
+            self, controller, "Main Menu", MainMenu
         )
-
-        welcome_button.pack(padx=10)
 
         GUIComponents.exit_button(self, controller)
 
@@ -110,12 +117,9 @@ class MainMenu(tk.Frame):
         label = ttk.Label(self, text="Main Menu", font=LARGE_FONT)
         label.pack(pady=10, padx=10)
 
-        run_button = ttk.Button(
-            self, text="Scrape Cases",
-            command=lambda: controller.show_frame(ScrapeMenu)
+        GUIComponents.show_frame_button(
+            self, controller, "Scrape Cases", ScrapeMenu
         )
-
-        run_button.pack(pady=10, padx=10)
 
         view_button = ttk.Button(
             self, text="View Data",

@@ -1,0 +1,128 @@
+{% extends "components/base.html" %}
+
+{% block content %}
+<div class="col-md-12 col-xs-12">
+  <div class="x_panel">
+    <div class="x_title">
+      <h2>Form Basic Elements <small>different form elements</small></h2>
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <br />
+
+
+      <form method="POST" class="form-horizontal form-label-left">
+
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <input id="output" name="output" type="text" class="form-control" value="output.csv">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <select id="case_year" name="case_year" class="form-control">
+              {% for subfield in form.case_year %}
+              <option>{{ subfield.label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 col-sm-3 col-xs-12 control-label">Case Ranges
+            <br>
+            <small class="text-navy">Normal Bootstrap elements</small>
+          </label>
+
+          <div class="col-md-9 col-sm-9 col-xs-12">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input id="lower_bound_id" name="lower_bound" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
+              <label>Lower</label>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input id="upper_bound_id" name="upper_bound" data-slider-id='upper_bound_id' type="text" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%"/>
+              <label>Upper</label>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
+            <br>
+            <small class="text-navy">Normal Bootstrap elements</small>
+          </label>
+
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="radio">
+              <label>
+                <input checked id="case_type-0" name="case_type" type="radio" value="O" class="flat"> Mortgage
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input id="case_type-1" name="case_type" type="radio" value="C" class="flat"> Tax
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Switch</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <div class="">
+              <label>
+                <input id="debug" name="debug" type="checkbox" class="js-switch"/> Debug
+              </label>
+            </div>
+            <div class="">
+              <label>
+                <input id="anon" name="anon" type="checkbox" class="js-switch"/> Anonymize
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="ln_solid"></div>
+        <div class="form-group">
+          <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success">Scrape</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<!-- iCheck -->
+<script src="{{ url_for('static', filename='js/icheck.min.js') }}"></script>
+<!-- Switchery -->
+<script src="{{ url_for('static', filename='js/switchery.min.js') }}"></script>
+
+{# Slider JS #}
+<script src="{{ url_for('static', filename='js/bootstrap-slider.min.js') }}"></script>
+
+<script>
+
+  var lower_slider = new Slider("#lower_bound_id", {tooltip: 'always'});
+  var upper_slider = new Slider("#upper_bound_id", {tooltip: 'always'});
+
+  lower_slider.on('slide', function(ev){
+    var newVal = lower_slider.getValue();
+    upper_slider.setAttribute("min", newVal)
+    upper_slider.setAttribute("max", newVal + 500)
+    upper_slider.refresh();
+  });
+
+</script>
+
+
+{% endblock %}
