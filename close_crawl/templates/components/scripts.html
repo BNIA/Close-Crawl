@@ -1,37 +1,7 @@
-
 <!-- jQuery -->
 <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
 <!-- Bootstrap -->
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-<!-- iCheck -->
-<script src="{{ url_for('static', filename='js/icheck.min.js') }}"></script>
-<!-- Switchery -->
-<script src="{{ url_for('static', filename='js/switchery.min.js') }}"></script>
 
 <!-- Custom Theme Scripts -->
 <script src="{{ url_for('static', filename='js/custom.min.js') }}"></script>
-
-
-{# Slider JS #}
-<script src="{{ url_for('static', filename='js/bootstrap-slider.min.js') }}"></script>
-
-<script>
-
-  var lower_slider = new Slider("#lower_bound_id", {tooltip: 'always'});
-  var upper_slider = new Slider("#upper_bound_id", {tooltip: 'always'});
-
-  $("#lower-enabled").click(function() {
-    if(this.checked) {
-      lower_slider.disable();
-      upper_slider.setAttribute("min", lower_slider.getValue())
-      upper_slider.setAttribute("max", lower_slider.getValue() + 500)
-      upper_slider.refresh();
-      upper_slider.enable();
-    } else {
-      lower_slider.enable();
-      upper_slider.disable();
-    }
-  });
-
-</script>
-

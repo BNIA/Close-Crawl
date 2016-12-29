@@ -1,4 +1,6 @@
 from __future__ import absolute_import, print_function, unicode_literals
+import string
+from random import SystemRandom, uniform
 
 from flask import Flask, request, render_template, redirect
 
@@ -7,7 +9,11 @@ from modules import close_crawl_cli
 
 
 app = Flask(__name__)
-app.secret_key = "fhdsbfdsnjfbj"
+app.secret_key = ''.join(
+    SystemRandom().choice(
+        string.ascii_letters + string.digits
+    ) for _ in range(int(uniform(10, 20)))
+)
 
 
 @app.route('/')
@@ -30,8 +36,8 @@ def scrape():
     if request.method == "POST":
 
         print(request.form.to_dict())
-        # close_crawl_cli.main(**request.form.to_dict())
-        return redirect('/scrape')
+        close_crawl_cli.main(**request.form.to_dict())
+        return redirect('/')
 
     return render_template('scrape.html', form=form,
                            min_val=min_val, max_val=max_val)

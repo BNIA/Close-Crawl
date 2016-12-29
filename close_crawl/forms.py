@@ -1,6 +1,5 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm as Form
 from wtforms import BooleanField, RadioField, StringField, SelectField
-from wtforms.validators import DataRequired, NumberRange
 from wtforms.fields.html5 import DecimalRangeField
 from modules import settings
 
