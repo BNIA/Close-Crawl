@@ -15,6 +15,16 @@ A standalone executable can be found in the `dist` directory. The executable was
 [![Stories in In Progress](https://badge.waffle.io/BNIA/Close-Crawl.png?label=In%20Progress&title=In%20Progress)](http://waffle.io/BNIA/Close-Crawl)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7780959c71334679ae1996a8060f1390)](https://www.codacy.com/app/sabbir0ahmed0/Close-Crawl?utm_source=github.com&utm_medium=referral&utm_content=BNIA/Close-Crawl&utm_campaign=badger)
 
+#### Requirements
+- Python 2.7. Python 3 is not supported by Mechanize, the package used for crawling the records, and is therefore not supported. Development for Python 3 support is under way.
+- Third party packages listed in `requirements.txt`
+
+Clone the repository, create a virtual environment and install the packages via pip: `pip install -r requirements.txt`.<br>
+Or run the Makefile: `make install`
+
+Run the tests: (the tests run on [nose](https://github.com/nose-devs/nose))
+- For UNIX machines, a Makefile has been provided for convenience. Navigate to `tests` to run: `make -f Makefile_test`
+- For non-UNIX machines: `nosetests -v` will work.
 
 ## Abstract
 
@@ -22,4 +32,4 @@ A standalone executable can be found in the `dist` directory. The executable was
 Close Crawl was initially intended to accompany a non-specified GUI toolkit interface (Tcl/Tk/QT) but later replaced with a Flask web application. The reasons for the new approach included bringing in more lightweight and independent frontend templates and statics and a system independent interface.
 
 ### Modules
-Close Crawl uses Mechanize (soon to be replaced by MechanicalSoup) to crawl through the records and temporarily download the responses as HTML files. Saving the HTML data locally prevents any loss of progress in case of any network or system disruption during the crawling process, which can be resumed later. The saved files are then parsed using BeautifulSoup, and advanced regular expressions. The data is further cleaned with pandas methods, and the final output is saved as a CSV file.
+Close Crawl uses Mechanize **(soon to be replaced by [MechanicalSoup](https://github.com/hickford/MechanicalSoup))** to crawl through the records and temporarily download the responses as HTML files. Saving the HTML data locally prevents any loss of progress in case of any network or system disruption during the crawling process, which can be resumed later. The saved files are then parsed using BeautifulSoup, and advanced regular expressions. The data is further cleaned with pandas methods, and the final output is saved as a CSV file.
