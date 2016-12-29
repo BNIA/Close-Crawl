@@ -77,7 +77,7 @@ def main(case_type, case_year, output, cases='',
             if not lower_bound:
                 lower_bound = prev_bound
             upper_bound = upper_bound if upper_bound > lower_bound \
-                else str(int(lower_bound) + 500)
+                else str(lower_bound + 5)
 
         case_list = range(int(lower_bound), int(upper_bound) + 1)
 
