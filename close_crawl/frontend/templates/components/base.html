@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Close Crawl | </title>
+  <title>Close Crawl | {% block title_str %}{% endblock %}</title>
   {% include 'components/styles.html' %}
 
 
@@ -27,7 +27,7 @@
           <!-- menu profile quick info -->
           <div class="profile">
             <div class="profile_pic">
-              <img src="{{ url_for('static', filename='images/img.jpg') }}" alt="..." class="img-circle profile_img">
+              <img src="{{ url_for('static', filename='img/logo.png') }}" alt="..." class="img-circle profile_img">
             </div>
             <div class="profile_info">
               <span>Welcome,</span>
@@ -102,7 +102,7 @@
     <!-- footer content -->
     <footer>
       <div class="pull-right">
-        Gentelella - Bootstrap Admin Template by <a href="#">Colorlib</a>
+        Code: <a href="https://github.com/BNIA/Close-Crawl">GitHub</a>
       </div>
       <div class="clearfix"></div>
     </footer>

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/BNIA/Close-Crawl/master/close_crawl/frontend/static/logo.png">
+  <img src="https://raw.githubusercontent.com/BNIA/Close-Crawl/master/close_crawl/frontend/static/img/logo.png">
 </div>
 -------------
 
@@ -23,8 +23,8 @@ Clone the repository, create a virtual environment and install the packages via 
 Or run the Makefile: `make install`
 
 Run the tests: (the tests run on [nose](https://github.com/nose-devs/nose))
-- For UNIX machines, a Makefile has been provided for convenience. Navigate to `tests` to run: `make -f Makefile_test`
-- For non-UNIX machines: `nosetests -v` will work.
+- For UNIX machines, a Makefile has been provided for convenience. Just run: `make test`
+- For non-UNIX machines: `nosetests -v -w tests` will work.
 
 ## Abstract
 

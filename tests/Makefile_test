@@ -1,6 +1,0 @@
-# Makefile for testing
-
-.PHONY: test
-test:
-	# run backend unit tests
-	@nosetests -v . && rm "test_output.csv"

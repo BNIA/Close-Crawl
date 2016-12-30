@@ -31,3 +31,16 @@ update:
 	# update PIP requirements
 	@test 1 -eq $(IN_VENV) && pip freeze > $(REQ) \
 	|| echo 'Activate virtual environment first'
+
+
+.PHONY: test
+test:
+	# run backend unit tests
+	@nosetests -v -w tests && rm "tests/test_output.csv"
+
+
+.PHONY: run
+run:
+	# run the Flask server
+	python close_crawl/server.py
+

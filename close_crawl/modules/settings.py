@@ -45,12 +45,3 @@ INTERNAL_FIELDS = [
     "Business or Organization Name",
     "Party Type",
 ]
-
-
-# front end form settings
-CASE_TYPE = [
-    ('O', "Mortgage"),
-    ('C', "Tax"),
-]
-
-CASE_YEAR = [(str(year)[-2:], year) for year in range(2016, 2009, -1)]
