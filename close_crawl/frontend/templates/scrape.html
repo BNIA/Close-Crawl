@@ -6,7 +6,7 @@
 <div class="col-md-12 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
-      <h2>Form Basic Elements <small>different form elements</small></h2>
+      <h2>Scraping Parameters</h2>
       <div class="clearfix"></div>
     </div>
     <div class="x_content">
@@ -15,67 +15,76 @@
 
       <form method="POST" class="form-horizontal form-label-left">
 
+        {# Output file name input, case year and case type #}
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
+
+          <label class="control-label col-md-2 col-sm-2 col-xs-12">
+            File name
+          </label>
+          <div class="col-md-3 col-sm-3 col-xs-12">
             <input id="output" name="output" type="text" class="form-control" value="output.csv">
           </div>
-        </div>
-        <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12">Select</label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
+
+          <label class="control-label col-md-1 col-sm-1 col-xs-12">
+            Case Year
+          </label>
+          <div class="col-md-2 col-sm-2 col-xs-12">
             <select id="case_year" name="case_year" class="form-control">
               {% for subfield in form.case_year %}
               <option>{{ subfield.label }}</option>
               {% endfor %}
             </select>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label">Case Ranges
-            <br>
-            <small class="text-navy">Normal Bootstrap elements</small>
+          <label class="col-md-1 col-sm-1 col-xs-12 control-label">
+            Case Type
           </label>
-
-          <div class="col-md-9 col-sm-9 col-xs-12">
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <input id="lower_bound_id" name="lower_bound" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
-              <label>Lower</label>
-            </div>
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <input id="upper_bound_id" name="upper_bound" data-slider-id='upper_bound_id' type="text" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%"/>
-              <label>Upper</label>
-
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-3 col-sm-3 col-xs-12 control-label">Checkboxes and radios
-            <br>
-            <small class="text-navy">Normal Bootstrap elements</small>
-          </label>
-
-          <div class="col-md-9 col-sm-9 col-xs-12">
+          <div class="col-md-3 col-sm-3 col-xs-12">
             <div class="radio">
               <label>
-                <input checked id="case_type-0" name="case_type" type="radio" value="O" class="flat"> Mortgage
+                <input id="case_type-0" name="case_type" type="radio" value="O" class="flat" checked> Mortgage
               </label>
-            </div>
-            <div class="radio">
               <label>
                 <input id="case_type-1" name="case_type" type="radio" value="C" class="flat"> Tax
               </label>
             </div>
           </div>
+
+
+        </div>
+
+        {# Case range bounds #}
+        <div class="form-group" style="margin-top: 50px;">
+
+          <label class="col-md-2 col-sm-2 col-xs-12 control-label">
+            Lower Bound
+          </label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input id="lower_bound_id" name="lower_bound" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
+            </div>
+
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 50px;">
+
+          <label class="col-md-2 col-sm-2 col-xs-12 control-label">
+            Upper Bound
+          </label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input id="upper_bound_id" name="upper_bound" data-slider-id='upper_bound_id' type="text" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%"/>
+
+            </div>
+          </div>
         </div>
 
         <div class="form-group">
-          <label class="control-label col-md-3 col-sm-3 col-xs-12">Switch</label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
+          <label class="control-label col-md-2 col-sm-2 col-xs-12">Extra Options</label>
+          <div class="col-md-10 col-sm-10 col-xs-12">
             <div class="">
               <label>
                 <input id="debug" name="debug" type="checkbox" class="js-switch"/> Debug
@@ -91,7 +100,7 @@
 
         <div class="ln_solid"></div>
         <div class="form-group">
-          <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+          <div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-3">
             <button type="submit" class="btn btn-success">Scrape</button>
           </div>
         </div>
@@ -114,8 +123,8 @@
 
 <script>
 
-  var lower_slider = new Slider("#lower_bound_id", {tooltip: 'always'});
-  var upper_slider = new Slider("#upper_bound_id", {tooltip: 'always'});
+  var lower_slider = new Slider("#lower_bound_id", {tooltip: 'always', tooltip_position: 'top'});
+  var upper_slider = new Slider("#upper_bound_id", {tooltip: 'always', tooltip_position: 'bottom'});
 
   lower_slider.on('slide', function(ev){
     var newVal = lower_slider.getValue();

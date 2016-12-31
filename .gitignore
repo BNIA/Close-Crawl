@@ -3,10 +3,6 @@
 *.pyc
 __pycache__/
 
-$ Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
 # Custom directories and files
 .~lock*
-archived_responses/
 test_output.csv
