@@ -190,17 +190,4 @@ class Miner(object):
             scraped_features.append(temp_features)
             temp_features = {}
 
-        # if not scraped_features:
-
-        #     if not path.isfile(NO_CASE):
-        #         with open(NO_CASE, 'w') as no_case_file:
-        #             dump([], no_case_file)
-
-        #     with open(NO_CASE, 'r+') as no_case_file:
-        #         no_case_data = load(no_case_file)
-        #         no_case_data.append(str(case_num[:-5]))
-        #         no_case_file.seek(0)
-        #         no_case_file.write(dumps(sorted(list(set(no_case_data)))))
-        #         no_case_file.truncate()
-
         return scraped_features

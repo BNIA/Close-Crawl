@@ -4,19 +4,32 @@ VENV="$(shell find . -name ".*env")"
 IN_VENV="$(shell python env.py)"
 REQ=requirements.txt
 
-.PHONY: install
-install:
-	# install the virtual environment
-	@test -d $(VENV) && virtualenv $(VENV) || virtualenv .venv
+
+.PHONY: run
+run:
+	# run the Flask server
+	python close_crawl/server.py
 
 
 .PHONY: clean
 clean:
 	# clean out cache and temporary files
-	@find . \( -name "*.pyc" -o -name "output.csv" \) -type f -delete
-	@find . -name "checkpoint.json" -type f -delete
-	@find . -name "test_output.csv" -type f -delete
+	@find . \( \
+		-name "*.pyc" -o -name "output.csv" -o -name "checkpoint.json" -name \
+		"test_output.csv" \) -type f -delete
 	@find . -name "__pycache__" -type d -delete
+
+
+.PHONY: test
+test:
+	# run backend unit tests
+	@nosetests -v -w tests && rm "tests/test_output.csv"
+
+
+.PHONY: install
+install:
+	# install the virtual environment
+	@test -d $(VENV) && virtualenv $(VENV) || virtualenv .venv
 
 
 .PHONY: upgrade
@@ -29,18 +42,5 @@ upgrade:
 .PHONY: update
 update:
 	# update PIP requirements
-	@test 1 -eq $(IN_VENV) && pip freeze > $(REQ) \
+	@test 1 -eq $(IN_VENV) && pip freeze | grep -v nose > $(REQ) \
 	|| echo 'Activate virtual environment first'
-
-
-.PHONY: test
-test:
-	# run backend unit tests
-	@nosetests -v -w tests && rm "tests/test_output.csv"
-
-
-.PHONY: run
-run:
-	# run the Flask server
-	python close_crawl/server.py
-

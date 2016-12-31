@@ -64,7 +64,7 @@ def main(case_type, case_year, output, cases='',
                 {
                     'last_case': '{:04d}'.format(int(str(lower_bound)[-4:])),
                     'type': case_type,
-                    'year': case_year,
+                    'year': case_year[-2:],
                     'error_case': '',
                 },
                 checkpoint
@@ -89,7 +89,7 @@ def main(case_type, case_year, output, cases='',
     start_crawl = time()
 
     spider = Spider(
-        case_type=case_type, year=case_year,
+        case_type=case_type, year=case_year[-2:],
         bounds=case_list, anonymize=anon, gui=False
     )
 
