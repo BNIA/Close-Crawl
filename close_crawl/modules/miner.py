@@ -126,19 +126,28 @@ class Miner(object):
     @staticmethod
     def distribute(feature_list):
 
+        def __pair(list_type):
+
+            def __raw_business(i):
+                return any(
+                    x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS
+                )
+
+            def __feature_list(i):
+                return feature_list[i:i + 2][0] in FEATURES
+
+            condition = __raw_business if list_type else __feature_list
+
+            return [
+                tuple(feature_list[i:i + 2])
+                for i in range(0, len(feature_list), 2)
+                if condition(i)
+            ]
+
         # break up elements with n-tuples greater than 2
         # then convert list of tuples to dict for faster lookup
-        raw_business = [
-            tuple(feature_list[i:i + 2])
-            for i in range(0, len(feature_list), 2)
-            if any(x in feature_list[i:i + 2][0] for x in INTERNAL_FIELDS)
-        ]
-
-        feature_list = dict([
-            tuple(feature_list[i:i + 2])
-            for i in range(0, len(feature_list), 2)
-            if feature_list[i:i + 2][0] in FEATURES
-        ])
+        raw_business = __pair(1)
+        feature_list = dict(__pair(0))
 
         filtered_business = []
 
