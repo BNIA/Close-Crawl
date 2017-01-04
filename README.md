@@ -31,7 +31,8 @@ Clone the repository, create a virtual environment and install the packages via 
 Or run the Makefile: `make install`
 
 #### Tests
-Run the tests: (the tests run on [nose](http://nose.readthedocs.io/en/latest/))
+Run the tests: <br>
+The tests run on [nose](http://nose.readthedocs.io/en/latest/). To install, run: `pip install nose`
 - For UNIX machines, a Makefile has been provided for convenience. Just run: `make test`
 - For non-UNIX machines: `nosetests -v -w tests` will work.
 
