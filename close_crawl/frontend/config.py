@@ -1,9 +1,14 @@
+from os import path
 import string
 from random import SystemRandom, uniform
 
 from flask import Flask
 
-app = Flask(__name__)
+BASE_DIR = path.dirname(path.abspath(__file__))
+TEMPLATE_DIR = path.join(BASE_DIR, "templates")
+STATIC_DIR = path.join(BASE_DIR, "static")
+
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
 app.secret_key = ''.join(
     SystemRandom().choice(
