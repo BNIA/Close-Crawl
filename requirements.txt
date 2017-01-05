@@ -1,5 +1,6 @@
 beautifulsoup4==4.5.3
 click==6.6
+email==4.0.2
 Flask==0.12
 itsdangerous==0.24
 Jinja2==2.8.1

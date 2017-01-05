@@ -12,11 +12,6 @@ BASE_DIR = path.dirname(path.abspath(__file__))
 TEMPLATE_DIR = path.join(BASE_DIR, "templates")
 STATIC_DIR = path.join(BASE_DIR, "static")
 
-# temporary hardcoded dir
-# TODO: figure out dynamic path for PyInstaller build
-TEMPLATE_DIR = "/home/sabbir/Desktop/close-crawl/close_crawl/frontend/templates"
-STATIC_DIR = "/home/sabbir/Desktop/close-crawl/close_crawl/frontend/static"
-
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
 app.secret_key = ''.join(
