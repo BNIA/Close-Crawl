@@ -40,12 +40,13 @@ class Cleaner(object):
                 outputted
         """
 
-        self.df = self.__prettify(read_csv(path))
+        self.df = self.prettify(read_csv(path))
 
         self.columns = list(self.df)
         self.clean_df = []
 
-    def __prettify(self, df, internal=True):
+    @staticmethod
+    def prettify(df, internal=True):
         """Drops duplicates, sorts and fills missing values in the DataFrame
         to make it manageable.
 
@@ -121,7 +122,8 @@ class Cleaner(object):
         self.df["Zip Code"] = self.df["Zip Code"].replace('', float('nan'))
         self.df["Address"] = self.df["Address"].replace('', float('nan'))
 
-    def __combine_rows(self, row):
+    @staticmethod
+    def combine_rows(self, row):
         """Merges rows after filtering out common values
 
         Args:
@@ -147,7 +149,8 @@ class Cleaner(object):
 
         return [__filter_tuple(x) for x in zip(*row)]
 
-    def __mergeable(self, bool_vec):
+    @staticmethod
+    def mergeable(bool_vec):
         """Determines if groupby("Case Number") rows are mergeable
 
         Example:
@@ -222,8 +225,8 @@ class Cleaner(object):
             new_row = null_df[null_df["Case Number"] == i]
 
             # if the rows are mergeable, combine them
-            if self.__mergeable(bool_row.values):
-                new_row = self.__combine_rows(new_row.values.tolist())
+            if self.mergeable(bool_row.values):
+                new_row = self.combine_rows(new_row.values.tolist())
 
                 new_df.append(
                     {
@@ -250,7 +253,7 @@ class Cleaner(object):
         ).reset_index(drop=True)
 
         # prettify the new DataFrame
-        self.clean_df = self.__prettify(
+        self.clean_df = self.prettify(
             self.clean_df[self.columns], internal=False
         )
 

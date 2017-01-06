@@ -28,7 +28,7 @@ from .settings import CASE_PAT, CHECKPOINT, HTML_DIR, HTML_FILE
 
 class Spider(object):
 
-    def __init__(self, case_type, year, bounds=range(1, 15),
+    def __init__(self, case_type, year, bounds=range(1, 5),
                  anonymize=False, gui=False):
 
         # initial disclaimer page for terms and agreements
@@ -81,36 +81,40 @@ class Spider(object):
 
             # pause process
             except KeyboardInterrupt:
-                with open(CHECKPOINT, 'r+') as checkpoint:
-                    checkpoint_data = load(checkpoint)
-                    checkpoint_data["last_case"] = \
-                        '{:04d}'.format(int(str(self.bounds[case_num])[-4:]))
-                    checkpoint_data["year"] = self.year
-                    checkpoint_data["type"] = self.type
-                    checkpoint.seek(0)
-                    checkpoint.write(dumps(checkpoint_data))
-                    checkpoint.truncate()
 
+                self.dump_json({
+                    "error_case":
+                        '{:04d}'.format(int(str(self.bounds[case_num])[-4:])),
+                        "year": self.year,
+                        "type": self.type
+                })
                 print('Crawling paused at', case)
                 break
 
             # case does not exist
             except IndexError:
-                with open(CHECKPOINT, 'r+') as checkpoint:
-                    checkpoint_data = load(checkpoint)
-                    checkpoint_data["error_case"] = case
-                    checkpoint.seek(0)
-                    checkpoint.write(dumps(checkpoint_data))
-                    checkpoint.truncate()
 
+                self.dump_json({"error_case": case})
                 print(case, "does not exist")
                 break
 
         # close browser and end session
+        self.close_sesh()
+
+    @staticmethod
+    def dump_json(data):
+
+        with open(CHECKPOINT, 'r+') as checkpoint:
+            checkpoint_data = load(checkpoint)
+
+            for key, val in data.items():
+                checkpoint_data[key] = val
+
+            checkpoint_data[key] = data
+            checkpoint.seek(0)
+            checkpoint.write(dumps(checkpoint_data))
+            checkpoint.truncate()
+
+    def close_sesh(self):
+
         self.browser.close()
-
-
-if __name__ == '__main__':
-
-    Session().anonymize()
-    Spider('O', '15').save_response()

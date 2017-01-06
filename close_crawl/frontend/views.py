@@ -3,7 +3,6 @@ from flask import request, render_template, redirect
 
 from .config import app
 from .context import modules
-from .forms import ScrapeForm
 from modules import close_crawl_cli
 
 
@@ -20,7 +19,6 @@ def dashboard():
 @app.route('/scrape', methods=('GET', 'POST'))
 def scrape():
 
-    form = ScrapeForm()
     min_val = 1
     max_val = min_val + 500
 
@@ -30,8 +28,7 @@ def scrape():
         close_crawl_cli.main(**request.form.to_dict())
         return redirect('/')
 
-    return render_template('scrape.html', form=form,
-                           min_val=min_val, max_val=max_val)
+    return render_template('scrape.html', min_val=min_val, max_val=max_val)
 
 
 def shutdown_server():

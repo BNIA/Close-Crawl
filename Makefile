@@ -15,8 +15,8 @@ run:
 clean:
 	# clean out cache and temporary files
 	@find . \( \
-		-name "*.pyc" -o -name "output.csv" -o -name "checkpoint.json" -name \
-		"test_output.csv" \) -type f -delete
+		-name "*.pyc" -o -name "output.csv" -o -name "checkpoint.json" -o \
+		-name "test_output.csv" \) -type f -delete
 	@find . -name "__pycache__" -type d -delete
 
 
@@ -42,5 +42,5 @@ upgrade:
 .PHONY: update
 update:
 	# update PIP requirements
-	@test 1 -eq $(IN_VENV) && pip freeze | grep -v nose > $(REQ) \
+	@test 1 -eq $(IN_VENV) && pip freeze | grep -Ev "PyInstaller|nose" > $(REQ) \
 	|| echo 'Activate virtual environment first'
