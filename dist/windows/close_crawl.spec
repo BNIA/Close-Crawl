@@ -3,11 +3,11 @@
 block_cipher = None
 
 
-a = Analysis(['close_crawl/server.py'],
-             pathex=['/home/sabbir/Desktop/close-crawl'],
+a = Analysis(['close_crawl\\close_crawl.py'],
+             pathex=['C:\\Users\\sabbi\\Documents\\GitHub\\maryland-foreclosure-scraper'],
              binaries=None,
-             datas=[('close_crawl/frontend/templates', 'frontend/templates'),
-             ('close_crawl/frontend/static', 'frontend/static')],
+             datas=[('close_crawl\\frontend\\templates', 'frontend\\templates'),
+             ('close_crawl\\frontend\\static', 'frontend\\static')],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
