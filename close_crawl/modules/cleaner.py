@@ -123,7 +123,7 @@ class Cleaner(object):
         self.df["Address"] = self.df["Address"].replace('', float('nan'))
 
     @staticmethod
-    def combine_rows(self, row):
+    def combine_rows(row):
         """Merges rows after filtering out common values
 
         Args:
