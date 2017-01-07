@@ -2,7 +2,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 from flask import request, render_template, redirect
 
 from .config import app
-from .context import modules
+from .context import modules  # pylint: disable=unused-import
 from modules import close_crawl_cli
 
 
@@ -24,7 +24,6 @@ def scrape():
 
     if request.method == "POST":
 
-        print(request.form.to_dict())
         close_crawl_cli.main(**request.form.to_dict())
         return redirect('/')
 

@@ -3,7 +3,7 @@
 {% block title_str %}Scrape{% endblock %}
 
 {% block content %}
-<div class="col-md-12 col-xs-12">
+<div id="content" class="col-md-12 col-xs-12">
   <div class="x_panel">
     <div class="x_title">
       <h2>Scraping Parameters</h2>
@@ -26,17 +26,17 @@
           </div>
 
           <label class="control-label col-md-1 col-sm-1 col-xs-12">
-            Case Year
+            Year
           </label>
           <div class="col-md-2 col-sm-2 col-xs-12">
             <select id="case_year" name="case_year" class="form-control">
               {% for year in range(2016, 2009, -1) %}
-                <option>{{ year }}</option>
+              <option>{{ year }}</option>
               {% endfor %}
             </select>
           </div>
 
-          <label class="col-md-1 col-sm-1 col-xs-12 control-label">
+          <label class="control-label col-md-1 col-sm-1 col-xs-12">
             Case Type
           </label>
           <div class="col-md-3 col-sm-3 col-xs-12">
@@ -101,7 +101,7 @@
         <div class="ln_solid"></div>
         <div class="form-group">
           <div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-3">
-            <button type="submit" class="btn btn-success">Scrape</button>
+            <button type="submit" class="btn btn-success" onclick="loading();">Scrape</button>
           </div>
         </div>
 
@@ -109,6 +109,24 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">// <![CDATA[
+  function loading(){
+    $("#loading").show();
+    $("#content").hide();       
+  }
+  // ]]>
+</script>
+<style>
+  div#loading {
+    width: 500px;
+    height: 500px;
+    display: none;
+    background: url(/static/img/load.svg) no-repeat;
+  }
+</style>
+
+<div id="loading" class="container body"></div>
+
 {% endblock %}
 
 {% block extra_js %}
