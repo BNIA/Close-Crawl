@@ -59,13 +59,17 @@
           <label class="col-md-2 col-sm-2 col-xs-12 control-label">
             Lower Bound
           </label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
+          <div class="col-md-8 col-sm-8 col-xs-12">
 
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <input id="lower_bound_id" name="lower_bound" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
+              <input id="lower_bound_id" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
             </div>
 
           </div>
+          <div class="col-md-1 col-sm-1 col-xs-12">
+            <input id="lower_bound_text" name="lower_bound" type="text" class="form-control">
+          </div>
+
         </div>
 
         <div class="form-group" style="margin-bottom: 50px;">
@@ -73,13 +77,16 @@
           <label class="col-md-2 col-sm-2 col-xs-12 control-label">
             Upper Bound
           </label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
 
+          <div class="col-md-8 col-sm-8 col-xs-12">
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <input id="upper_bound_id" name="upper_bound" data-slider-id='upper_bound_id' type="text" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%"/>
-
+              <input id="upper_bound_id" data-slider-id='upper_bound_id' type="text" data-slider-min="1" data-slider-max="500" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%"/>
             </div>
           </div>
+          <div class="col-md-1 col-sm-1 col-xs-12">
+            <input id="upper_bound_text" name="upper_bound" type="text" class="form-control">
+          </div>
+
         </div>
 
         <div class="form-group">
@@ -141,15 +148,23 @@
 
 <script>
 
-  var lower_slider = new Slider("#lower_bound_id", {tooltip: 'always', tooltip_position: 'top'});
-  var upper_slider = new Slider("#upper_bound_id", {tooltip: 'always', tooltip_position: 'bottom'});
+  var lower_slider = $("#lower_bound_id").slider({tooltip: 'always', tooltip_position: 'top'});
+  var upper_slider = $("#upper_bound_id").slider({tooltip: 'always', tooltip_position: 'bottom'});
 
-  lower_slider.on('slide', function(ev){
-    var newVal = lower_slider.getValue();
-    upper_slider.setAttribute("min", newVal)
-    upper_slider.setAttribute("max", newVal + 500)
-    upper_slider.refresh();
-  });
+  var change_bounds = function() {
+    $("#lower_bound_text").val(lower_bound.getValue());
+    $("#upper_bound_text").val(upper_bound.getValue());
+    upper_slider.slider({
+      "min": lower_bound.getValue(), 
+      "max": lower_bound.getValue() + 500
+    });
+    upper_slider.slider("refresh");
+  };
+
+  var lower_bound = lower_slider.on('slide', change_bounds).data("slider");
+  var upper_bound = upper_slider.on('slide', function() {
+    $("#upper_bound_text").val(upper_bound.getValue());
+  }).data("slider");
 
 </script>
 
