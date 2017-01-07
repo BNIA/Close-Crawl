@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+
 from os import path
 import string
 from random import SystemRandom, uniform

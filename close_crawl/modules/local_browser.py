@@ -24,11 +24,14 @@ TODO:
 from __future__ import absolute_import, print_function, unicode_literals
 import cookielib  # import http.cookiejar for Python3
 import socket
+import warnings
 
 from mechanize import Browser, _http
 import socks
 
 from .settings import HEADER, URL
+
+warnings.filterwarnings('ignore', category=UserWarning)
 
 
 class Session(object):
@@ -64,6 +67,9 @@ class Session(object):
 
         # user-Agent
         self.browser.addheaders = [('User-agent', HEADER)]
+
+    def open(self, url):
+        return self.browser.open(url)
 
     def close(self):
         """Destructor for Session. Closes current browser session

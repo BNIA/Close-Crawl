@@ -67,7 +67,7 @@
 
           </div>
           <div class="col-md-1 col-sm-1 col-xs-12">
-            <input id="lower_bound_text" name="lower_bound" type="text" class="form-control">
+            <input id="lower_bound_text" name="lower_bound" type="text" class="form-control" value="1">
           </div>
 
         </div>
@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="col-md-1 col-sm-1 col-xs-12">
-            <input id="upper_bound_text" name="upper_bound" type="text" class="form-control">
+            <input id="upper_bound_text" name="upper_bound" type="text" class="form-control" value="1">
           </div>
 
         </div>
@@ -165,6 +165,17 @@
   var upper_bound = upper_slider.on('slide', function() {
     $("#upper_bound_text").val(upper_bound.getValue());
   }).data("slider");
+
+  $("#lower_bound_text").on('input', function () {
+    lower_slider.slider({"value": parseInt(this.value)});
+    lower_slider.slider("refresh");
+    change_bounds()
+  });
+
+  $("#upper_bound_text").on('input', function () {
+    upper_slider.slider({"value": parseInt(this.value)});
+    upper_slider.slider("refresh");
+  });
 
 </script>
 

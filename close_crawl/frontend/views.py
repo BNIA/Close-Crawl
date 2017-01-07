@@ -1,8 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# pylint: disable=unused-import
+
 from __future__ import absolute_import, print_function, unicode_literals
 from flask import request, render_template, redirect
 
 from .config import app
-from .context import modules  # pylint: disable=unused-import
+from .context import modules
 from modules import close_crawl_cli
 
 
