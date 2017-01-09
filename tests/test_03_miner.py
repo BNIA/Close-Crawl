@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# pylint: disable=unused-import
 
 from __future__ import absolute_import, print_function, unicode_literals
 from os import path, walk

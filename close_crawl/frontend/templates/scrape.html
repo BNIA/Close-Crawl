@@ -2,6 +2,8 @@
 
 {% block title_str %}Scrape{% endblock %}
 
+{% block page_title %}{% endblock %}
+
 {% block content %}
 <div id="content" class="col-md-12 col-xs-12">
   <div class="x_panel">
@@ -107,7 +109,7 @@
 
         <div class="ln_solid"></div>
         <div class="form-group">
-          <div class="col-md-10 col-sm-10 col-xs-12 col-md-offset-3">
+          <div class="control-label col-md-2 col-sm-2 col-xs-12">
             <button type="submit" class="btn btn-success" onclick="loading();">Scrape</button>
           </div>
         </div>
@@ -124,15 +126,17 @@
   // ]]>
 </script>
 <style>
+
   div#loading {
     width: 500px;
     height: 500px;
     display: none;
     background: url(/static/img/load.svg) no-repeat;
   }
+
 </style>
 
-<div id="loading" class="container body"></div>
+<div id="loading"></div>
 
 {% endblock %}
 

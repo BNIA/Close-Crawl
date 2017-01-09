@@ -60,7 +60,7 @@ class Session(object):
         self.browser.set_handle_referer(True)
         self.browser.set_handle_robots(False)
 
-        # follows refresh 0 but not hangs on refresh > 0
+        # follows refresh 0 but doesn't hang on refresh > 0
         self.browser.set_handle_refresh(
             _http.HTTPRefreshProcessor(), max_time=1
         )
@@ -96,14 +96,18 @@ class Session(object):
         Returns:
             None
         """
+        try:
 
-        socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
-                              addr="127.0.0.1", port=9050)
+            socks.setdefaultproxy(proxy_type=socks.PROXY_TYPE_SOCKS5,
+                                  addr="127.0.0.1", port=9050)
 
-        socket.socket = socks.socksocket
+            socket.socket = socks.socksocket
 
-        print("Current spoofed IP:", self.browser.open(
-            "http://icanhazip.com").read())
+            print("Current spoofed IP:", self.browser.open(
+                "http://icanhazip.com", timeout=5.0).read())
+
+        except socks.GeneralProxyError:
+            print("close")
 
     def case_id_form(self, case):
         """Grabs the form in the case searching page, and inputs the

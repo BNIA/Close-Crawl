@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+# pylint: disable=unused-import
 
 from os import path
 import string
@@ -10,7 +10,7 @@ from flask import Flask
 
 # extra modules to manually add hooks for building executible
 # TODO: fix this
-from .extra_mods import *  # pylint: disable=unused-import
+from .extra_mods import *
 
 BASE_DIR = path.dirname(path.abspath(__file__))
 TEMPLATE_DIR = path.join(BASE_DIR, "templates")

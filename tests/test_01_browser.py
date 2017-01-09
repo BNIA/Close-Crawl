@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# pylint: disable=unused-import
 
 from __future__ import absolute_import, print_function, unicode_literals
 
@@ -15,5 +16,7 @@ def test_anon():
     origin_ip = browser.open("http://icanhazip.com").read()
     browser.anonymize()
     anon_ip = browser.open("http://icanhazip.com").read()
+
+    browser.close()
 
     assert(origin_ip != anon_ip)
