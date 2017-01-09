@@ -6,6 +6,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url_for('static', filename='img/logo.ico') }}">
 
   <title>Close Crawl | {% block title_str %}{% endblock %}</title>
   {% include 'components/styles.html' %}
@@ -15,6 +16,7 @@
 
 <body class="nav-md">
   <div class="container body">
+
     <div class="main_container">
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
@@ -83,11 +85,13 @@
       <!-- page content -->
       <div class="right_col" role="main">
         <div class="">
+          {% block page_title %}
           <div class="page-title">
-            <div class="title_left">
+            <div class="text-center">
               <h3>Close Crawl</h3>
             </div>
           </div>
+          {% endblock %}
           <div class="clearfix"></div>
 
           <div class="row">
@@ -96,8 +100,9 @@
 
         </div>
       </div>
+      <!-- /page content -->
+
     </div>
-    <!-- /page content -->
 
     <!-- footer content -->
     <footer>

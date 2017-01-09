@@ -1,3 +1,7 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# pylint: disable=unused-import
+
 from __future__ import absolute_import, print_function, unicode_literals
 from flask import request, render_template, redirect
 
@@ -24,7 +28,6 @@ def scrape():
 
     if request.method == "POST":
 
-        print(request.form.to_dict())
         close_crawl_cli.main(**request.form.to_dict())
         return redirect('/')
 
