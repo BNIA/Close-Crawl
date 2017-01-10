@@ -29,7 +29,7 @@ from .spider import Spider
 
 
 def main(case_type, case_year, output, cases='',
-         lower_bound=0, upper_bound=0, anon=False, debug=False):
+         lower_bound=0, upper_bound=0, debug=False):
     """Main function for Close Crawl.
 
     Args:
@@ -39,12 +39,6 @@ def main(case_type, case_year, output, cases='',
             extension (.csv)
         lower_bound (`int`, optional): lower bound of range of cases
         upper_bound (`int`, optional): upper bound of range of cases
-        anon (`bool`, optional): option to spoof IP address for
-            scraping. Default -> True
-            WARNING: THIS OPTION IS HIGHLY DEPENDANT ON TYPE OF MACHINE AND
-            SEVERAL SYSTEM DEPENDANCIES AND REQUIREMENTS, POSSIBLY REQUIRES
-            THIRD PARTY SECURED BROWSERS SUCH AS TOR. THIS OPTION HAS ONLY BEEN
-            TESTED ON LINUX DISTROS. WINDOWS MACHINES HAVE NOT BEEN TESTED.
         debug (`bool`, optional): option for switching between debug mode.
             Default -> True
 
@@ -90,7 +84,7 @@ def main(case_type, case_year, output, cases='',
 
     spider = Spider(
         case_type=case_type, year=case_year[-2:],
-        bounds=case_list, anonymize=anon, gui=False
+        bounds=case_list, gui=False
     )
 
     spider.save_response()
@@ -183,14 +177,10 @@ if __name__ == '__main__':
         '-c', '--cases', metavar='\b', help='| Path of JSON array of cases'
     )
     parser.add_argument(
-        '-a', '--anon', type=int, default=1, metavar='\b',
-        help='| Spoof IP address during crawling'
-    )
-    parser.add_argument(
         '-d', '--debug', type=int, default=1, metavar='\b', help='| Debug mode'
     )
 
     # parse arguments to pass into function
     args = parser.parse_args()
     main(args.type, args.year, args.output, args.cases,
-         args.lower, args.upper, bool(args.anon), bool(args.debug))
+         args.lower, args.upper, bool(args.debug))
