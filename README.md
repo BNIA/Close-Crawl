@@ -3,6 +3,8 @@
 </div>
 -------------
 
+[![Build Status](https://travis-ci.org/BNIA/Close-Crawl.svg?branch=master)](https://travis-ci.org/BNIA/Close-Crawl)
+
 A tool for scraping public Maryland Judiciary case records through [Case Search](http://www.courts.state.md.us/courts/courtrecords.html). Close Crawl extracts the filing dates, titles, individual addresses and partial costs of case records given a range of case numbers or a precompiled array of case numbers.
 
 ## Interface
