@@ -1,9 +1,9 @@
 language: python
 python:
-  - "2.7"
+  - "2.7"  # only 2.7 supported for now
 
-# command to install dependencies
+# install dependencies
 install: "pip install -r requirements.txt"
 
-# command to run tests
+# run tests
 script: make test
