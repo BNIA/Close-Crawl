@@ -8,6 +8,12 @@ from flask import request, render_template, redirect
 from .config import app
 from .context import modules
 from modules import close_crawl_cli
+from modules._version import __version__
+
+
+@app.context_processor
+def inject_version():
+    return dict(ver=__version__)
 
 
 @app.route('/')
