@@ -2,7 +2,6 @@
 
 block_cipher = None
 
-
 a = Analysis(['close_crawl\\close_crawl.py'],
              pathex=['C:\\Users\\sabbi\\Documents\\GitHub\\maryland-foreclosure-scraper'],
              binaries=None,
@@ -15,8 +14,10 @@ a = Analysis(['close_crawl\\close_crawl.py'],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher)
+
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
+
 exe = EXE(pyz,
           a.scripts,
           a.binaries,
@@ -26,4 +27,5 @@ exe = EXE(pyz,
           debug=False,
           strip=False,
           upx=True,
-          console=True )
+          console=True,
+          icon='close_crawl\\frontend\\static\\img\\logo.ico')
