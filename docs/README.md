@@ -32,4 +32,8 @@ Example: with the following parameters:
   [Upper Bound]=50
   [Debug]=off
   ```
-The cases 24O16000001 through 24O16000050 will be scraped and saved to a file named `demo.csv` without any additional temporary files or logs.
+the cases 24O16000001 through 24O16000050 will be scraped and saved to a file named `demo.csv` without any additional temporary files or logs.
+
+Once the parameters are selected and the process is executed, the progress can be displayed on the terminal. The templates and the log on the terminal will indicate the termination of the process.
+
+It is important that the server is shut down when not in use so as to prevent any chances of a deadlock.
