@@ -29,6 +29,8 @@ A standalone executable can be found in the `dist` directory. The executable was
 [![Stories in In Progress](https://badge.waffle.io/BNIA/Close-Crawl.png?label=In%20Progress&title=In%20Progress)](http://waffle.io/BNIA/Close-Crawl)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7780959c71334679ae1996a8060f1390)](https://www.codacy.com/app/sabbir0ahmed0/Close-Crawl?utm_source=github.com&utm_medium=referral&utm_content=BNIA/Close-Crawl&utm_campaign=badger)
 
+If you are not familiar with Python projects on Windows machines, you might want to check out [this quick guide](https://github.com/BNIA/Close-Crawl/blob/dev-sabbir/docs/windows-dev-setup.md).
+
 #### Requirements
 
 - Python 2.7. Python 3 is not supported by Mechanize, the package used for crawling the records, and is therefore not supported. Development for Python 3 support is under way.
