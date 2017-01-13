@@ -3,7 +3,7 @@
 One of the major requirements for Close Crawl was a friendly and non-technical UI/UX configuration. As a reminder, the production version of the project can be summarized as a local web application executed by a single file standing on less than 24 MB of hard drive space. The goal is to allow the end users to avoid any installation of prerequisite software or other technical configuration.
 
 <img src="https://raw.githubusercontent.com/BNIA/Close-Crawl/master/docs/demo.gif">
-<sup>Demo Displaying v0.9.3</sup>
+<sup>Demo Displaying v0.9.6</sup>
 
 ## Executable
 
