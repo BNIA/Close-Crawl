@@ -47,4 +47,4 @@ The tests run on [nose](http://nose.readthedocs.io/en/latest/). To install, run:
 
 #### Executable
 
-[PyInstaller](http://www.pyinstaller.org/) was used to build the Windows executable.
+[PyInstaller](http://www.pyinstaller.org/) was used to build the Windows executable. More details on the building process can be found [here](https://github.com/BNIA/Close-Crawl/blob/master/dist/README.md)
