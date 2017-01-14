@@ -1,9 +1,20 @@
 language: python
+
 python:
   - "2.7"  # only 2.7 supported for now
 
+branches:
+  only:
+  - master  # only build master
+
 # install dependencies
-install: "pip install -r requirements.txt"
+install:
+  "pip install -r requirements.txt"
 
 # run tests
-script: make test
+script:
+  make test
+
+# turn off email notifications
+notifications:
+  email: false
