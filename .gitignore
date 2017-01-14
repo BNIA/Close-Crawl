@@ -1,5 +1,5 @@
 # Python cache and environments
-.*env/
+.*env*/
 *.pyc
 __pycache__/
 

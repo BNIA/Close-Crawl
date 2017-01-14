@@ -8,7 +8,7 @@ REQ=requirements.txt
 .PHONY: run
 run:
 	# run the Flask server
-	python close_crawl/close_crawl.py
+	@python close_crawl/close_crawl.py
 
 
 .PHONY: clean
