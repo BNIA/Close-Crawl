@@ -18,52 +18,63 @@ if __name__ == '__main__':
 
         block_cipher = None
 
-        a = Analysis(["{MOD_PATH}"],
-                     pathex=["{PROJ_PATH}"],
-                     binaries=None,
-                     datas=[("{DIST_PATH1}", "{TEMPLATE_PATH}"),
-                     ("{DIST_PATH2}", "{STATIC_PATH}")],
-                     hiddenimports=[],
-                     hookspath=[],
-                     runtime_hooks=[],
-                     excludes=[],
-                     win_no_prefer_redirects=False,
-                     win_private_assemblies=False,
-                     cipher=block_cipher)
+        a = Analysis(
+            ["{ROOT}{MOD_PATH}"],
+            pathex=["{PROJ_PATH}"],
+            binaries=None,
+            datas=[
+                ("{ROOT}close_crawl/{TEMPLATE_PATH}",
+                    "{TEMPLATE_PATH}"),
+                ("{ROOT}close_crawl/{STATIC_PATH}",
+                    "{STATIC_PATH}")
+            ],
+            hiddenimports=[],
+            hookspath=[],
+            runtime_hooks=[],
+            excludes=[],
+            win_no_prefer_redirects=False,
+            win_private_assemblies=False,
+            cipher=block_cipher
+        )
 
-        pyz = PYZ(a.pure, a.zipped_data,
-                     cipher=block_cipher)
+        pyz = PYZ(
+            a.pure,
+            a.zipped_data,
+            cipher=block_cipher
+        )
 
-        exe = EXE(pyz,
-                  a.scripts,
-                  a.binaries,
-                  a.zipfiles,
-                  a.datas,
-                  name="close_crawl",
-                  debug=False,
-                  strip=False,
-                  upx=True,
-                  console=True,
-                  icon="{ICO_PATH}")
+        exe = EXE(
+            pyz,
+            a.scripts,
+            a.binaries,
+            a.zipfiles,
+            a.datas,
+            name="close_crawl",
+            debug=False,
+            strip=False,
+            upx=True,
+            console=True,
+            icon="{ROOT}{ICO_PATH}"
+        )
     """
 
-    BASE_DIR = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
+    PROJ_DIR = path.dirname(path.dirname(path.dirname(path.abspath(__file__))))
 
     spec_output = dedent(
         SPEC_STR.format(
+            ROOT="../../",
             MOD_PATH=path.join("close_crawl", "close_crawl.py"),
-            PROJ_PATH=BASE_DIR,
+            PROJ_PATH=PROJ_DIR,
             TEMPLATE_PATH=path.join("frontend", "templates"),
-            DIST_PATH1=path.join("close_crawl", "frontend", "templates"),
             STATIC_PATH=path.join("frontend", "static"),
-            DIST_PATH2=path.join("close_crawl", "frontend", "static"),
             ICO_PATH=path.join(
                 "close_crawl", "frontend", "static", "img", "logo.ico")
         )
     )
 
     if platform == "win32":
-        spec_output = spec_output.replace('\\', "\\\\")
+    	for char in ['\\', '/']:
+	        spec_output = spec_output.replace(char, "\\\\")
 
     with open("close_crawl.spec", "w") as spec_file:
         spec_file.write(spec_output)
