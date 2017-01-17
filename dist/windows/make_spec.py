@@ -73,7 +73,8 @@ if __name__ == '__main__':
     )
 
     if platform == "win32":
-        spec_output = spec_output.replace('/', "\\\\")
+    	for char in ['\\', '/']:
+	        spec_output = spec_output.replace(char, "\\\\")
 
     with open("close_crawl.spec", "w") as spec_file:
         spec_file.write(spec_output)
