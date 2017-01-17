@@ -4,5 +4,7 @@
 __pycache__/
 
 # Custom directories and files
-.~lock*
+responses/
+port.txt
 test_output.csv
+.~lock*
