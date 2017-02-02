@@ -24,6 +24,7 @@ TODO:
 from __future__ import absolute_import, print_function, unicode_literals
 import cookielib  # import http.cookiejar for Python3
 import warnings
+from urllib import urlopen
 
 from mechanize import Browser, _http
 
@@ -66,8 +67,8 @@ class Session(object):
         # user-Agent
         self.browser.addheaders = [('User-agent', HEADER)]
 
-    def open(self, url):
-        return self.browser.open(url)
+    # def open(self, url):
+    #     return self.browser.open(url)
 
     def close(self):
         """Destructor for Session. Closes current browser session
@@ -126,3 +127,15 @@ class Session(object):
 
         # submit the form
         self.browser.submit()
+
+    @staticmethod
+    def status():
+        """Checks the status of the Casesearch servers
+
+        Args:
+            None
+
+        Returns:
+            `True` if server is up, `False` otherwise
+        """
+        return urlopen(URL).getcode() == 200

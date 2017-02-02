@@ -19,21 +19,14 @@
         {# Output file name input, case year and case type #}
         <div class="form-group form-inline">
 
-          <label class="control-label col-md-2 col-sm-2 col-xs-12">
+          <label class="control-label col-md-2 col-sm-2 col-xs-12" data-tip="Name of the output file">
             File name
           </label>
           <div class="col-md-2 col-sm-2 col-xs-12">
             <input id="output" name="output" type="text" class="form-control" value="output.csv">
           </div>
-          <div class="col-md-1 col-sm-1 col-xs-12">
-            <div class="help-tip">
-              <p>
-                Output file name
-              </p>
-            </div>
-          </div>
 
-          <label class="col-md-1 col-sm-1 col-xs-12 control-label">
+          <label class="col-md-1 col-sm-1 col-xs-12 control-label" data-tip="Year of the cases">
             Year
           </label>
           <div class="col-md-2 col-sm-2 col-xs-12">
@@ -44,10 +37,10 @@
             </select>
           </div>
 
-          <label class="control-label col-md-1 col-sm-1 col-xs-12">
+          <label class="col-md-1 col-sm-1 col-xs-12 control-label" data-tip="Type of cases">
             Type
           </label>
-          <div class="col-md-3 col-sm-3 col-xs-12">
+          <div class="col-md-4 col-sm-4 col-xs-12">
             <div class="radio">
               <label>
                 <input id="case_type-0" name="case_type" type="radio" value="O" class="flat" checked> Mortgage
@@ -64,7 +57,7 @@
         {# Case range bounds #}
         <div class="form-group" style="margin-top: 50px;">
 
-          <label class="col-md-2 col-sm-2 col-xs-12 control-label">
+          <label class="col-md-2 col-sm-2 col-xs-12 control-label" data-tip="Lower bound of range of cases">
             Lower Bound
           </label>
           <div class="col-md-8 col-sm-8 col-xs-12">
@@ -82,7 +75,7 @@
 
         <div class="form-group" style="margin-bottom: 50px;">
 
-          <label class="col-md-2 col-sm-2 col-xs-12 control-label">
+          <label class="col-md-2 col-sm-2 col-xs-12 control-label" data-tip="Upper bound of range of cases">
             Upper Bound
           </label>
 
