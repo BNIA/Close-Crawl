@@ -8,11 +8,10 @@ and constraints for the case type, year and output data file.
 
 Usage:
     $ python main.py <case_type> <case_year> <path/of/new/dataset>
-      <opt: lower_bound> <opt: upper_bound>
-      <opt: anon> <opt: debug>
+      <opt: lower_bound> <opt: upper_bound> <opt: debug>
 
 Example usage:
-    $ python main.py O 2015 test_set.csv -l=300 -u=600 -a=0 -d=1
+    $ python main.py O 2015 test_set.csv -l=300 -u=600 -d=1
 
 """
 
