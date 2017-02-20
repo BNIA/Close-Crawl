@@ -18,6 +18,7 @@ as a module for testing purposes.
 
 TODO:
     Replace deprecated Mechanize with MechanicalSoup
+    Fork Mechanize to support Python3
 
 """
 
