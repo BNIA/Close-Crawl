@@ -69,7 +69,7 @@ def main(case_type, case_year, output, cases='',
             prev_bound = int(load(checkpoint)['last_case'])
             if not lower_bound:
                 lower_bound = prev_bound
-            upper_bound = upper_bound if upper_bound > lower_bound \
+            upper_bound = upper_bound if int(upper_bound) > int(lower_bound) \
                 else str(lower_bound + 5)
 
         case_list = range(int(lower_bound), int(upper_bound) + 1)

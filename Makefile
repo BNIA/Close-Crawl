@@ -13,11 +13,10 @@ run:
 
 .PHONY: clean
 clean:
-	# clean out cache and temporary files
 	@find . \( \
-		-name "*.pyc" -o -name "output.csv" -o -name "checkpoint.json" -o \
-		-name "test_output.csv" \) -type f -delete
-	@find . -name "__pycache__" -type d -delete
+		-name "*.pyc" -o -name "test_output.csv" -o -name "checkpoint.json" \
+		\) -type f -delete
+	@find -name "__pycache__" -type d -delete
 
 
 .PHONY: test
