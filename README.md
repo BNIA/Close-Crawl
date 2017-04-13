@@ -1,7 +1,6 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/BNIA/Close-Crawl/master/close_crawl/frontend/static/img/logo.png">
 </div>
--------------
 
 [![Build Status](https://travis-ci.org/BNIA/Close-Crawl.svg?branch=master)](https://travis-ci.org/BNIA/Close-Crawl)
 
@@ -47,4 +46,4 @@ The tests run on [nose](http://nose.readthedocs.io/en/latest/). To install, run:
 
 #### Executable
 
-[PyInstaller](http://www.pyinstaller.org/) was used to build the Windows executable. More details on the building process can be found [here](https://github.com/BNIA/Close-Crawl/blob/master/dist/README.md)
+[PyInstaller](http://www.pyinstaller.org/) was used to build the Windows executable. More details on the building process can be found [here](https://github.com/BNIA/Close-Crawl/blob/master/dist/README.md).
