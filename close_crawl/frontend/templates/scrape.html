@@ -31,7 +31,7 @@
           </label>
           <div class="col-md-2 col-sm-2 col-xs-12">
             <select id="case_year" name="case_year" class="form-control">
-              {% for year in range(2016, 2009, -1) %}
+              {% for year in current_year %}
               <option>{{ year }}</option>
               {% endfor %}
             </select>

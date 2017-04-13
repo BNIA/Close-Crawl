@@ -16,7 +16,8 @@ run:
 clean:
 	# remove Python cache and temporary files
 	@find . \( \
-		-name "*.pyc" -o -name "test_output.csv" -o -name "checkpoint.json" \
+		-name "*.pyc" -o -name "test_output.csv" \
+		-o -name "port.txt" -o -name "checkpoint.json" \
 		\) -type f -delete
 	@find -name "__pycache__" -type d -delete
 
