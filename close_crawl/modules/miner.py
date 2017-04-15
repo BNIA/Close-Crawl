@@ -86,8 +86,7 @@ class Miner(object):
             for row in self.dataset:
                 writer.writerow(row)
 
-    @staticmethod
-    def scrape(html_data):
+    def scrape(self, html_data):
         """Scrapes the desired features
 
         Args:
@@ -130,8 +129,7 @@ class Miner(object):
 
         return feature_list
 
-    @staticmethod
-    def distribute(feature_list):
+    def distribute(self, feature_list):
 
         def __pair(list_type):
 
@@ -197,7 +195,7 @@ class Miner(object):
                 temp_features["Case Type"] = "Mortgage"
 
             elif temp_features["Case Type"].upper() == \
-                    "FORECLOSURE RIGHT OF REDEMPTION" and self.maybe_tax:
+                    "FORECLOSURE RIGHTS OF REDEMPTION" and self.maybe_tax:
                 temp_features["Case Type"] = "Tax"
 
             temp_features["Address"] = \

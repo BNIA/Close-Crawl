@@ -1,6 +1,0 @@
-1. fix the scroll bars
-2. fix the limits of cases per session
-3. refactor the project - seriously
-4. finish docs - seriously
-5. don't overwrite files
-6. queue cases automatically - start new session using existing the last case of exisiting session
