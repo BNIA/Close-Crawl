@@ -25,4 +25,4 @@ if __name__ == '__main__':
             "http://localhost:{PORT}".format(PORT=port)
         )
 
-        views.app.run(port=int(port))
+        views.app.run(port=int(port), debug=True)

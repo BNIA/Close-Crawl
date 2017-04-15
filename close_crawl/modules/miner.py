@@ -33,6 +33,7 @@ class Miner(object):
         self.output = output
         self.gui = gui
         self.dataset = []
+        self.maybe_tax = False
 
     def scan_files(self):
 
@@ -85,8 +86,7 @@ class Miner(object):
             for row in self.dataset:
                 writer.writerow(row)
 
-    @staticmethod
-    def scrape(html_data):
+    def scrape(self, html_data):
         """Scrapes the desired features
 
         Args:
@@ -97,6 +97,10 @@ class Miner(object):
         """
 
         soup = BeautifulSoup(html_data, "html.parser")
+
+        if "tax" in soup.text.lower():
+            self.maybe_tax = True
+
         tr_list = soup.find_all("tr")
 
         feature_list = []
@@ -115,16 +119,17 @@ class Miner(object):
 
         try:
             # flatten multidimensional list
-            feature_list = [item.replace(':', '')
-                            for sublist in feature_list for item in sublist]
+            feature_list = [
+                item.replace(':', '')
+                for sublist in feature_list for item in sublist
+            ]
 
         except AttributeError:
             pass
 
         return feature_list
 
-    @staticmethod
-    def distribute(feature_list):
+    def distribute(self, feature_list):
 
         def __pair(list_type):
 
@@ -153,6 +158,8 @@ class Miner(object):
 
         for label, value in enumerate(raw_business):
             try:
+                # if "Party Type" == "Property Address" and
+                # section == "Business or Organization Name"
                 if value[1].upper() == "PROPERTY ADDRESS" and \
                         raw_business[label + 1][0].upper() == \
                         "BUSINESS OR ORGANIZATION NAME":
@@ -186,6 +193,10 @@ class Miner(object):
 
             if temp_features["Case Type"].upper() == "FORECLOSURE":
                 temp_features["Case Type"] = "Mortgage"
+
+            elif temp_features["Case Type"].upper() == \
+                    "FORECLOSURE RIGHTS OF REDEMPTION" and self.maybe_tax:
+                temp_features["Case Type"] = "Tax"
 
             temp_features["Address"] = \
                 str_address if str_address else address[-1]

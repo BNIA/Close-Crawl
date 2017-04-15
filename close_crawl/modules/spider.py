@@ -39,7 +39,6 @@ class Spider(object):
         self.case_type = case_type
         self.year = year
         self.bounds = bounds
-        self.gui = gui
 
         if not path.exists(HTML_DIR):
             makedirs(HTML_DIR)
@@ -48,7 +47,7 @@ class Spider(object):
 
         case_range = trange(
             len(self.bounds), desc='Crawling', leave=True
-        ) if not self.gui else self.bounds
+        )
 
         for case_num in case_range:
 
@@ -65,15 +64,15 @@ class Spider(object):
 
                 self.WAITING_TIME += wait
 
-                if not self.gui:
-                    case_range.set_description("Crawling {}".format(case))
+                case_range.set_description("Crawling {}".format(case))
 
                 stripped_html = self.browser.case_id_form(case)
 
-                with open(
-                    HTML_FILE.format(case=case) + '.html', 'w'
-                ) as case_file:
-                    case_file.write(str(stripped_html))
+                if stripped_html:
+                    with open(
+                        HTML_FILE.format(case=case) + '.html', 'w'
+                    ) as case_file:
+                        case_file.write(str(stripped_html))
 
             # pause process
             except KeyboardInterrupt:

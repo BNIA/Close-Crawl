@@ -103,9 +103,13 @@ class Session(object):
         self.browser.form['caseId'] = case
         self.browser.submit()
         response = self.browser.response().read()
+
         self.browser.back()
 
-        return response
+        return response if any(
+            case_type in response.upper() for case_type in
+            ("FORECLOSURE", "BUSINESS OR ORGANIZATION NAME")
+        ) else ''
 
     def disclaimer_form(self):
         """Navigates to the URL to proceed to the case searching page

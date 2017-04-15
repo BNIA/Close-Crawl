@@ -280,3 +280,11 @@ class Cleaner(object):
             None
         """
         self.clean_df.to_csv(output_name, index=False)
+
+
+if __name__ == '__main__':
+
+    df_obj = Cleaner("output.csv")
+
+    df_obj.init_clean()
+    df_obj.download("../meh/clean.csv")

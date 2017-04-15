@@ -3,6 +3,8 @@
 # pylint: disable=unused-import
 
 from __future__ import absolute_import, print_function, unicode_literals
+from datetime import datetime
+
 from flask import request, render_template, redirect
 
 from .config import app
@@ -37,21 +39,18 @@ def scrape():
         close_crawl_cli.main(**request.form.to_dict())
         return redirect('/')
 
-    return render_template('scrape.html', min_val=min_val, max_val=max_val)
-
-
-def shutdown_server():
-
-    werkzeug_server = request.environ.get('werkzeug.server.shutdown')
-    if not werkzeug_server:
-        raise RuntimeError('Not running with the Werkzeug Server')
-
-    werkzeug_server()
+    return render_template(
+        'scrape.html',
+        min_val=min_val,
+        max_val=max_val,
+        current_year=xrange(datetime.now().year, 2009, -1)
+    )
 
 
 @app.route('/shutdown')
 def shutdown():
-    shutdown_server()
+    werkzeug_server = request.environ.get('werkzeug.server.shutdown')
+    werkzeug_server()
     return 'Server shutting down...'
 
 

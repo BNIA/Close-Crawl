@@ -31,7 +31,7 @@
           </label>
           <div class="col-md-2 col-sm-2 col-xs-12">
             <select id="case_year" name="case_year" class="form-control">
-              {% for year in range(2016, 2009, -1) %}
+              {% for year in current_year %}
               <option>{{ year }}</option>
               {% endfor %}
             </select>
@@ -63,7 +63,7 @@
           <div class="col-md-8 col-sm-8 col-xs-12">
 
             <div class="col-md-12 col-sm-12 col-xs-12">
-              <input id="lower_bound_id" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="4000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
+              <input id="lower_bound_id" data-slider-id='lower_bound_id' type="text" data-slider-min="1" data-slider-max="8000" data-slider-step="1" data-slider-value="1" data-slider-enabled="true" style="width: 100%" />
             </div>
 
           </div>
