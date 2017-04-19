@@ -9,4 +9,5 @@ import sys
 MODULE_PATH = dirname(abspath(dirname(__file__)))
 sys.path.append(MODULE_PATH)
 
+import _version
 import modules

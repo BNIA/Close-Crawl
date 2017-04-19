@@ -10,7 +10,7 @@ from flask import request, render_template, redirect
 from .config import app
 from .context import modules
 from modules import main
-from modules._version import __version__
+from _version import __version__
 
 
 @app.context_processor

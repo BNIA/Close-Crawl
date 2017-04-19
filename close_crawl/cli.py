@@ -18,7 +18,7 @@ Example usage:
 from __future__ import absolute_import, print_function, unicode_literals
 
 from modules import main
-from modules._version import __version__
+from _version import __version__
 
 if __name__ == '__main__':
 
