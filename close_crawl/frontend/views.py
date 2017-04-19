@@ -9,7 +9,7 @@ from flask import request, render_template, redirect
 
 from .config import app
 from .context import modules
-from modules import close_crawl_cli
+from modules import main
 from modules._version import __version__
 
 
@@ -36,7 +36,7 @@ def scrape():
 
     if request.method == "POST":
 
-        close_crawl_cli.main(**request.form.to_dict())
+        main.close_crawl(**request.form.to_dict())
         return redirect('/')
 
     return render_template(
