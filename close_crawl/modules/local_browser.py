@@ -108,7 +108,7 @@ class Session(object):
 
         return response if any(
             case_type in response.upper() for case_type in
-            ("FORECLOSURE", "BUSINESS OR ORGANIZATION NAME")
+            ("FORECLOSURE", "FORECLOSURE RIGHTS OF REDEMPTION")
         ) else ''
 
     def disclaimer_form(self):

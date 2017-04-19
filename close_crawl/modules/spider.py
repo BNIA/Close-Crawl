@@ -18,6 +18,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 from json import dumps, load
 from os import path, makedirs
 from random import uniform
+from sys import stdout
 from time import sleep
 
 from tqdm import trange
@@ -50,6 +51,14 @@ class Spider(object):
         )
 
         for case_num in case_range:
+
+            if case_num and not case_num % 500:
+                print("500 CASES SCRAPED. SCRIPT WILL WAIT 5 MINUTES TO RESUME")
+
+                for i in range(300, 0, -1):
+                    sleep(1)
+                    stdout.write('\r' + "%02d:%02d" % divmod(i, 60))
+                    stdout.flush()
 
             case = CASE_PAT.format(
                 type=self.case_type,

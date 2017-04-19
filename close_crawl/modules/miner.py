@@ -182,6 +182,17 @@ class Miner(object):
                            "Filing Date"]
             }
 
+            if temp_features["Case Type"].upper() == "FORECLOSURE":
+                temp_features["Case Type"] = "Mortgage"
+
+            elif temp_features["Case Type"].upper() == \
+                    "FORECLOSURE RIGHTS OF REDEMPTION" and self.maybe_tax:
+                temp_features["Case Type"] = "Tax"
+
+            else:
+                # break out of the rest of the loop
+                continue
+
             # break up Title feature into Plaintiff and Defendant
             try:
                 temp_features["Plaintiff"], temp_features["Defendant"] = \
@@ -190,13 +201,6 @@ class Miner(object):
             except ValueError:
                 temp_features["Plaintiff"], temp_features["Defendant"] = \
                     ('', '')
-
-            if temp_features["Case Type"].upper() == "FORECLOSURE":
-                temp_features["Case Type"] = "Mortgage"
-
-            elif temp_features["Case Type"].upper() == \
-                    "FORECLOSURE RIGHTS OF REDEMPTION" and self.maybe_tax:
-                temp_features["Case Type"] = "Tax"
 
             temp_features["Address"] = \
                 str_address if str_address else address[-1]
