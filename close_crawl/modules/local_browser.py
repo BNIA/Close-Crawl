@@ -134,7 +134,7 @@ class Session(object):
         self.browser.submit()
 
     @staticmethod
-    def status():
+    def server_running():
         """Checks the status of the Casesearch servers
 
         Args:

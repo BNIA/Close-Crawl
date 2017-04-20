@@ -18,13 +18,13 @@ Example usage:
 from __future__ import absolute_import, print_function, unicode_literals
 import argparse
 
-from modules import cleaner, main, miner, spider
+from modules import main
 from _version import __version__
 
 if __name__ == "__main__":
 
     # manually backspace for formatting help menu
-    menu_pad = "\b" * 4
+    menu_pad = '\b' * 4
 
     parser = argparse.ArgumentParser(
         description="The command line interface for Close Crawl",
@@ -86,14 +86,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     main.close_crawl(
-        case_type=args.type,
-        case_year=args.year,
-        output=args.output,
-        cases=args.cases,
-        lower_bound=args.lower,
-        upper_bound=args.upper,
-        debug=bool(args.debug),
-        scrape=not(args.scrape),
-        mine=not(args.mine),
+        case_type=args.type, case_year=args.year, output=args.output,
+        cases=args.cases, lower_bound=args.lower, upper_bound=args.upper,
+        debug=bool(args.debug), scrape=not(args.scrape), mine=not(args.mine),
         clean=not(args.clean)
     )

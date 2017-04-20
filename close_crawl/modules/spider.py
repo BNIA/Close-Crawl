@@ -18,7 +18,7 @@ from __future__ import absolute_import, print_function, unicode_literals
 from json import dumps, load
 from os import path, makedirs
 from random import uniform
-from sys import stdout
+import sys
 from time import sleep
 
 from tqdm import trange
@@ -33,6 +33,9 @@ class Spider(object):
 
         # initial disclaimer page for terms and agreements
         self.browser = Session()
+
+        if not self.browser.server_running():
+            sys.exit("Server is unavailable at the moment")
 
         self.browser.disclaimer_form()
 
@@ -57,8 +60,8 @@ class Spider(object):
 
                 for i in range(300, 0, -1):
                     sleep(1)
-                    stdout.write('\r' + "%02d:%02d" % divmod(i, 60))
-                    stdout.flush()
+                    sys.stdout.write('\r' + "%02d:%02d" % divmod(i, 60))
+                    sys.stdout.flush()
 
             case = CASE_PAT.format(
                 type=self.case_type,
