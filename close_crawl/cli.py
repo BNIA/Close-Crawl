@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
     # debug mode
     parser.add_argument(
-        "-d", "--debug", type=int, default=1, metavar="\b", help="| Debug mode"
+        "-d", "--debug", action="store_true", help=menu_pad + "| Debug mode"
     )
 
     # processing options
@@ -84,6 +84,8 @@ if __name__ == "__main__":
 
     # parse arguments to pass into function
     args = parser.parse_args()
+    if args.scrape and args.mine and args.clean:
+        args.scrape = args.mine = args.clean = False
 
     main.close_crawl(
         case_type=args.type, case_year=args.year, output=args.output,

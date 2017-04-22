@@ -49,6 +49,7 @@ def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
     start = time()
 
     temp_output = "temp_data.csv"
+    wait = 0
     case_list = []
 
     if not path.isfile(CHECKPOINT):
@@ -78,7 +79,7 @@ def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
     else:
 
         with open(cases) as manual_cases:
-            case_list = list(load(manual_cases))
+            case_list = sorted(list(set(load(manual_cases))))
 
     start_crawl = time()
 
@@ -90,7 +91,7 @@ def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
 
         spider.save_response()
 
-    wait = spider.WAITING_TIME
+        wait = spider.WAITING_TIME
 
     end_crawl = time()
 
