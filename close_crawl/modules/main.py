@@ -3,7 +3,7 @@
 
 """main
 
-The main executible script for Close Crawl. This file manages types, flags
+The main executable script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file.
 
 Usage:
@@ -53,13 +53,13 @@ def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
 
     if not path.isfile(CHECKPOINT):
         print("Initializing project...")
-        with open(CHECKPOINT, 'w') as checkpoint:
+        with open(CHECKPOINT, "w") as checkpoint:
             dump(
                 {
-                    'last_case': '{:04d}'.format(int(str(lower_bound)[-4:])),
-                    'type': case_type,
-                    'year': case_year[-2:],
-                    'error_case': '',
+                    "last_case": "{:04d}".format(int(str(lower_bound)[-4:])),
+                    "type": case_type,
+                    "year": case_year[-2:],
+                    "error_case": '',
                 },
                 checkpoint
             )
@@ -67,7 +67,7 @@ def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
     if not cases:
 
         with open(CHECKPOINT) as checkpoint:
-            prev_bound = int(load(checkpoint)['last_case'])
+            prev_bound = int(load(checkpoint)["last_case"])
             if not lower_bound:
                 lower_bound = prev_bound
             upper_bound = upper_bound if int(upper_bound) > int(lower_bound) \
@@ -112,7 +112,7 @@ def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
         df_obj.init_clean()
         df_obj.download(output)
 
-    with open(CHECKPOINT, 'r+') as checkpoint:
+    with open(CHECKPOINT, "r+") as checkpoint:
         checkpoint_data = load(checkpoint)
         checkpoint_data["last_case"] = sorted(file_array)[-1].split('.')[0][-4:]
         checkpoint.seek(0)

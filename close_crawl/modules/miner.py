@@ -37,7 +37,7 @@ class Miner(object):
 
     def scan_files(self):
 
-        case_range = trange(len(self.responses), desc='Mining', leave=True) \
+        case_range = trange(len(self.responses), desc="Mining", leave=True) \
             if not self.gui else range(len(self.responses))
 
         for file_name in case_range:
@@ -59,7 +59,7 @@ class Miner(object):
                         with open(NO_CASE, 'w') as no_case_file:
                             dump([], no_case_file)
 
-                    with open(NO_CASE, 'r+') as no_case_file:
+                    with open(NO_CASE, "r+") as no_case_file:
                         no_case_data = load(no_case_file)
                         no_case_data.append(str(self.responses[file_name][:-5]))
                         no_case_file.seek(0)
@@ -190,7 +190,7 @@ class Miner(object):
                 temp_features["Case Type"] = "Tax"
 
             else:
-                # break out of the rest of the loop
+                # break out of the rest of the loop if case type is neither
                 continue
 
             # break up Title feature into Plaintiff and Defendant
@@ -200,7 +200,7 @@ class Miner(object):
 
             except ValueError:
                 temp_features["Plaintiff"], temp_features["Defendant"] = \
-                    ('', '')
+                    (", ")
 
             temp_features["Address"] = \
                 str_address if str_address else address[-1]

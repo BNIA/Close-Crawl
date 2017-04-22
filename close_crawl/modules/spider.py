@@ -50,7 +50,7 @@ class Spider(object):
     def save_response(self):
 
         case_range = trange(
-            len(self.bounds), desc='Crawling', leave=True
+            len(self.bounds), desc="Crawling", leave=True
         )
 
         for case_num in case_range:
@@ -66,7 +66,7 @@ class Spider(object):
             case = CASE_PAT.format(
                 type=self.case_type,
                 year=self.year,
-                num='{:04d}'.format(int(str(self.bounds[case_num])[-4:]))
+                num="{:04d}".format(int(str(self.bounds[case_num])[-4:]))
             )
 
             try:
@@ -82,7 +82,7 @@ class Spider(object):
 
                 if stripped_html:
                     with open(
-                        HTML_FILE.format(case=case) + '.html', 'w'
+                        HTML_FILE.format(case=case) + ".html", 'w'
                     ) as case_file:
                         case_file.write(str(stripped_html))
 
@@ -91,11 +91,11 @@ class Spider(object):
 
                 self.dump_json({
                     "error_case":
-                        '{:04d}'.format(int(str(self.bounds[case_num])[-4:])),
+                        "{:04d}".format(int(str(self.bounds[case_num])[-4:])),
                         "year": self.year,
                         "type": self.type
                 })
-                print('Crawling paused at', case)
+                print("Crawling paused at", case)
                 break
 
             # case does not exist
@@ -111,7 +111,7 @@ class Spider(object):
     @staticmethod
     def dump_json(data):
 
-        with open(CHECKPOINT, 'r+') as checkpoint:
+        with open(CHECKPOINT, "r+") as checkpoint:
             checkpoint_data = load(checkpoint)
 
             for key, val in data.items():
