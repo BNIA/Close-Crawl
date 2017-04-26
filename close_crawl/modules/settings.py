@@ -15,6 +15,9 @@ HEADER = ("Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1)"
 URL = "http://casesearch.courts.state.md.us/casesearch/"
 CASE_PAT = "24{type}{year}00{num}"
 
+# scraping parameters
+CASE_TYPES = ('O', 'C')
+
 # temporary directory settings
 HTML_DIR = "responses"
 HTML_FILE = path.join(HTML_DIR, "{case}")

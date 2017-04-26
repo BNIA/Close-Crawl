@@ -3,7 +3,7 @@
 
 """main
 
-The main executible script for Close Crawl. This file manages types, flags
+The main executable script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file.
 
 Usage:
@@ -27,8 +27,9 @@ from .settings import CHECKPOINT, HTML_DIR
 from .spider import Spider
 
 
-def close_crawl(case_type, case_year, output, cases='',
-                lower_bound=0, upper_bound=0, debug=False):
+def close_crawl(case_type, case_year, output, cases='', lower_bound=0,
+                upper_bound=0, debug=False, scrape=True, mine=True,
+                clean=True):
     """Main function for Close Crawl.
 
     Args:
@@ -48,17 +49,18 @@ def close_crawl(case_type, case_year, output, cases='',
     start = time()
 
     temp_output = "temp_data.csv"
+    wait = 0
     case_list = []
 
     if not path.isfile(CHECKPOINT):
         print("Initializing project...")
-        with open(CHECKPOINT, 'w') as checkpoint:
+        with open(CHECKPOINT, "w") as checkpoint:
             dump(
                 {
-                    'last_case': '{:04d}'.format(int(str(lower_bound)[-4:])),
-                    'type': case_type,
-                    'year': case_year[-2:],
-                    'error_case': '',
+                    "last_case": "{:04d}".format(int(str(lower_bound)[-4:])),
+                    "type": case_type,
+                    "year": case_year[-2:],
+                    "error_case": '',
                 },
                 checkpoint
             )
@@ -66,7 +68,7 @@ def close_crawl(case_type, case_year, output, cases='',
     if not cases:
 
         with open(CHECKPOINT) as checkpoint:
-            prev_bound = int(load(checkpoint)['last_case'])
+            prev_bound = int(load(checkpoint)["last_case"])
             if not lower_bound:
                 lower_bound = prev_bound
             upper_bound = upper_bound if int(upper_bound) > int(lower_bound) \
@@ -77,18 +79,19 @@ def close_crawl(case_type, case_year, output, cases='',
     else:
 
         with open(cases) as manual_cases:
-            case_list = list(load(manual_cases))
+            case_list = sorted(list(set(load(manual_cases))))
 
     start_crawl = time()
 
-    spider = Spider(
-        case_type=case_type, year=case_year[-2:],
-        bounds=case_list, gui=False
-    )
+    if scrape:
+        spider = Spider(
+            case_type=case_type, year=case_year[-2:],
+            bounds=case_list, gui=False
+        )
 
-    spider.save_response()
+        spider.save_response()
 
-    wait = spider.WAITING_TIME
+        wait = spider.WAITING_TIME
 
     end_crawl = time()
 
@@ -96,17 +99,21 @@ def close_crawl(case_type, case_year, output, cases='',
                   in walk(HTML_DIR)][0]
 
     start_mine = time()
-    miner = Miner(file_array, temp_output)
-    miner.scan_files()
-    miner.export()
+
+    if mine:
+        miner = Miner(file_array, temp_output)
+        miner.scan_files()
+        miner.export()
+
     end_mine = time()
 
-    df_obj = Cleaner(temp_output)
+    if clean:
+        df_obj = Cleaner(temp_output)
 
-    df_obj.init_clean()
-    df_obj.download(output)
+        df_obj.init_clean()
+        df_obj.download(output)
 
-    with open(CHECKPOINT, 'r+') as checkpoint:
+    with open(CHECKPOINT, "r+") as checkpoint:
         checkpoint_data = load(checkpoint)
         checkpoint_data["last_case"] = sorted(file_array)[-1].split('.')[0][-4:]
         checkpoint.seek(0)

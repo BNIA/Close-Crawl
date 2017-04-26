@@ -22,30 +22,29 @@ from .patterns import MONEY_PAT, TITLE_SPLIT_PAT, ZIP_PAT, filter_addr
 from .settings import HTML_FILE, NO_CASE
 from .settings import FEATURES, FIELDS, INTERNAL_FIELDS
 
-features = [i + ':' for i in FEATURES]
-
 
 class Miner(object):
 
-    def __init__(self, responses, output, gui=False):
+    def __init__(self, responses, output, debug=False):
 
         self.responses = responses
         self.output = output
-        self.gui = gui
+        self.debug = debug
         self.dataset = []
         self.maybe_tax = False
+        self.features = [i + ':' for i in FEATURES]
 
     def scan_files(self):
 
-        case_range = trange(len(self.responses), desc='Mining', leave=True) \
-            if not self.gui else range(len(self.responses))
+        case_range = trange(len(self.responses), desc="Mining", leave=True) \
+            if not self.debug else range(len(self.responses))
 
         for file_name in case_range:
             with open(
                 HTML_FILE.format(case=self.responses[file_name]), 'r'
             ) as html_src:
 
-                if not self.gui:
+                if not self.debug:
                     case_range.set_description(
                         "Mining {}".format(self.responses[file_name])
                     )
@@ -59,7 +58,7 @@ class Miner(object):
                         with open(NO_CASE, 'w') as no_case_file:
                             dump([], no_case_file)
 
-                    with open(NO_CASE, 'r+') as no_case_file:
+                    with open(NO_CASE, "r+") as no_case_file:
                         no_case_data = load(no_case_file)
                         no_case_data.append(str(self.responses[file_name][:-5]))
                         no_case_file.seek(0)
@@ -107,7 +106,7 @@ class Miner(object):
         for tag in tr_list:
             try:
                 tag = [j.string for j in tag.findAll("span")]
-                if set(tuple(tag)) & set(features):
+                if set(tuple(tag)) & set(self.features):
                     try:
                         tag = [i for i in tag if "(each" not in i.lower()]
                     except AttributeError:
@@ -190,7 +189,7 @@ class Miner(object):
                 temp_features["Case Type"] = "Tax"
 
             else:
-                # break out of the rest of the loop
+                # break out of the rest of the loop if case type is neither
                 continue
 
             # break up Title feature into Plaintiff and Defendant
@@ -200,7 +199,7 @@ class Miner(object):
 
             except ValueError:
                 temp_features["Plaintiff"], temp_features["Defendant"] = \
-                    ('', '')
+                    (", ")
 
             temp_features["Address"] = \
                 str_address if str_address else address[-1]

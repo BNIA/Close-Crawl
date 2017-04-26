@@ -31,7 +31,7 @@ from mechanize import Browser, _http
 
 from .settings import HEADER, URL
 
-warnings.filterwarnings('ignore', category=UserWarning)
+warnings.filterwarnings("ignore", category=UserWarning)
 
 
 class Session(object):
@@ -66,10 +66,7 @@ class Session(object):
         )
 
         # user-Agent
-        self.browser.addheaders = [('User-agent', HEADER)]
-
-    # def open(self, url):
-    #     return self.browser.open(url)
+        self.browser.addheaders = [("User-agent", HEADER)]
 
     def close(self):
         """Destructor for Session. Closes current browser session
@@ -95,12 +92,12 @@ class Session(object):
 
         # iterate through the forms to find the correct one
         for form in self.browser.forms():
-            if form.attrs['name'] == 'inquiryFormByCaseNum':
+            if form.attrs["name"] == "inquiryFormByCaseNum":
                 self.browser.form = form
                 break
 
         # submit case ID and return the response
-        self.browser.form['caseId'] = case
+        self.browser.form["caseId"] = case
         self.browser.submit()
         response = self.browser.response().read()
 
@@ -128,13 +125,13 @@ class Session(object):
         self.browser.select_form(nr=0)
 
         # select the checkbox
-        self.browser.form['disclaimer'] = ['Y']
+        self.browser.form["disclaimer"] = ['Y']
 
         # submit the form
         self.browser.submit()
 
     @staticmethod
-    def status():
+    def server_running():
         """Checks the status of the Casesearch servers
 
         Args:

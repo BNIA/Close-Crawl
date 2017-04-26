@@ -7,7 +7,7 @@ import webbrowser
 
 from frontend import views
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     port_file_name = "port.txt"
 

@@ -86,7 +86,7 @@ class Cleaner(object):
         """
 
         def clean_string(addr):
-            """Appplies regular expressions and other filters on Address
+            """Applies regular expressions and other filters on Address
             values
 
             Args:
@@ -119,8 +119,8 @@ class Cleaner(object):
         )
 
         # replace empty string values with NULL
-        self.df["Zip Code"] = self.df["Zip Code"].replace('', float('nan'))
-        self.df["Address"] = self.df["Address"].replace('', float('nan'))
+        self.df["Zip Code"] = self.df["Zip Code"].replace('', float("nan"))
+        self.df["Address"] = self.df["Address"].replace('', float("nan"))
 
     @staticmethod
     def combine_rows(row):
