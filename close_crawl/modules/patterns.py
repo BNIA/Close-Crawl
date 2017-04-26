@@ -11,9 +11,9 @@ TODO:
 """
 
 from re import compile as re_compile
+from re import I as IGNORECASE
 from string import punctuation
 
-IGNORECASE = 2  # case insensitive regex pattern flag
 PUNCTUATION = punctuation.replace('#', '')  # all punctuations except '#'
 
 street_address = re_compile(
@@ -26,10 +26,9 @@ street_address = re_compile(
     "|sq(uare)?|tr(?:ai)l|c(?:our)?t"  # (sq)uare, (tr)ail, ct, court
     "|parkway|pkwy|cir(cle)?|ter(?:race)?"  # parkway, pkwy, (cir)cle, (ter)race
     "|boulevard|blvd|pl(?:ace)?"  # boulevard, bvld, (pl)ace
-    "|(apt|unit).[A-Z]{1}"  # apt/unit number
     "\W?(?=\s|$))"  # look ahead for whitespace or end of string
     ")"  # end street type group
-    "(\s(apt|block|unit)\W?([A-Z]|\d+))?"  # apt, block, unit number
+    "(\s(apt|block|unit)(\W|#)?([\d|\D|#-|\W])+)?"  # apt, block, unit number
     ")",  # end regex group
     IGNORECASE  # case insensitive flag
 )

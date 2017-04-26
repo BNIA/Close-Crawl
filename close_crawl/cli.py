@@ -109,8 +109,9 @@ if __name__ == "__main__":
         args.scrape = args.mine = args.clean = False
 
     # exit script if both range and file of cases or none are selected
-    # if case_file xnor (lower_bound and upper_bound)
-    if (bool(args.file) == bool(args.lower and args.upper)):
+    # if not(scrape) and (case_file xnor (lower_bound and upper_bound))
+    if not(args.scrape) and \
+            (bool(args.file) == bool(args.lower and args.upper)):
         parser.print_help()
         sys.exit("\nSelect a range or a file of cases (but not both).")
 
