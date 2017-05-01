@@ -20,7 +20,7 @@ def test_scrape():
     miner_obj = miner.Miner(
         sorted([filenames for (dirpath, dirnames, filenames)
                 in walk("responses")][0]),
-        TEST_OUTPUT, gui=True
+        TEST_OUTPUT, debug=True
     )
 
     miner_obj.scan_files()
