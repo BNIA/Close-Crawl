@@ -7,122 +7,59 @@ The main command line script for Close Crawl. This file manages types, flags
 and constraints for the case type, year and output data file as well as the
 processing options.
 
-Parameters:
-  {O,C}        | Type of foreclosure cases
-  year         | Year of foreclosure cases
-  output       | Path of output file
-
-Optional parameters:
-  -h, --help   | Show this help message and exit
-  -v, --version| Show program's version number and exit
-  -l, --lower  | Lower bound of range of cases
-  -u, --upper  | Upper bound of range of cases
-  -f, --file   | Path of JSON array of cases
-  -d, --debug  | Debug mode
-  -s, --scrape | Scrape only
-  -m, --mine   | Mine only
-  -c, --clean  | Clean only
-
 Usage:
-    $ python cli.py [-h] [-v] [-l] [-u] [-f] [-d] [-s] [-m] [-c]
-                  {O,C} year output
-
-Example usages:
-    $ python cli.py -l=50 -u=3500 -d -s -m C 2016 output.csv
-    $ python cli.py -c="cases_to_scrape.json" -d O 2014 output01.csv
+    $ python cli.py
 """
 
 from __future__ import absolute_import, print_function, unicode_literals
-import argparse
 import sys
+from textwrap import dedent
 
 from modules import main
-from modules.settings import CASE_TYPES
-from _version import __version__
 
 if __name__ == "__main__":
 
-    # manually backspace for formatting help menu
-    menu_pad = '\b' * 4
+    args = {}
 
-    parser = argparse.ArgumentParser(
-        description="The command line interface for Close Crawl",
-        add_help=False
+    args["type"] = input("Enter type of case (1 char: {C, O}): ")
+    args["year"] = input("Enter year of case (4 digit int): ")
+    args["output"] = input("Enter name of output file (CSV file path): ")
+
+    opt = int(input("Enter 0 for manual parameters or 1 for automatic: "))
+    if bool(opt):
+        args["file"] = input("Enter name of cases file (JSON file path): ")
+        args["lower"] = args["upper"] = 0
+
+    else:
+        args["file"] = ""
+        args["lower"] = input("Enter lower bound of cases (1-4 digit int): ")
+        args["upper"] = input("Enter upper bound of cases (1-4 digit int): ")
+
+    args["debug"] = input(
+        "Enter 0 for default mode, 1 for debug (1 digit int): "
     )
 
-    # arguments for details on program
-    parser._positionals.title = "Parameters"
-    parser._optionals.title = "Optional parameters"
-    parser.add_argument(
-        "-h", "--help", action="help",
-        default=argparse.SUPPRESS,
-        help=menu_pad + "| Show this help message and exit"
-    )
-    parser.add_argument(
-        "-v", "--version",
-        action="version",
-        version="Close Crawl {}".format(__version__),
-        help=menu_pad + "| Show program's version number and exit"
+    print(
+        dedent(
+            """Processing options:\n\n"""
+            """For the following options, enter 0 to disable or 1 to enable."""
+            """\nNOTE: The script will exit if all but the mining step is """
+            """enabled - data cannot be cleaned without being mined first."""
+        )
     )
 
-    # ----- positional arguments -----
-    parser.add_argument("type", choices=CASE_TYPES,
-                        help=menu_pad + "| Type of foreclosure cases")
-    parser.add_argument("year", help=menu_pad + "| Year of foreclosure cases")
-    parser.add_argument("output", help=menu_pad + "| Path of output file")
+    args["scrape"] = bool(input("Scrape: {0, 1}: "))
+    args["mine"] = bool(input("Mine: {0, 1}: "))
+    args["clean"] = bool(input("Clean: {0, 1}: "))
 
-    # ----- optional arguments -----
-    # crawling parameters
-    parser.add_argument(
-        "-l", "--lower", type=int, default=0, metavar="\b",
-        help="| Lower bound of range of cases"
-    )
-    parser.add_argument(
-        "-u", "--upper", type=int, default=0, metavar="\b",
-        help="| Upper bound of range of cases"
-    )
-    parser.add_argument(
-        "-f", "--file", metavar="\b", help="| Path of JSON array of cases"
-    )
-
-    # debug mode
-    parser.add_argument(
-        "-d", "--debug", action="store_true", help=menu_pad + "| Debug mode"
-    )
-
-    # processing options
-    parser.add_argument(
-        "-s", "--scrape", action="store_false", help=menu_pad + "| Scrape only"
-    )
-    parser.add_argument(
-        "-m", "--mine", action="store_false", help=menu_pad + "| Mine only"
-    )
-    parser.add_argument(
-        "-c", "--clean", action="store_false", help=menu_pad + "| Clean only"
-    )
-
-    # parse arguments to pass into function
-    args = parser.parse_args()
-
-    # processing options are in inverted logic
-    if args.scrape and args.mine and args.clean:
-        args.scrape = args.mine = args.clean = False
-
-    # exit script if both range and file of cases or none are selected
-    # if not(scrape) and (case_file xnor (lower_bound and upper_bound))
-    if not(args.scrape) and \
-            (bool(args.file) == bool(args.lower and args.upper)):
-        parser.print_help()
-        sys.exit("\nSelect a range or a file of cases (but not both).")
-
-    # exit script if all but the mining step is disabled
-    elif (not(args.scrape) and args.mine and not(args.clean)):
-        parser.print_help()
+    # exit script if all but the mining step is enabled
+    if (args["scrape"] and not(args["mine"]) and args["clean"]):
         sys.exit("\nData cannot be cleaned without being mined first.")
 
     main.close_crawl(
-        case_type=args.type, case_year=args.year, output=args.output,
-        cases=args.file, lower_bound=args.lower, upper_bound=args.upper,
-        debug=bool(args.debug), scrape=not(args.scrape), mine=not(args.mine),
-        clean=not(args.clean)
+        case_type=args["type"], case_year=args["year"], output=args["output"],
+        cases=args["file"], lower_bound=args["lower"],
+        upper_bound=args["upper"], debug=args["debug"],
+        scrape=args["scrape"], mine=args["mine"],
+        clean=args["clean"]
     )

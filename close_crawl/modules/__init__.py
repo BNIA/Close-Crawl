@@ -9,3 +9,6 @@ import __builtin__
 
 del __builtin__.range
 __builtin__.range = xrange
+
+del __builtin__.input
+__builtin__.input = raw_input
