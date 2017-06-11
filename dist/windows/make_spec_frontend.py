@@ -63,7 +63,7 @@ if __name__ == '__main__':
     spec_output = dedent(
         SPEC_STR.format(
             ROOT="../../",
-            MOD_PATH=path.join("close_crawl", "close_crawl.py"),
+            MOD_PATH=path.join("close_crawl", "server.py"),
             PROJ_PATH=PROJ_DIR,
             TEMPLATE_PATH=path.join("frontend", "templates"),
             STATIC_PATH=path.join("frontend", "static"),
@@ -73,8 +73,8 @@ if __name__ == '__main__':
     )
 
     if platform == "win32":
-    	for char in ['\\', '/']:
-	        spec_output = spec_output.replace(char, "\\\\")
+        for char in ['\\', '/']:
+            spec_output = spec_output.replace(char, "\\\\")
 
-    with open("close_crawl.spec", "w") as spec_file:
+    with open("close_crawl_frontend.spec", "w") as spec_file:
         spec_file.write(spec_output)
