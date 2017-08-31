@@ -7,9 +7,7 @@
 A tool for scraping public Maryland Judiciary case records through [Case Search](http://www.courts.state.md.us/courts/courtrecords.html). Close Crawl extracts the filing dates, titles, individual addresses and partial costs of case records given a range of case numbers or a precompiled array of case numbers.
 
 ## Interface
-**DEPRECATED** Close Crawl was initially intended to accompany a non-specified GUI toolkit interface (Tcl/Tk/QT) but later replaced with a Flask web application. The reasons for the new approach included bringing in more lightweight and independent frontend templates and statics and a system independent interface. [Gentellela](https://colorlib.com/polygon/gentelella/index.html) was used for the templates.
-
-Usage of the interface is detailed [here](https://github.com/BNIA/Close-Crawl/blob/master/docs/README.md).
+Usage of the interface is detailed [here](https://github.com/BNIA/Close-Crawl/blob/master/docs/cli/README.md).
 
 ## Modules
 Close Crawl uses Mechanize to crawl through the records and temporarily download the responses as HTML files. Saving the HTML data locally prevents any loss of progress in case of any network or system disruption during the crawling process, which can be resumed later. The saved files are then parsed using BeautifulSoup, and advanced regular expressions. The data is further cleaned with pandas methods, and the final output is saved as a CSV file.
