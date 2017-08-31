@@ -61,7 +61,7 @@ if __name__ == '__main__':
             MOD_PATH=path.join("close_crawl", "cli.py"),
             PROJ_PATH=PROJ_DIR,
             ICO_PATH=path.join(
-                "close_crawl", "frontend", "static", "img", "logo.ico")
+                "close_crawl", "static", "img", "logo.ico")
         )
     )
 

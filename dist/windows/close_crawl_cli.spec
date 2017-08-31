@@ -33,5 +33,5 @@ exe = EXE(
     strip=False,
     upx=True,
     console=True,
-    icon="..\\..\\close_crawl\\frontend\\static\\img\\logo.ico"
+    icon="..\\..\\close_crawl\\static\\img\\logo.ico"
 )
