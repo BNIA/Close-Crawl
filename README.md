@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/BNIA/Close-Crawl/master/close_crawl/static/img/logo.png">
+  <img src="https://raw.githubusercontent.com/BNIA/Close-Crawl/master/static/img/logo.png">
 </div>
 
 [![Build Status](https://travis-ci.org/BNIA/Close-Crawl.svg?branch=master)](https://travis-ci.org/BNIA/Close-Crawl)
