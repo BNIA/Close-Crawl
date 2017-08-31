@@ -4,8 +4,8 @@
 __pycache__/
 
 # Custom directories and files
+/*.csv
+/*.json
 responses/
-dev/
 port.txt
-test_output.csv
 .~lock*

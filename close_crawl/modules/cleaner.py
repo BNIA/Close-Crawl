@@ -109,7 +109,7 @@ class Cleaner(object):
 
             return addr
 
-        print("Cleaning addresses...")
+        print("Cleaning addresses...", end=" ")
 
         self.df["Address"] = self.df["Address"].apply(
             lambda x: clean_string(x)
@@ -121,6 +121,8 @@ class Cleaner(object):
         # replace empty string values with NULL
         self.df["Zip Code"] = self.df["Zip Code"].replace('', float("nan"))
         self.df["Address"] = self.df["Address"].replace('', float("nan"))
+
+        print("Done")
 
     @staticmethod
     def combine_rows(row):
@@ -206,7 +208,7 @@ class Cleaner(object):
             None
         """
 
-        print("Merging rows...")
+        print("Merging rows...", end=" ")
 
         # filter out rows with any NULL values
         origin_df = self.df.dropna()
@@ -256,6 +258,8 @@ class Cleaner(object):
         self.clean_df = self.prettify(
             self.clean_df[self.columns], internal=False
         )
+
+        print("Done")
 
     def init_clean(self):
         """Initializes cleaning process

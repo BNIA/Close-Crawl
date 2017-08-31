@@ -34,7 +34,7 @@ If you are not familiar with Python projects on Windows machines, you might want
 - Third party packages listed in `requirements.txt`
 
 Clone the repository, create a virtual environment and install the packages via pip: `pip install -r requirements.txt`.<br>
-Or run the Makefile: `make install`
+Or run the Makefile: `make init`
 
 #### Tests
 
